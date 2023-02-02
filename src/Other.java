@@ -30,7 +30,7 @@ public class Other extends JPanel {
 
     public void setButtons() {
         backButton = new JButton("BACK");
-        backButton.setForeground(Color.ORANGE);
+        backButton.setForeground(Color.WHITE);
         backButton.setContentAreaFilled(false);
         backButton.setFocusPainted(false);
         backButton.setBorder(BorderFactory.createEmptyBorder());
@@ -47,15 +47,15 @@ public class Other extends JPanel {
 
         backButton.addMouseListener(new MouseListener() {
             public void mouseEntered(MouseEvent e) {
-                backButton.setForeground(Color.WHITE);
+                backButton.setForeground(Color.ORANGE);
             }
 
             public void mouseExited(MouseEvent e) {
-                backButton.setForeground(Color.ORANGE);
+                backButton.setForeground(Color.WHITE);
             }
 
             public void mouseReleased(MouseEvent e) {
-                backButton.setForeground(Color.ORANGE);
+                backButton.setForeground(Color.WHITE);
             }
 
             public void mouseClicked(MouseEvent e) {

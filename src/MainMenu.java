@@ -22,10 +22,11 @@ public class MainMenu extends JPanel {
 
         window = w;
 
-        if (panel == "gameBundleMain") {
+        if (panel == "gameBundleMain") { // If showing the Game Bundle Main Menu Panel
             setButtons();
             setBackground(Color.BLACK);
         }
+
         setActionAndMouseListeners();
     }
 
