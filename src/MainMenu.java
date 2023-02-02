@@ -17,6 +17,9 @@ public class MainMenu extends JPanel {
     private Window window;
     private JButton creditsButton;
     private JButton exitButton;
+    private JButton quizButton;
+    private JButton pvzButton;
+    private JButton sokobanButton;
     private JLabel gameBundleLabel;
 
     private Font emulogicFont;
@@ -32,8 +35,9 @@ public class MainMenu extends JPanel {
         if (panel == "gameBundleMain") { // If showing the Game Bundle Main Menu Panel
             setBackground(Color.BLACK);
             setButtons();
-            gameBundleLabel = label("System Challenge", emulogicFont, Color.WHITE);
-            gameBundleLabel.setBounds(355, 50, 490, 50);
+
+            gameBundleLabel = label("System Challenge", emulogicFont, Color.WHITE); // Game Bundle Label
+            gameBundleLabel.setBounds(355, 20, 490, 50);
             add(gameBundleLabel);
         }
 
@@ -59,6 +63,14 @@ public class MainMenu extends JPanel {
     }
 
     public void setButtons() {
+        quizButton = button("game1", null, Color.WHITE);
+        pvzButton = button("game2", null, Color.WHITE);
+        sokobanButton = button("game3", null, Color.WHITE);
+
+        quizButton.setBounds(35, 100, 313, 438);
+        pvzButton.setBounds(435, 100, 313, 438);
+        sokobanButton.setBounds(835, 100, 313, 438);
+
         creditsButton = button("Credits", emulogicFont, Color.WHITE);
         creditsButton.setBounds(450, 550, 300, 50);
 
@@ -67,6 +79,9 @@ public class MainMenu extends JPanel {
 
         add(creditsButton);
         add(exitButton);
+        add(quizButton);
+        add(pvzButton);
+        add(sokobanButton);
     }
 
     public void setActionAndMouseListeners() {
