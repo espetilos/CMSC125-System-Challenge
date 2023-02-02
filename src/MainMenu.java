@@ -27,13 +27,13 @@ public class MainMenu extends JPanel {
         setOpaque(true);
 
         window = w;
-        emulogicFont = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20);
+        emulogicFont = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 30);
 
         if (panel == "gameBundleMain") { // If showing the Game Bundle Main Menu Panel
             setBackground(Color.BLACK);
             setButtons();
             gameBundleLabel = label("System Challenge", emulogicFont, Color.WHITE);
-            gameBundleLabel.setBounds(430, 50, 320, 50);
+            gameBundleLabel.setBounds(355, 50, 490, 50);
             add(gameBundleLabel);
         }
 
