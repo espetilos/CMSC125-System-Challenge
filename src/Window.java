@@ -1,5 +1,9 @@
-import javax.swing.JFrame;
 import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFrame;
 
 public class Window extends JFrame {
 
@@ -32,5 +36,14 @@ public class Window extends JFrame {
 
     public void showCard(String card) {
         layout.show(this.getContentPane(), card);
+    }
+
+    public Font useFont(String path, int size) {
+        try {
+            return Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont(Font.PLAIN, size);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

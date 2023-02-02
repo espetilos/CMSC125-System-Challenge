@@ -16,12 +16,13 @@ public class Other extends JPanel {
     public Other(int width, int height, String panel, Window g) {
         setSize(width, height);
         setLayout(null);
-        setOpaque(false);
+        setOpaque(true);
 
         setButtons();
 
-        if (panel == "credits")
-            setBackground(Color.black); // PLACEHOLDER
+        if (panel == "gameBundleCredits") {
+            setBackground(Color.BLACK);
+        }
 
         window = g;
         setActionAndMouseListeners();

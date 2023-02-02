@@ -13,26 +13,27 @@ public class MainMenu extends JPanel {
 
     private Window window;
     private JButton creditsButton;
+    private JButton exitButton;
 
     public MainMenu(int width, int height, String panel, Window w) {
         setSize(width, height);
         setLayout(null);
-        setOpaque(false);
+        setOpaque(true);
 
         window = w;
 
         if (panel == "gameBundleMain") {
-            setBackground(Color.RED);
+            setButtons();
+            setBackground(Color.BLACK);
         }
-
-        setButtons();
         setActionAndMouseListeners();
     }
 
     public JButton button(String text) {
         JButton theButton = new JButton(text);
-        theButton.setForeground(Color.ORANGE);
-        theButton.setContentAreaFilled(true);
+        theButton.setForeground(Color.WHITE);
+        theButton.setFont(window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20));
+        theButton.setContentAreaFilled(false);
         theButton.setFocusPainted(false);
         theButton.setBorder(BorderFactory.createEmptyBorder());
         return theButton;
@@ -40,9 +41,12 @@ public class MainMenu extends JPanel {
 
     public void setButtons() {
         creditsButton = button("Credits");
-        creditsButton.setBounds(670, 480, 350, 50);
+        creditsButton.setBounds(450, 550, 300, 50);
+        exitButton = button("Exit");
+        exitButton.setBounds(450, 600, 300, 50);
 
         add(creditsButton);
+        add(exitButton);
     }
 
     public void setActionAndMouseListeners() {
@@ -54,15 +58,15 @@ public class MainMenu extends JPanel {
 
         creditsButton.addMouseListener(new MouseListener() {
             public void mouseEntered(MouseEvent e) {
-                creditsButton.setForeground(Color.BLACK);
+                creditsButton.setForeground(Color.ORANGE);
             }
 
             public void mouseExited(MouseEvent e) {
-                creditsButton.setForeground(Color.ORANGE);
+                creditsButton.setForeground(Color.WHITE);
             }
 
             public void mouseReleased(MouseEvent e) {
-                creditsButton.setForeground(Color.ORANGE);
+                creditsButton.setForeground(Color.WHITE);
             }
 
             public void mouseClicked(MouseEvent e) {
@@ -72,5 +76,30 @@ public class MainMenu extends JPanel {
             }
         });
 
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        exitButton.addMouseListener(new MouseListener() {
+            public void mouseEntered(MouseEvent e) {
+                exitButton.setForeground(Color.ORANGE);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                exitButton.setForeground(Color.WHITE);
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                exitButton.setForeground(Color.WHITE);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            public void mousePressed(MouseEvent e) {
+            }
+        });
     }
 }
