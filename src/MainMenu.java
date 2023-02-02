@@ -33,7 +33,6 @@ public class MainMenu extends JPanel {
     public JButton button(String text) {
         JButton theButton = new JButton(text);
         theButton.setForeground(Color.WHITE);
-        theButton.setFont(window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20));
         theButton.setContentAreaFilled(false);
         theButton.setFocusPainted(false);
         theButton.setBorder(BorderFactory.createEmptyBorder());
@@ -42,8 +41,11 @@ public class MainMenu extends JPanel {
 
     public void setButtons() {
         creditsButton = button("Credits");
+        creditsButton.setFont(window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20));
         creditsButton.setBounds(450, 550, 300, 50);
+
         exitButton = button("Exit");
+        exitButton.setFont(window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20));
         exitButton.setBounds(450, 600, 300, 50);
 
         add(creditsButton);
