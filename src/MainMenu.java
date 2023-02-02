@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,9 +46,23 @@ public class MainMenu extends JPanel {
     }
 
     private JButton button(String text, Font font, Color color) {
-        JButton theButton = new JButton(text);
-        theButton.setForeground(color);
-        theButton.setFont(font);
+        JButton theButton = new JButton();
+
+        if (text == "game1" || text == "game2" || text == "game3") {
+            if (text == "game1")
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game1.png"));
+            else if (text == "game2")
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game2.png"));
+            else if (text == "game3")
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game3.png"));
+        }
+
+        else {
+            theButton.setText(text);
+            theButton.setForeground(color);
+            theButton.setFont(font);
+        }
+
         theButton.setContentAreaFilled(false);
         theButton.setFocusPainted(false);
         theButton.setBorder(BorderFactory.createEmptyBorder());
@@ -63,19 +78,19 @@ public class MainMenu extends JPanel {
     }
 
     public void setButtons() {
-        quizButton = button("game1", null, Color.WHITE);
-        pvzButton = button("game2", null, Color.WHITE);
-        sokobanButton = button("game3", null, Color.WHITE);
+        quizButton = button("game1", null, null);
+        pvzButton = button("game2", null, null);
+        sokobanButton = button("game3", null, null);
 
-        quizButton.setBounds(35, 100, 313, 438);
+        quizButton.setBounds(55, 100, 313, 438);
         pvzButton.setBounds(435, 100, 313, 438);
-        sokobanButton.setBounds(835, 100, 313, 438);
+        sokobanButton.setBounds(815, 100, 313, 438);
 
         creditsButton = button("Credits", emulogicFont, Color.WHITE);
-        creditsButton.setBounds(450, 550, 300, 50);
+        creditsButton.setBounds(450, 560, 300, 50);
 
         exitButton = button("Exit", emulogicFont, Color.WHITE);
-        exitButton.setBounds(450, 600, 300, 50);
+        exitButton.setBounds(450, 610, 300, 50);
 
         add(creditsButton);
         add(exitButton);
