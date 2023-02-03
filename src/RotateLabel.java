@@ -1,7 +1,5 @@
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
