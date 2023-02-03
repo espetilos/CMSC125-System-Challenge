@@ -114,10 +114,10 @@ public class GameMainMenu extends JPanel {
         if (panel == "pvzMain") {
             JLabel gameLabel1 = label("System Defense", setFont(panel, 45), Color.WHITE,
                     285, 50, 630, 50, null);
-            add(gameLabel1);
-
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
                     new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
+            
+            add(gameLabel1);
             add(mainBG);
         }
 
