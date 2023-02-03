@@ -130,6 +130,25 @@ public class GameMainMenu extends JPanel {
                     285, 200, 630, 50, null);
             add(gameLabel2);
 
+            JLabel sokobanBar = label(null, null, null, 270, 50, 672, 288,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanBar.png"));
+            add(sokobanBar);
+
+            RotateLabel sokobanIcon = new RotateLabel(
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanIcon.png"), 110, -70);
+            add(sokobanIcon);
+
+            JLabel button1 = label(null, null, null, 475, 343, 250, 100,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+            add(button1);
+
+            JLabel button2 = label(null, null, null, 475, 443, 250, 100,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+            add(button2);
+
+            JLabel button3 = label(null, null, null, 475, 543, 250, 100,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+            add(button3);
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
                     new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanStars.png"));
