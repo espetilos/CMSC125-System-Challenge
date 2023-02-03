@@ -31,26 +31,8 @@ public class GameMainMenu extends JPanel {
 
         if (panel == "quizMain") { // Game 1 Panel
             setBackground(Color.BLACK);
-
-            JLabel quizIcon = new JLabel();
-            quizIcon.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizIcon.png"));
-            quizIcon.setBounds(260, 130, 150, 130);
-            add(quizIcon);
-
-            JLabel gameLabel1 = label("Are you Smarter", setFont(45), orange);
-            gameLabel1.setBounds(440, 140, 490, 50);
-            add(gameLabel1);
-
-            JLabel gameLabel2 = label("than my OS?", setFont(60), Color.WHITE);
-            gameLabel2.setBounds(440, 200, 490, 50);
-            add(gameLabel2);
-
             setButtons();
-
-            JLabel quizLaptop = new JLabel();
-            quizLaptop.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizLaptop.png"));
-            quizLaptop.setBounds(0, 0, 1200, 725);
-            add(quizLaptop);
+            setLabels();
         }
 
         setActionAndMouseListeners();
@@ -60,35 +42,54 @@ public class GameMainMenu extends JPanel {
         return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
     }
 
-    private JButton button(String text, Font font, Color color) {
+    private JButton button(String text, Font font, Color color, int x, int y, int width, int height) {
         JButton theButton = new JButton(text);
         theButton.setForeground(color);
         theButton.setFont(font);
+        theButton.setBounds(x, y, width, height);
         theButton.setContentAreaFilled(false);
         theButton.setFocusPainted(false);
         theButton.setBorder(BorderFactory.createEmptyBorder());
         return theButton;
     }
 
-    private JLabel label(String label, Font font, Color color) {
+    private JLabel label(String label, Font font, Color color, int x, int y, int width, int height, ImageIcon icon) {
         JLabel theLabel = new JLabel(label);
         theLabel.setFont(font);
         theLabel.setForeground(color);
+        theLabel.setBounds(x, y, width, height);
+        theLabel.setIcon(icon);
         theLabel.setHorizontalAlignment(SwingConstants.CENTER);
         return theLabel;
     }
 
-    public void setButtons() {
-        playButton = button("Play", setFont(30), Color.WHITE);
-        playButton.setBounds(450, 350, 300, 50);
-        howToPlayButton = button("How to Play", setFont(30), Color.WHITE);
-        howToPlayButton.setBounds(450, 400, 300, 50);
-        exitButton = button("Exit", setFont(30), Color.WHITE);
-        exitButton.setBounds(450, 450, 300, 50);
-
+    private void setButtons() {
+        playButton = button("Play", setFont(30), Color.WHITE, 450, 350, 300, 50);
         add(playButton);
+
+        howToPlayButton = button("How to Play", setFont(30), Color.WHITE, 450, 400, 300, 50);
         add(howToPlayButton);
+
+        exitButton = button("Exit", setFont(30), Color.WHITE, 450, 450, 300, 50);
         add(exitButton);
+    }
+
+    private void setLabels() {
+        JLabel quizIcon = label(null, null, null, 260, 130, 150, 130,
+                new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizIcon.png"));
+        add(quizIcon);
+
+        JLabel gameLabel1 = label("Are you Smarter", setFont(45), orange,
+                440, 140, 490, 50, null);
+        add(gameLabel1);
+
+        JLabel gameLabel2 = label("than my OS?", setFont(60), Color.WHITE,
+                440, 200, 490, 50, null);
+        add(gameLabel2);
+
+        JLabel quizLaptop = label(null, null, null, 0, 0, 1200, 725,
+                new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizLaptop.png"));
+        add(quizLaptop);
     }
 
     public void setActionAndMouseListeners() {
