@@ -31,11 +31,13 @@ public class Window extends JFrame {
 
         GameMainMenu quizMain = new GameMainMenu(width, height, "quizMain", this); // The Game1 Main Menu Panel
         GameMainMenu pvzMain = new GameMainMenu(width, height, "pvzMain", this); // The Game2 Main Menu Panel
+        GameMainMenu sokobanMain = new GameMainMenu(width, height, "sokobanMain", this); // The Game3 Main Menu Panel
 
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
         add("quizMain", quizMain);
         add("pvzMain", pvzMain);
+        add("sokobanMain", sokobanMain);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards

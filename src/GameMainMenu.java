@@ -41,6 +41,8 @@ public class GameMainMenu extends JPanel {
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
         if (panel == "pvzMain")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
+        if (panel == "sokobanMain")
+            return window.useFont(System.getProperty("user.dir") + "/src/resources/Garet-Book.ttf", size);
         return null;
     }
 
@@ -58,10 +60,10 @@ public class GameMainMenu extends JPanel {
     private JLabel label(String label, Font font, Color color, int x, int y, int width, int height,
             ImageIcon icon) {
         JLabel theLabel = new JLabel(label);
+        theLabel.setIcon(icon);
         theLabel.setFont(font);
         theLabel.setForeground(color);
         theLabel.setBounds(x, y, width, height);
-        theLabel.setIcon(icon);
         theLabel.setHorizontalAlignment(SwingConstants.CENTER);
         return theLabel;
     }
@@ -77,6 +79,12 @@ public class GameMainMenu extends JPanel {
             playButton = button("Play", setFont(panel, 20), Color.WHITE, 750, 350, 300, 50);
             howToPlayButton = button("How to Play", setFont(panel, 20), Color.WHITE, 750, 400, 300, 50);
             exitButton = button("Exit", setFont(panel, 20), Color.WHITE, 750, 450, 300, 50);
+        }
+
+        if (panel == "sokobanMain") {
+            playButton = button("Play", setFont(panel, 30), Color.WHITE, 465, 350, 270, 80);
+            howToPlayButton = button("How to Play", setFont(panel, 30), Color.WHITE, 465, 450, 270, 80);
+            exitButton = button("Exit", setFont(panel, 30), Color.WHITE, 465, 550, 270, 80);
         }
 
         add(playButton);
@@ -110,6 +118,21 @@ public class GameMainMenu extends JPanel {
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
                     new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
+            add(mainBG);
+        }
+
+        if (panel == "sokobanMain") {
+            JLabel gameLabel1 = label("SYSTEM CALLS", setFont(panel, 45), Color.WHITE,
+                    285, 150, 630, 50, null);
+            add(gameLabel1);
+
+            JLabel gameLabel2 = label("CENTER", setFont(panel, 45), Color.WHITE,
+                    285, 200, 630, 50, null);
+            add(gameLabel2);
+
+
+            JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanStars.png"));
             add(mainBG);
         }
     }

@@ -114,6 +114,7 @@ public class MainMenu extends JPanel {
 
         sokobanButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                window.showCard("sokobanMain");
             }
         });
 
