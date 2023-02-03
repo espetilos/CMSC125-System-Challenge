@@ -100,6 +100,12 @@ public class MainMenu extends JPanel {
     }
 
     public void setActionAndMouseListeners() {
+        quizButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.showCard("quizMain");
+            }
+        });
+
         creditsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.showCard("gameBundleCredits");

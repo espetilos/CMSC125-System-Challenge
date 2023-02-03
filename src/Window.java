@@ -9,6 +9,7 @@ public class Window extends JFrame {
 
     private CardLayout layout = new CardLayout();
     private MainMenu gameBundleMain;
+    private GameMainMenu quizMain;
     private Other gameBundleCredits;
 
     public Window() { // Set up the Window of the bundle
@@ -30,8 +31,11 @@ public class Window extends JFrame {
         gameBundleMain = new MainMenu(width, height, "gameBundleMain", this); // The Game Bundle Main Menu Panel
         gameBundleCredits = new Other(width, height, "gameBundleCredits", this); // The Credits Panel
 
+        quizMain = new GameMainMenu(width, height, "quizMain", this); // The Game1 Main Menu Panel
+
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
+        add("quizMain", quizMain);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards
