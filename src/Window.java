@@ -8,9 +8,6 @@ import javax.swing.JFrame;
 public class Window extends JFrame {
 
     private CardLayout layout = new CardLayout();
-    private MainMenu gameBundleMain;
-    private GameMainMenu quizMain;
-    private Other gameBundleCredits;
 
     public Window() { // Set up the Window of the bundle
         super("System Challenge"); // Set up the title of the bumble
@@ -28,14 +25,17 @@ public class Window extends JFrame {
     }
 
     private void setPanels(int width, int height) { // Set up the JPanels
-        gameBundleMain = new MainMenu(width, height, "gameBundleMain", this); // The Game Bundle Main Menu Panel
-        gameBundleCredits = new Other(width, height, "gameBundleCredits", this); // The Credits Panel
+        MainMenu gameBundleMain = new MainMenu(width, height, "gameBundleMain", this); // The Game Bundle Main Menu
+                                                                                       // Panel
+        Other gameBundleCredits = new Other(width, height, "gameBundleCredits", this); // The Credits Panel
 
-        quizMain = new GameMainMenu(width, height, "quizMain", this); // The Game1 Main Menu Panel
+        GameMainMenu quizMain = new GameMainMenu(width, height, "quizMain", this); // The Game1 Main Menu Panel
+        GameMainMenu pvzMain = new GameMainMenu(width, height, "pvzMain", this); // The Game2 Main Menu Panel
 
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
         add("quizMain", quizMain);
+        add("pvzMain", pvzMain);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards

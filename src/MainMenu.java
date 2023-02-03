@@ -106,6 +106,17 @@ public class MainMenu extends JPanel {
             }
         });
 
+        pvzButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                window.showCard("pvzMain");
+            }
+        });
+
+        sokobanButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
         creditsButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 window.showCard("gameBundleCredits");

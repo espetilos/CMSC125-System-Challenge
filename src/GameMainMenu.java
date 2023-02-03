@@ -29,17 +29,19 @@ public class GameMainMenu extends JPanel {
 
         window = w;
 
-        if (panel == "quizMain") { // Game 1 Panel
-            setBackground(Color.BLACK);
-            setButtons();
-            setLabels();
-        }
+        setBackground(Color.BLACK);
+        setButtons(panel);
+        setLabels(panel);
 
         setActionAndMouseListeners();
     }
 
-    private Font setFont(int size) {
-        return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
+    private Font setFont(String panel, int size) {
+        if (panel == "quizMain")
+            return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
+        if (panel == "pvzMain")
+            return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
+        return null;
     }
 
     private JButton button(String text, Font font, Color color, int x, int y, int width, int height) {
@@ -53,7 +55,8 @@ public class GameMainMenu extends JPanel {
         return theButton;
     }
 
-    private JLabel label(String label, Font font, Color color, int x, int y, int width, int height, ImageIcon icon) {
+    private JLabel label(String label, Font font, Color color, int x, int y, int width, int height,
+            ImageIcon icon) {
         JLabel theLabel = new JLabel(label);
         theLabel.setFont(font);
         theLabel.setForeground(color);
@@ -63,33 +66,52 @@ public class GameMainMenu extends JPanel {
         return theLabel;
     }
 
-    private void setButtons() {
-        playButton = button("Play", setFont(30), Color.WHITE, 450, 350, 300, 50);
+    private void setButtons(String panel) {
+        if (panel == "quizMain") {
+            playButton = button("Play", setFont(panel, 30), Color.WHITE, 450, 350, 300, 50);
+            howToPlayButton = button("How to Play", setFont(panel, 30), Color.WHITE, 450, 400, 300, 50);
+            exitButton = button("Exit", setFont(panel, 30), Color.WHITE, 450, 450, 300, 50);
+        }
+
+        if (panel == "pvzMain") {
+            playButton = button("Play", setFont(panel, 20), Color.WHITE, 750, 350, 300, 50);
+            howToPlayButton = button("How to Play", setFont(panel, 20), Color.WHITE, 750, 400, 300, 50);
+            exitButton = button("Exit", setFont(panel, 20), Color.WHITE, 750, 450, 300, 50);
+        }
+
         add(playButton);
-
-        howToPlayButton = button("How to Play", setFont(30), Color.WHITE, 450, 400, 300, 50);
         add(howToPlayButton);
-
-        exitButton = button("Exit", setFont(30), Color.WHITE, 450, 450, 300, 50);
         add(exitButton);
     }
 
-    private void setLabels() {
-        JLabel quizIcon = label(null, null, null, 260, 130, 150, 130,
-                new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizIcon.png"));
-        add(quizIcon);
+    private void setLabels(String panel) {
+        if (panel == "quizMain") {
+            JLabel quizIcon = label(null, null, null, 260, 130, 150, 130,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizIcon.png"));
+            add(quizIcon);
 
-        JLabel gameLabel1 = label("Are you Smarter", setFont(45), orange,
-                440, 140, 490, 50, null);
-        add(gameLabel1);
+            JLabel gameLabel1 = label("Are you Smarter", setFont(panel, 45), orange,
+                    440, 140, 490, 50, null);
+            add(gameLabel1);
 
-        JLabel gameLabel2 = label("than my OS?", setFont(60), Color.WHITE,
-                440, 200, 490, 50, null);
-        add(gameLabel2);
+            JLabel gameLabel2 = label("than my OS?", setFont(panel, 60), Color.WHITE,
+                    440, 200, 490, 50, null);
+            add(gameLabel2);
 
-        JLabel quizLaptop = label(null, null, null, 0, 0, 1200, 725,
-                new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizLaptop.png"));
-        add(quizLaptop);
+            JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizLaptop.png"));
+            add(mainBG);
+        }
+
+        if (panel == "pvzMain") {
+            JLabel gameLabel1 = label("System Defense", setFont(panel, 45), Color.WHITE,
+                    285, 50, 630, 50, null);
+            add(gameLabel1);
+
+            JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
+            add(mainBG);
+        }
     }
 
     public void setActionAndMouseListeners() {
