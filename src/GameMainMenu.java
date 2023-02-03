@@ -79,12 +79,12 @@ public class GameMainMenu extends JPanel {
     }
 
     public void setButtons() {
-        playButton = button("Play", null, null);
-        playButton.setBounds(815, 100, 313, 438);
-        howToPlayButton = button("How to Play", null, Color.WHITE);
-        howToPlayButton.setBounds(450, 560, 300, 50);
-        exitButton = button("Exit", null, Color.WHITE);
-        exitButton.setBounds(450, 610, 300, 50);
+        playButton = button("Play", setFont(30), Color.WHITE);
+        playButton.setBounds(450, 350, 300, 50);
+        howToPlayButton = button("How to Play", setFont(30), Color.WHITE);
+        howToPlayButton.setBounds(450, 400, 300, 50);
+        exitButton = button("Exit", setFont(30), Color.WHITE);
+        exitButton.setBounds(450, 450, 300, 50);
 
         add(playButton);
         add(howToPlayButton);
@@ -124,7 +124,7 @@ public class GameMainMenu extends JPanel {
 
         howToPlayButton.addMouseListener(new MouseListener() {
             public void mouseEntered(MouseEvent e) {
-                howToPlayButton.setForeground(Color.ORANGE);
+                howToPlayButton.setForeground(orange);
             }
 
             public void mouseExited(MouseEvent e) {
@@ -150,7 +150,7 @@ public class GameMainMenu extends JPanel {
 
         exitButton.addMouseListener(new MouseListener() {
             public void mouseEntered(MouseEvent e) {
-                exitButton.setForeground(Color.ORANGE);
+                exitButton.setForeground(orange);
             }
 
             public void mouseExited(MouseEvent e) {
