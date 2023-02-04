@@ -156,6 +156,10 @@ public class GameHowToPlay extends JPanel {
                         "Note: Cheats are not allowed during the million dollar question.",
                         setFont(panel, 12), Color.WHITE,
                         350, 430, 500, 50, null);
+                JLabel gameLabel8 = label(null, null, null, 320, 290, 50, 50,
+                        new ImageIcon(System.getProperty("user.dir") + "/src/resources/Peek.png"));
+                JLabel gameLabel9 = label(null, null, null, 320, 370, 50, 50,
+                        new ImageIcon(System.getProperty("user.dir") + "/src/resources/Copy.png"));
 
                 add(gameLabel2);
                 add(gameLabel3);
@@ -163,6 +167,8 @@ public class GameHowToPlay extends JPanel {
                 add(gameLabel5);
                 add(gameLabel6);
                 add(gameLabel7);
+                add(gameLabel8);
+                add(gameLabel9);
             }
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
