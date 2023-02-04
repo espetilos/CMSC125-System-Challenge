@@ -33,7 +33,7 @@ public class GameMainMenu extends JPanel {
         setButtons(panel);
         setLabels(panel);
 
-        setActionAndMouseListeners();
+        setActionAndMouseListeners(panel);
     }
 
     private Font setFont(String panel, int size) {
@@ -116,7 +116,7 @@ public class GameMainMenu extends JPanel {
                     285, 50, 630, 50, null);
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
                     new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
-            
+
             add(gameLabel1);
             add(mainBG);
         }
@@ -150,7 +150,7 @@ public class GameMainMenu extends JPanel {
         }
     }
 
-    public void setActionAndMouseListeners() {
+    public void setActionAndMouseListeners(String panel) {
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
@@ -178,6 +178,9 @@ public class GameMainMenu extends JPanel {
 
         howToPlayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (panel == "quizMain") {
+                    window.showCard("quizHowToPlay");
+                }
             }
         });
 
