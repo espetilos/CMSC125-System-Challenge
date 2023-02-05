@@ -89,9 +89,9 @@ public class GameHowToPlay extends JPanel {
 
         // Game 2 How to Play Buttons
         if (panel == "pvzHowToPlay") {
-            backButton = button("Main Menu", setFont(panel, 20), Color.WHITE, 200, 470, 120, 100);
-            previousButton = button("Prev", setFont(panel, 20), Color.WHITE, 850, 470, 60, 100);
-            nextButton = button("Next", setFont(panel, 20), Color.WHITE, 940, 470, 60, 100);
+            backButton = button("Main Menu", setFont(panel, 10), Color.WHITE, 200, 470, 120, 100);
+            previousButton = button("Prev", setFont(panel, 10), Color.WHITE, 850, 470, 60, 100);
+            nextButton = button("Next", setFont(panel, 10), Color.WHITE, 940, 470, 60, 100);
         }
 
         // Game 3 How to Play Buttons
