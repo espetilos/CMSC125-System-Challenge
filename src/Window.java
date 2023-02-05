@@ -38,6 +38,10 @@ public class Window extends JFrame {
         GameHowToPlay quizHowToPlay2 = new GameHowToPlay(width, height, "quizHowToPlay2", this);
 
         GameHowToPlay pvzHowToPlay = new GameHowToPlay(width, height, "pvzHowToPlay", this);
+        GameHowToPlay pvzHowToPlay1 = new GameHowToPlay(width, height, "pvzHowToPlay1", this);
+        GameHowToPlay pvzHowToPlay2 = new GameHowToPlay(width, height, "pvzHowToPlay2", this);
+        GameHowToPlay pvzHowToPlay3 = new GameHowToPlay(width, height, "pvzHowToPlay3", this);
+        GameHowToPlay pvzHowToPlay4 = new GameHowToPlay(width, height, "pvzHowToPlay4", this);
 
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
@@ -48,6 +52,10 @@ public class Window extends JFrame {
         add("quizHowToPlay1", quizHowToPlay1);
         add("quizHowToPlay2", quizHowToPlay2);
         add("pvzHowToPlay", pvzHowToPlay);
+        add("pvzHowToPlay1", pvzHowToPlay1);
+        add("pvzHowToPlay2", pvzHowToPlay2);
+        add("pvzHowToPlay3", pvzHowToPlay3);
+        add("pvzHowToPlay4", pvzHowToPlay4);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards

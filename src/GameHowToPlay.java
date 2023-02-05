@@ -39,7 +39,8 @@ public class GameHowToPlay extends JPanel {
     private Font setFont(String panel, int size) {
         if (panel == "quizHowToPlay" || panel == "quizHowToPlay1" || panel == "quizHowToPlay2")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
-        if (panel == "pvzHowToPlay")
+        if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2" || panel == "pvzHowToPlay3"
+                || panel == "pvzHowToPlay4")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
         if (panel == "sokobanHowToPlay")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Garet-Book.ttf", size);
@@ -77,25 +78,28 @@ public class GameHowToPlay extends JPanel {
             backButton = button("Main Menu", setFont(panel, 20), Color.WHITE, 200, 470, 120, 100);
             previousButton = button("Prev", setFont(panel, 20), Color.WHITE, 850, 470, 60, 100);
             nextButton = button("Next", setFont(panel, 20), Color.WHITE, 940, 470, 60, 100);
-
-            if (panel == "quizHowToPlay") {
-                previousButton.setEnabled(false);
-            }
-
-            if (panel == "quizHowToPlay2") {
-                nextButton.setEnabled(false);
-            }
         }
 
         // Game 2 How to Play Buttons
-        if (panel == "pvzHowToPlay") {
-            backButton = button("Main Menu", setFont(panel, 10), Color.WHITE, 200, 470, 120, 100);
-            previousButton = button("Prev", setFont(panel, 10), Color.WHITE, 850, 470, 60, 100);
-            nextButton = button("Next", setFont(panel, 10), Color.WHITE, 940, 470, 60, 100);
+        if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
+                || panel == "pvzHowToPlay3" || panel == "pvzHowToPlay4") {
+            backButton = button("Main Menu", setFont(panel, 10), Color.WHITE, 200, 600, 120, 100);
+            previousButton = button("Prev", setFont(panel, 10), Color.WHITE, 850, 600, 60, 100);
+            nextButton = button("Next", setFont(panel, 10), Color.WHITE, 940, 600, 60, 100);
         }
 
         // Game 3 How to Play Buttons
         if (panel == "sokobanHowToPlay") {
+        }
+
+        // Disabled Previous Buttons
+        if (panel == "quizHowToPlay" || panel == "pvzHowToPlay") {
+            previousButton.setEnabled(false);
+        }
+
+        // Disabled Next Buttons
+        if (panel == "quizHowToPlay2" || panel == "pvzHowToPlay4") {
+            nextButton.setEnabled(false);
         }
 
         add(backButton);
@@ -180,11 +184,90 @@ public class GameHowToPlay extends JPanel {
         }
 
         // Game 2 How to Play Elements
-        if (panel == "pvzMain") {
+        if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
+                || panel == "pvzHowToPlay3" || panel == "pvzHowToPlay4") {
+            JLabel gameLabel1 = label("How To Play", setFont(panel, 45), Color.WHITE,
+                    285, 50, 630, 50, null);
+            add(gameLabel1);
+
+            // Page 1/n of Game 2 How To Play
+            if (panel == "pvzHowToPlay") {
+                JLabel gameLabel2 = label(
+                        "<html><center>The system has a 5 x 8 board for its own protection.</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
+
+                int y = 200;
+                for (int i = 0; i < 5; i++) {
+                    int x = 280;
+                    for (int j = 0; j < 8; j++) {
+                        JLabel pvzTile = label(null,
+                                setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzTile.png"));
+                        add(pvzTile);
+                        x = x + 80;
+                    }
+                    y = y + 80;
+                }
+
+                add(gameLabel2);
+            }
+
+            // Page 2/n of Game 2 How To Play
+            if (panel == "pvzHowToPlay1") {
+                JLabel gameLabel2 = label(
+                        "<html><center>Threats can access your system protection board:</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
+                add(gameLabel2);
+
+                JLabel gameLabel3 = label(
+                        "<html><center>If three (3) threats reach your system, you lose.</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 500, 800, 120, null);
+                add(gameLabel3);
+            }
+
+            // Page 3/n of Game 2 How To Play
+            if (panel == "pvzHowToPlay2") {
+                JLabel gameLabel2 = label(
+                        "<html><center>Secure your system by installing software programs called <font color = 'rgb(159, 211, 199)'>Defenders</font>:</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
+                add(gameLabel2);
+
+                JLabel gameLabel3 = label(
+                        "<html><center>If you manage to secure your system after two (2) waves of threats, you win.</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 500, 800, 120, null);
+                add(gameLabel3);
+            }
+
+            // Page 4/n of Game 2 How To Play
+            if (panel == "pvzHowToPlay3") {
+                JLabel gameLabel2 = label(
+                        "<html><center>Install a Defender anywhere on the board by spending bitcoins. Bitcoins will increase over time so you can install more defenders.</center></html>",
+                        setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
+                add(gameLabel2);
+
+                JLabel gameLabel3 = label(
+                        "<html><center>Use the Pliers Tool to remove a Defender from the board.</html>",
+                        setFont(panel, 15), Color.WHITE, 200, 400, 800, 120, null);
+                add(gameLabel3);
+            }
+
+            // Page 5/n of Game 2 How To Play
+            if (panel == "pvzHowToPlay4") {
+                JLabel gameLabel2 = label(
+                        "<html><center>Upgrade your Defenders with Security Policy Upgrade to enhance their Attack DMG.</html>",
+                        setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
+                add(gameLabel2);
+            }
+
+            JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
+            add(mainBG);
         }
 
         // Game 3 How to Play Elements
-        if (panel == "sokobanMain") {
+        if (panel == "sokobanMain")
+
+        {
         }
     }
 
@@ -198,7 +281,8 @@ public class GameHowToPlay extends JPanel {
                 }
 
                 // Game 2 Back Button
-                if (panel == "pvzHowToPlay") {
+                if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
+                        || panel == "pvzHowToPlay3" || panel == "pvzHowToPlay4") {
                     window.showCard("pvzMain");
                 }
 
@@ -210,6 +294,7 @@ public class GameHowToPlay extends JPanel {
         });
 
         backButton.addMouseListener(new MouseListener() {
+
             public void mouseEntered(MouseEvent e) {
                 backButton.setForeground(orange);
             }
@@ -223,6 +308,7 @@ public class GameHowToPlay extends JPanel {
             }
 
             public void mouseClicked(MouseEvent e) {
+                backButton.setForeground(orange);
             }
 
             public void mousePressed(MouseEvent e) {
@@ -240,6 +326,26 @@ public class GameHowToPlay extends JPanel {
                 if (panel == "quizHowToPlay2") {
                     window.showCard("quizHowToPlay1");
                 }
+
+                // Game 2 Previous Button (From Page 2 to Page 1)
+                if (panel == "pvzHowToPlay1") {
+                    window.showCard("pvzHowToPlay");
+                }
+
+                // Game 2 Previous Button (From Page 3 to Page 2)
+                if (panel == "pvzHowToPlay2") {
+                    window.showCard("pvzHowToPlay1");
+                }
+
+                // Game 2 Previous Button (From Page 4 to Page 3)
+                if (panel == "pvzHowToPlay3") {
+                    window.showCard("pvzHowToPlay2");
+                }
+
+                // Game 2 Previous Button (From Page 5 to Page 4)
+                if (panel == "pvzHowToPlay4") {
+                    window.showCard("pvzHowToPlay3");
+                }
             }
         });
 
@@ -253,10 +359,11 @@ public class GameHowToPlay extends JPanel {
             }
 
             public void mouseReleased(MouseEvent e) {
-                backButton.setForeground(Color.WHITE);
+                previousButton.setForeground(Color.WHITE);
             }
 
             public void mouseClicked(MouseEvent e) {
+                previousButton.setForeground(orange);
             }
 
             public void mousePressed(MouseEvent e) {
@@ -273,6 +380,26 @@ public class GameHowToPlay extends JPanel {
                 // Game 1 Next Button (From Page 2 to Page 3)
                 if (panel == "quizHowToPlay1") {
                     window.showCard("quizHowToPlay2");
+                }
+
+                // Game 2 Next Button (From Page 1 to Page 2)
+                if (panel == "pvzHowToPlay") {
+                    window.showCard("pvzHowToPlay1");
+                }
+
+                // Game 2 Next Button (From Page 2 to Page 3)
+                if (panel == "pvzHowToPlay1") {
+                    window.showCard("pvzHowToPlay2");
+                }
+
+                // Game 2 Next Button (From Page 3 to Page 4)
+                if (panel == "pvzHowToPlay2") {
+                    window.showCard("pvzHowToPlay3");
+                }
+
+                // Game 2 Next Button (From Page 4 to Page 5)
+                if (panel == "pvzHowToPlay3") {
+                    window.showCard("pvzHowToPlay4");
                 }
             }
         });
@@ -291,6 +418,7 @@ public class GameHowToPlay extends JPanel {
             }
 
             public void mouseClicked(MouseEvent e) {
+                nextButton.setForeground(orange);
             }
 
             public void mousePressed(MouseEvent e) {
