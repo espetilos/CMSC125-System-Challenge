@@ -215,7 +215,7 @@ public class GameHowToPlay extends JPanel {
             // Page 2/n of Game 2 How To Play
             if (panel == "pvzHowToPlay1") {
                 JLabel gameLabel2 = label(
-                        "<html><center>Threats can access your system protection board:</center></html>",
+                        "<html><center><font color = 'rgb(255, 87, 87)'>Threats</font> can access your system protection board:</center></html>",
                         setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
                 add(gameLabel2);
 
