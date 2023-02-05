@@ -89,6 +89,9 @@ public class GameHowToPlay extends JPanel {
 
         // Game 2 How to Play Buttons
         if (panel == "pvzHowToPlay") {
+            backButton = button("Main Menu", setFont(panel, 20), Color.WHITE, 200, 470, 120, 100);
+            previousButton = button("Prev", setFont(panel, 20), Color.WHITE, 850, 470, 60, 100);
+            nextButton = button("Next", setFont(panel, 20), Color.WHITE, 940, 470, 60, 100);
         }
 
         // Game 3 How to Play Buttons
@@ -124,7 +127,7 @@ public class GameHowToPlay extends JPanel {
             // Page 2/3 of Game 1 How To Play
             if (panel == "quizHowToPlay1") {
                 JLabel gameLabel2 = label(
-                        "<html><center>each question is equivalent to  <font color = 'rgb(226, 161, 101)'>one (1) point </font>. if you get a chance to answer the million dollar question, you can <font color = 'rgb(226, 161, 101)'>wager your points</font> and get them back <font color = 'rgb(226, 161, 101)'>triple</font> if you get the <font color = 'rgb(126, 217, 87)'>correct</font> answer or lose points if you get the <font color = 'rgb(255, 87, 87)'>wrong<font> answer.</center></html>",
+                        "<html><center>Each question is equivalent to  <font color = 'rgb(226, 161, 101)'>one (1) point</font>. If you get a chance to answer the million dollar question, you can <font color = 'rgb(226, 161, 101)'>wager your points</font> and get them back <font color = 'rgb(226, 161, 101)'>triple</font> if you get the <font color = 'rgb(126, 217, 87)'>correct</font> answer or lose points if you get the <font color = 'rgb(255, 87, 87)'>wrong<font> answer.</center></html>",
                         setFont(panel, 25), Color.WHITE, 260, 200, 680, 170, null);
 
                 add(gameLabel2);
@@ -133,7 +136,7 @@ public class GameHowToPlay extends JPanel {
             // Page 3/3 of Game 1 How To Play
             if (panel == "quizHowToPlay2") {
                 JLabel gameLabel2 = label(
-                        "<html><center><font color = 'rgb(226, 161, 101)'>cheats</font> are available that you can each use once:</center></html>",
+                        "<html><center><font color = 'rgb(226, 161, 101)'>Cheats</font> are available that you can each use once:</center></html>",
                         setFont(panel, 25), Color.WHITE, 260, 200, 680, 50, null);
 
                 JLabel gameLabel3 = label("Peek", setFont(panel, 25), orange,
@@ -148,7 +151,7 @@ public class GameHowToPlay extends JPanel {
                         412, 300, 510, 50, null);
 
                 JLabel gameLabel6 = label(
-                        "<html><p>you lock in whatever answer the computer will highlight without knowing what its answer will be.</p></html>",
+                        "<html><p>You lock in whatever answer the computer will highlight without knowing what its answer will be.</p></html>",
                         setFont(panel, 12), Color.WHITE,
                         412, 380, 510, 50, null);
 
