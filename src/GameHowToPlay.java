@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +14,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.MouseEvent;
 
 public class GameHowToPlay extends JPanel {
@@ -42,7 +47,9 @@ public class GameHowToPlay extends JPanel {
         if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2" || panel == "pvzHowToPlay3"
                 || panel == "pvzHowToPlay4")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
-        if (panel == "sokobanHowToPlay")
+        if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
+                || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4" || panel == "sokobanHowToPlay5"
+                || panel == "sokobanHowToPlay6")
             return window.useFont(System.getProperty("user.dir") + "/src/resources/Garet-Book.ttf", size);
         return null;
     }
@@ -89,16 +96,21 @@ public class GameHowToPlay extends JPanel {
         }
 
         // Game 3 How to Play Buttons
-        if (panel == "sokobanHowToPlay") {
+        if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
+                || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4" || panel == "sokobanHowToPlay5"
+                || panel == "sokobanHowToPlay6") {
+            backButton = button("Main Menu", setFont(panel, 20), Color.WHITE, 50, 600, 120, 100);
+            previousButton = button("Prev", setFont(panel, 20), Color.WHITE, 1000, 600, 60, 100);
+            nextButton = button("Next", setFont(panel, 20), Color.WHITE, 1080, 600, 60, 100);
         }
 
         // Disabled Previous Buttons
-        if (panel == "quizHowToPlay" || panel == "pvzHowToPlay") {
+        if (panel == "quizHowToPlay" || panel == "pvzHowToPlay" || panel == "sokobanHowToPlay") {
             previousButton.setEnabled(false);
         }
 
         // Disabled Next Buttons
-        if (panel == "quizHowToPlay2" || panel == "pvzHowToPlay4") {
+        if (panel == "quizHowToPlay2" || panel == "pvzHowToPlay4" || panel == "sokobanHowToPlay6") {
             nextButton.setEnabled(false);
         }
 
@@ -111,9 +123,9 @@ public class GameHowToPlay extends JPanel {
     private void setLabels(String panel) {
         // Game 1 How to Play Elements
         if (panel == "quizHowToPlay" || panel == "quizHowToPlay1" || panel == "quizHowToPlay2") {
-            JLabel gameLabel1 = label("How to Play", setFont(panel, 45), orange,
+            JLabel gameLabel = label("How to Play", setFont(panel, 45), orange,
                     355, 100, 490, 50, null);
-            add(gameLabel1);
+            add(gameLabel);
 
             // Page 1/3 of Game 1 How To Play
             if (panel == "quizHowToPlay") {
@@ -186,9 +198,9 @@ public class GameHowToPlay extends JPanel {
         // Game 2 How to Play Elements
         if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
                 || panel == "pvzHowToPlay3" || panel == "pvzHowToPlay4") {
-            JLabel gameLabel1 = label("How To Play", setFont(panel, 45), Color.WHITE,
+            JLabel gameLabel = label("How To Play", setFont(panel, 45), Color.WHITE,
                     285, 50, 630, 50, null);
-            add(gameLabel1);
+            add(gameLabel);
 
             // Page 1/n of Game 2 How To Play
             if (panel == "pvzHowToPlay") {
@@ -223,6 +235,144 @@ public class GameHowToPlay extends JPanel {
                         "<html><center>If three (3) threats reach your system, you lose.</center></html>",
                         setFont(panel, 15), Color.WHITE, 200, 500, 800, 120, null);
                 add(gameLabel3);
+
+                // Threats
+                int y = 190;
+                for (int i = 0; i < 4; i++) {
+                    int x = 280;
+                    for (int j = 0; j < 2; j++) {
+                        if (i == 0 && j == 0) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatTrojan.png"),
+                                                    70, 70)));
+
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Trojan Horse</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 0 && j == 1) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatTrap.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Trap Door</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 1 && j == 0) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatLogic.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Logic Bomb</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 1 && j == 1) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatStack.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Stack and Buffer Overflow</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 2 && j == 0) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatVirus.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Virus</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 2 && j == 1) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatWorm.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Worm</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 3 && j == 0) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatPort.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Port Scanner</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+
+                        else if (i == 3 && j == 1) {
+                            JLabel pvzThreat = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzThreats/pvzThreatDenial.png"),
+                                                    70, 70)));
+                            add(pvzThreat);
+
+                            JLabel pvzThreatLabel = label(
+                                    "<html><center>Denial of Service</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzThreatLabel);
+                        }
+                        x = x + 330;
+                    }
+                    y = y + 90;
+                }
             }
 
             // Page 3/n of Game 2 How To Play
@@ -236,6 +386,127 @@ public class GameHowToPlay extends JPanel {
                         "<html><center>If you manage to secure your system after two (2) waves of threats, you win.</center></html>",
                         setFont(panel, 15), Color.WHITE, 200, 500, 800, 120, null);
                 add(gameLabel3);
+
+                // Defenders
+                int y = 190;
+                for (int i = 0; i < 4; i++) {
+                    int x = 280;
+                    for (int j = 0; j < 2; j++) {
+                        if (i == 0 && j == 0) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderEncryptor.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Encryptor</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 0 && j == 1) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderAuthenticator.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Authenticator</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 1 && j == 0) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderAssessor.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Assessor</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 1 && j == 1) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderDetector.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Detector</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 2 && j == 0) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderAntivirus.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Antivirus</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 2 && j == 1) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderTripwire.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Tripwire</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+
+                        else if (i == 3 && j == 0) {
+                            JLabel pvzDefender = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 70, 70,
+                                    new ImageIcon(
+                                            resizeImage(
+                                                    new File(System.getProperty("user.dir")
+                                                            + "/src/resources/pvzDefenders/pvzDefenderFirewall.png"),
+                                                    70, 70)));
+                            add(pvzDefender);
+
+                            JLabel pvzDefenderLabel = label(
+                                    "<html><center>Firewall</center></html>",
+                                    setFont(panel, 10), Color.WHITE, x + 90, y, 160, 50, null);
+                            add(pvzDefenderLabel);
+                        }
+                        x = x + 330;
+                    }
+                    y = y + 90;
+                }
             }
 
             // Page 4/n of Game 2 How To Play
@@ -247,8 +518,25 @@ public class GameHowToPlay extends JPanel {
 
                 JLabel gameLabel3 = label(
                         "<html><center>Use the Pliers Tool to remove a Defender from the board.</html>",
-                        setFont(panel, 15), Color.WHITE, 200, 400, 800, 120, null);
+                        setFont(panel, 15), Color.WHITE, 200, 360, 800, 120, null);
                 add(gameLabel3);
+
+                JLabel pvzBitcoin = label(null,
+                        setFont(panel, 15), Color.WHITE, 540, 230, 120, 120,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/pvzBitcoin.png"),
+                                120, 120)));
+
+                JLabel pvzPliers = label(null,
+                        setFont(panel, 15), Color.WHITE, 540, 480, 120, 120,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/pvzPliers.png"),
+                                120, 120)));
+
+                add(pvzBitcoin);
+                add(pvzPliers);
             }
 
             // Page 5/n of Game 2 How To Play
@@ -257,6 +545,14 @@ public class GameHowToPlay extends JPanel {
                         "<html><center>Upgrade your Defenders with Security Policy Upgrade to enhance their Attack DMG.</html>",
                         setFont(panel, 15), Color.WHITE, 200, 100, 800, 120, null);
                 add(gameLabel2);
+
+                JLabel pvzUpgrade = label(null,
+                        setFont(panel, 15), Color.WHITE, 450, 230, 300, 300,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/pvzUpgrade.png"),
+                                300, 300)));
+                add(pvzUpgrade);
             }
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
@@ -265,10 +561,272 @@ public class GameHowToPlay extends JPanel {
         }
 
         // Game 3 How to Play Elements
-        if (panel == "sokobanMain")
+        if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
+                || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4" || panel == "sokobanHowToPlay5"
+                || panel == "sokobanHowToPlay6") {
 
-        {
+            JLabel gameLabel = label("HOW TO PLAY", setFont(panel, 45), Color.WHITE,
+                    355, 50, 490, 50, null);
+            add(gameLabel);
+
+            // Page 1/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay") {
+                JLabel gameLabel1 = label(
+                        "<html><center>The playing field is a confined map of squares with spots that represent the types of System Calls.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 80, 680, 120, null);
+                add(gameLabel1);
+
+                JLabel gameLabel2 = label(
+                        "<html><center>Types of System Calls</center></html>",
+                        setFont(panel, 25), Color.WHITE, 500, 450, 680, 120, null);
+                add(gameLabel2);
+
+                // Sokoban Map
+                int y = 200;
+                for (int i = 0; i < 14; i++) {
+                    int x = 200;
+                    for (int j = 0; j < 13; j++) {
+                        // Border
+                        if ((j == 0 && i > 1) || (i == 13 && j < 12) || (i > 8 && j == 11)
+                                || (j == 12 && i > 1 && i < 10) || (i == 2 && j > 8) || (j == 9 && i < 2)
+                                || (i == 0 && j < 9 && j > 6) || (j == 7 && i < 2) || (j < 8 && j > 5 && i == 2)
+                                || (j == 6 && i > 2 && i < 5) || (i == 4 && j > 3 && j < 6)
+                                || (j == 4 && i < 4 && i > 0) || (i == 1 && j < 4 && j > 1)
+                                || (j > 0 && j < 3 && i == 2)) {
+
+                            JLabel sokobanBrick = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 25, 25,
+                                    new ImageIcon(resizeImage(
+                                            new File(System.getProperty("user.dir")
+                                                    + "/src/resources/sokoban/sokobanMap/sokobanBrick.png"),
+                                            25, 25)));
+                            add(sokobanBrick);
+                        }
+
+                        // Ground
+                        else if ((j > 0 && j < 12 && i > 3)
+                                || (i == 3 && j != 5) || (i == 2 && (j == 3 || j == 8)) || (i == 1 && j == 8)) {
+                            JLabel sokobanBrick = label(null,
+                                    setFont(panel, 15), Color.WHITE, x, y, 25, 25,
+                                    new ImageIcon(resizeImage(
+                                            new File(System.getProperty("user.dir")
+                                                    + "/src/resources/sokoban/sokobanMap/sokobanGround.png"),
+                                            25, 25)));
+                            add(sokobanBrick);
+                        }
+                        x = x + 30;
+                    }
+                    y = y + 30;
+                }
+
+                // System Call Icons
+                JLabel sokobanSystemCall = label(null,
+                        setFont(panel, 15), Color.WHITE, 680, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanProcessControl.png"),
+                                80, 80)));
+                add(sokobanSystemCall);
+
+                JLabel sokobanSystemCall1 = label(null,
+                        setFont(panel, 15), Color.WHITE, 800, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanFileManagement.png"),
+                                80, 80)));
+                add(sokobanSystemCall1);
+
+                JLabel sokobanSystemCall2 = label(null,
+                        setFont(panel, 15), Color.WHITE, 920, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanDeviceManagement.png"),
+                                80, 80)));
+                add(sokobanSystemCall2);
+
+                JLabel sokobanSystemCall3 = label(null,
+                        setFont(panel, 15), Color.WHITE, 680, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanInformationMaintenanceManagement.png"),
+                                80, 80)));
+                add(sokobanSystemCall3);
+
+                JLabel sokobanSystemCall4 = label(null,
+                        setFont(panel, 15), Color.WHITE, 800, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanCommunications.png"),
+                                80, 80)));
+                add(sokobanSystemCall4);
+
+                JLabel sokobanSystemCall5 = label(null,
+                        setFont(panel, 15), Color.WHITE, 920, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanProtection.png"),
+                                80, 80)));
+                add(sokobanSystemCall5);
+            }
+
+            // Page 2/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay1") {
+                JLabel gameLabel1 = label(
+                        "<html><center>At the start of the game, the character and example system calls are placed in different locations.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 100, 680, 120, null);
+
+                add(gameLabel1);
+
+                JLabel gameLabel3 = label(
+                        "<html><center>Character</center></html>",
+                        setFont(panel, 25), Color.WHITE, 285, 480, 200, 120, null);
+                add(gameLabel3);
+
+                JLabel gameLabel2 = label(
+                        "<html><center>Example System Calls</center></html>",
+                        setFont(panel, 25), Color.WHITE, 635, 480, 250, 120, null);
+                add(gameLabel2);
+
+                // Android Character
+                JLabel sokobanCharacter = label(null,
+                        setFont(panel, 15), Color.WHITE, 280, 270, 212, 230,
+                        new ImageIcon(System.getProperty("user.dir")
+                                + "/src/resources/sokobanIcon.png"));
+                add(sokobanCharacter);
+
+                // Exampl System Call Icons
+                JLabel sokobanSystemCall = label(null,
+                        setFont(panel, 15), Color.WHITE, 600, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
+                                80, 80)));
+                add(sokobanSystemCall);
+
+                JLabel sokobanSystemCall1 = label(null,
+                        setFont(panel, 15), Color.WHITE, 720, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFile().png"),
+                                80, 80)));
+                add(sokobanSystemCall1);
+
+                JLabel sokobanSystemCall2 = label(null,
+                        setFont(panel, 15), Color.WHITE, 840, 280, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanReadConsole().png"),
+                                80, 80)));
+                add(sokobanSystemCall2);
+
+                JLabel sokobanSystemCall3 = label(null,
+                        setFont(panel, 15), Color.WHITE, 600, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetTimer().png"),
+                                80, 80)));
+                add(sokobanSystemCall3);
+
+                JLabel sokobanSystemCall4 = label(null,
+                        setFont(panel, 15), Color.WHITE, 720, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFileMapping().png"),
+                                80, 80)));
+                add(sokobanSystemCall4);
+
+                JLabel sokobanSystemCall5 = label(null,
+                        setFont(panel, 15), Color.WHITE, 840, 390, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetFileSecurity().png"),
+                                80, 80)));
+                add(sokobanSystemCall5);
+            }
+
+            // Page 3/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay2") {
+                JLabel gameLabel1 = label(
+                        "<html><center>The character can move a colored square by only pushing it horizontally or vertically to an empty square of a map.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 100, 680, 120, null);
+
+                add(gameLabel1);
+
+                JLabel gameLabel2 = label(
+                        "<html><center>Each example system call has its own designated spot. The game is solved when all are placed in their respective spots.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 200, 680, 120, null);
+
+                add(gameLabel2);
+
+                JLabel sokobanExampleSystemCall = label(null,
+                        setFont(panel, 15), Color.WHITE, 300, 400, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
+                                80, 80)));
+                add(sokobanExampleSystemCall);
+
+                JLabel sokobanSystemCall = label(null,
+                        setFont(panel, 15), Color.WHITE, 600, 400, 80, 80,
+                        new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                        + "/src/resources/sokoban/sokobanSystemCall/sokobanProcessControl.png"),
+                                80, 80)));
+                add(sokobanSystemCall);
+            }
+
+            // Page 4/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay3") {
+
+            }
+
+            // Page 5/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay4") {
+                JLabel gameLabel1 = label(
+                        "<html><center>A Power-Up may appear at random. If the player gets it, a multiple-choice question will appear.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 200, 680, 120, null);
+
+                JLabel gameLabel2 = label(
+                        "<html><center>Get the correct answer, and an example system call is automatically placed to its spot.</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 400, 680, 120, null);
+
+                add(gameLabel1);
+                add(gameLabel2);
+            }
+
+            // Page 6/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay5") {
+                JLabel gameLabel1 = label(
+                        "<html><center>CONTROLS</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 200, 680, 120, null);
+
+                add(gameLabel1);
+            }
+
+            // Page 7/7 of Game 3 How To Play
+            if (panel == "sokobanHowToPlay6") {
+                JLabel gameLabel1 = label(
+                        "<html><center>LEGEND</center></html>",
+                        setFont(panel, 25), Color.WHITE, 260, 200, 680, 120, null);
+
+                add(gameLabel1);
+            }
+
+            JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanStars.png"));
+            add(mainBG);
         }
+    }
+
+    private Image resizeImage(File file, int width, int height) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 
     // Action and Mouse Listeners for Buttons
@@ -287,7 +845,9 @@ public class GameHowToPlay extends JPanel {
                 }
 
                 // Game 3 Back Button
-                if (panel == "sokobanHowToPlay") {
+                if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
+                        || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4" || panel == "sokobanHowToPlay5"
+                        || panel == "sokobanHowToPlay6") {
                     window.showCard("sokobanMain");
                 }
             }
@@ -346,6 +906,36 @@ public class GameHowToPlay extends JPanel {
                 if (panel == "pvzHowToPlay4") {
                     window.showCard("pvzHowToPlay3");
                 }
+
+                // Game 3 Previous Button (From Page 7 to Page 6)
+                if (panel == "sokobanHowToPlay6") {
+                    window.showCard("sokobanHowToPlay5");
+                }
+
+                // Game 3 Previous Button (From Page 6 to Page 5)
+                if (panel == "sokobanHowToPlay5") {
+                    window.showCard("sokobanHowToPlay4");
+                }
+
+                // Game 3 Previous Button (From Page 5 to Page 4)
+                if (panel == "sokobanHowToPlay4") {
+                    window.showCard("sokobanHowToPlay3");
+                }
+
+                // Game 3 Previous Button (From Page 4 to Page 3)
+                if (panel == "sokobanHowToPlay3") {
+                    window.showCard("sokobanHowToPlay2");
+                }
+
+                // Game 3 Previous Button (From Page 3 to Page 2)
+                if (panel == "sokobanHowToPlay2") {
+                    window.showCard("sokobanHowToPlay1");
+                }
+
+                // Game 3 Previous Button (From Page 2 to Page 1)
+                if (panel == "sokobanHowToPlay1") {
+                    window.showCard("sokobanHowToPlay");
+                }
             }
         });
 
@@ -400,6 +990,35 @@ public class GameHowToPlay extends JPanel {
                 // Game 2 Next Button (From Page 4 to Page 5)
                 if (panel == "pvzHowToPlay3") {
                     window.showCard("pvzHowToPlay4");
+                }
+
+                // Game 3 Next Button (From Page 1 to Page 2)
+                if (panel == "sokobanHowToPlay") {
+                    window.showCard("sokobanHowToPlay1");
+                }
+
+                // Game 3 Next Button (From Page 2 to Page 3)
+                if (panel == "sokobanHowToPlay1") {
+                    window.showCard("sokobanHowToPlay2");
+                }
+
+                // Game 3 Next Button (From Page 3 to Page 4)
+                if (panel == "sokobanHowToPlay2") {
+                    window.showCard("sokobanHowToPlay3");
+                }
+
+                // Game 3 Next Button (From Page 4 to Page 5)
+                if (panel == "sokobanHowToPlay3") {
+                    window.showCard("sokobanHowToPlay4");
+                }
+                // Game 3 Next Button (From Page 5 to Page 6)
+                if (panel == "sokobanHowToPlay4") {
+                    window.showCard("sokobanHowToPlay5");
+                }
+
+                // Game 3 Next Button (From Page 6 to Page 7)
+                if (panel == "sokobanHowToPlay5") {
+                    window.showCard("sokobanHowToPlay6");
                 }
             }
         });

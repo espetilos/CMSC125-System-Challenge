@@ -43,6 +43,14 @@ public class Window extends JFrame {
         GameHowToPlay pvzHowToPlay3 = new GameHowToPlay(width, height, "pvzHowToPlay3", this);
         GameHowToPlay pvzHowToPlay4 = new GameHowToPlay(width, height, "pvzHowToPlay4", this);
 
+        GameHowToPlay sokobanHowToPlay = new GameHowToPlay(width, height, "sokobanHowToPlay", this);
+        GameHowToPlay sokobanHowToPlay1 = new GameHowToPlay(width, height, "sokobanHowToPlay1", this);
+        GameHowToPlay sokobanHowToPlay2 = new GameHowToPlay(width, height, "sokobanHowToPlay2", this);
+        GameHowToPlay sokobanHowToPlay3 = new GameHowToPlay(width, height, "sokobanHowToPlay3", this);
+        GameHowToPlay sokobanHowToPlay4 = new GameHowToPlay(width, height, "sokobanHowToPlay4", this);
+        GameHowToPlay sokobanHowToPlay5 = new GameHowToPlay(width, height, "sokobanHowToPlay5", this);
+        GameHowToPlay sokobanHowToPlay6 = new GameHowToPlay(width, height, "sokobanHowToPlay6", this);
+
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
         add("quizMain", quizMain);
@@ -56,6 +64,13 @@ public class Window extends JFrame {
         add("pvzHowToPlay2", pvzHowToPlay2);
         add("pvzHowToPlay3", pvzHowToPlay3);
         add("pvzHowToPlay4", pvzHowToPlay4);
+        add("sokobanHowToPlay", sokobanHowToPlay);
+        add("sokobanHowToPlay1", sokobanHowToPlay1);
+        add("sokobanHowToPlay2", sokobanHowToPlay2);
+        add("sokobanHowToPlay3", sokobanHowToPlay3);
+        add("sokobanHowToPlay4", sokobanHowToPlay4);
+        add("sokobanHowToPlay5", sokobanHowToPlay5);
+        add("sokobanHowToPlay6", sokobanHowToPlay6);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards

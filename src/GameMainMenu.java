@@ -185,6 +185,10 @@ public class GameMainMenu extends JPanel {
                 if (panel == "pvzMain") {
                     window.showCard("pvzHowToPlay");
                 }
+
+                if (panel == "sokobanMain") {
+                    window.showCard("sokobanHowToPlay");
+                }
             }
         });
 
