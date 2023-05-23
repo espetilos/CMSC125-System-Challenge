@@ -50,11 +50,11 @@ public class MainMenu extends JPanel {
 
         if (text == "game1" || text == "game2" || text == "game3") {
             if (text == "game1")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game1.png"));
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game1.png"));
             else if (text == "game2")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game2.png"));
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game2.png"));
             else if (text == "game3")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/game3.png"));
+                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game3.png"));
         }
 
         else {

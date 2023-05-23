@@ -49,7 +49,6 @@ public class Window extends JFrame {
         GameHowToPlay sokobanHowToPlay3 = new GameHowToPlay(width, height, "sokobanHowToPlay3", this);
         GameHowToPlay sokobanHowToPlay4 = new GameHowToPlay(width, height, "sokobanHowToPlay4", this);
         GameHowToPlay sokobanHowToPlay5 = new GameHowToPlay(width, height, "sokobanHowToPlay5", this);
-        GameHowToPlay sokobanHowToPlay6 = new GameHowToPlay(width, height, "sokobanHowToPlay6", this);
 
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
@@ -70,7 +69,6 @@ public class Window extends JFrame {
         add("sokobanHowToPlay3", sokobanHowToPlay3);
         add("sokobanHowToPlay4", sokobanHowToPlay4);
         add("sokobanHowToPlay5", sokobanHowToPlay5);
-        add("sokobanHowToPlay6", sokobanHowToPlay6);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards

@@ -95,7 +95,7 @@ public class GameMainMenu extends JPanel {
     private void setLabels(String panel) {
         if (panel == "quizMain") {
             JLabel quizIcon = label(null, null, null, 260, 130, 150, 130,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizIcon.png"));
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quiz/quizMainMenu/quizIcon.png"));
             add(quizIcon);
 
             JLabel gameLabel1 = label("Are you Smarter", setFont(panel, 45), orange,
@@ -107,7 +107,7 @@ public class GameMainMenu extends JPanel {
             add(gameLabel2);
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quizLaptop.png"));
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quiz/quizLaptop.png"));
             add(mainBG);
         }
 
@@ -115,7 +115,7 @@ public class GameMainMenu extends JPanel {
             JLabel gameLabel1 = label("System Defense", setFont(panel, 45), Color.WHITE,
                     285, 50, 630, 50, null);
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvzGlobe.png"));
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvz/pvzGlobe.png"));
 
             add(gameLabel1);
             add(mainBG);
@@ -127,17 +127,21 @@ public class GameMainMenu extends JPanel {
             JLabel gameLabel2 = label("CENTER", setFont(panel, 45), Color.WHITE,
                     285, 200, 630, 50, null);
             JLabel sokobanBar = label(null, null, null, 270, 50, 672, 288,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanBar.png"));
+                    new ImageIcon(
+                            System.getProperty("user.dir") + "/src/resources/sokoban/sokobanMainMenu/sokobanBar.png"));
             RotateLabel sokobanIcon = new RotateLabel(
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanIcon.png"), 110, -70);
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokoban/sokobanIcon.png"), 110, -70);
             JLabel button1 = label(null, null, null, 475, 343, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+                    new ImageIcon(System.getProperty("user.dir")
+                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
             JLabel button2 = label(null, null, null, 475, 443, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+                    new ImageIcon(System.getProperty("user.dir")
+                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
             JLabel button3 = label(null, null, null, 475, 543, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanButton.png"));
+                    new ImageIcon(System.getProperty("user.dir")
+                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokobanStars.png"));
+                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokoban/sokobanStars.png"));
 
             add(gameLabel1);
             add(gameLabel2);
