@@ -157,6 +157,11 @@ public class GameMainMenu extends JPanel {
     public void setActionAndMouseListeners(String panel) {
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (panel == "quizMain") {
+                    QuizPlay quizPlay = new QuizPlay(window.getWidth(), window.getHeight(), window);
+                    window.add("quizPlay", quizPlay);
+                    window.showCard("quizPlay");
+                }
             }
         });
 
