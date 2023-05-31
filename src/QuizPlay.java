@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +25,8 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 import java.awt.event.MouseEvent;
+
+import java.io.IOException;
 
 public class QuizPlay extends JPanel {
 
@@ -50,6 +55,7 @@ public class QuizPlay extends JPanel {
         private JButton choiceC = new JButton();
         private JButton choiceD = new JButton();
         private JButton[] wagerButtons = new JButton[10];
+        private JButton[] cheats = new JButton[2];
 
         private String choiceAText;
         private String choiceBText;
@@ -61,6 +67,9 @@ public class QuizPlay extends JPanel {
         private int score = 0;
         private int newScore = 0;
         private int wager = 0;
+
+        private boolean peek = false;
+        private boolean copy = false;
 
         private FileInputStream fis;
         private XSSFWorkbook wb;
@@ -78,6 +87,20 @@ public class QuizPlay extends JPanel {
                 newButton(choiceB, null, Color.WHITE, 15, 650, 330, 300, 100);
                 newButton(choiceC, null, Color.WHITE, 15, 250, 430, 300, 100);
                 newButton(choiceD, null, Color.WHITE, 15, 650, 430, 300, 100);
+
+                cheats[0] = new JButton();
+                cheats[1] = new JButton();
+
+                cheats[0].setIcon(new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                                + "/src/resources/quiz/Peek.png"),
+                                30, 30)));
+                cheats[1].setIcon(new ImageIcon(resizeImage(
+                                new File(System.getProperty("user.dir")
+                                                + "/src/resources/quiz/Copy.png"),
+                                30, 30)));
+                newButton(cheats[0], null, null, 0, 730, 110, 30, 30);
+                newButton(cheats[1], null, null, 0, 800, 110, 30, 30);
 
                 add(nextButton);
 
@@ -112,6 +135,9 @@ public class QuizPlay extends JPanel {
                         }
                 });
 
+                setCheatActionListeners(cheats[0]);
+                setCheatActionListeners(cheats[1]);
+
                 setChoiceActionListeners(choiceA);
                 setChoiceActionListeners(choiceB);
                 setChoiceActionListeners(choiceC);
@@ -130,6 +156,8 @@ public class QuizPlay extends JPanel {
                 add(choiceB);
                 add(choiceC);
                 add(choiceD);
+                add(cheats[0]);
+                add(cheats[1]);
 
                 questionNo.setVisible(false);
                 questionLabel.setVisible(false);
@@ -139,6 +167,8 @@ public class QuizPlay extends JPanel {
                 choiceC.setVisible(false);
                 choiceD.setVisible(false);
                 nextButton.setVisible(false);
+                cheats[0].setVisible(false);
+                cheats[1].setVisible(false);
 
                 try {
                         fis = new FileInputStream(new File(System.getProperty("user.dir")
@@ -161,6 +191,9 @@ public class QuizPlay extends JPanel {
                 choiceCText = null;
                 choiceDText = null;
                 answer = null;
+
+                cheats[0].setEnabled(true);
+                cheats[1].setEnabled(true);
 
                 index = 0;
                 score = 0;
@@ -244,7 +277,9 @@ public class QuizPlay extends JPanel {
                 button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                                 if (e.getSource() == choiceA) {
-                                        if (choiceA.getForeground().equals(orange)) {
+                                        if (choiceA.getForeground().equals(orange)
+                                                        || choiceA.getForeground().equals(Color.YELLOW)
+                                                        || copy == true) {
                                                 if (choiceAText.matches(answer) && newScore <= score) {
                                                         choiceA.setForeground(Color.GREEN);
                                                         if (index == 10)
@@ -265,7 +300,9 @@ public class QuizPlay extends JPanel {
                                 }
 
                                 else if (e.getSource() == choiceB) {
-                                        if (choiceB.getForeground().equals(orange)) {
+                                        if (choiceB.getForeground().equals(orange)
+                                                        || choiceB.getForeground().equals(Color.YELLOW)
+                                                        || copy == true) {
                                                 if (choiceBText.matches(answer) && newScore <= score) {
                                                         choiceB.setForeground(Color.GREEN);
                                                         if (index == 10)
@@ -286,7 +323,9 @@ public class QuizPlay extends JPanel {
                                 }
 
                                 else if (e.getSource() == choiceC) {
-                                        if (choiceC.getForeground().equals(orange)) {
+                                        if (choiceC.getForeground().equals(orange)
+                                                        || choiceC.getForeground().equals(Color.YELLOW)
+                                                        || copy == true) {
                                                 if (choiceCText.matches(answer) && newScore <= score) {
                                                         choiceC.setForeground(Color.GREEN);
                                                         if (index == 10)
@@ -306,7 +345,9 @@ public class QuizPlay extends JPanel {
                                 }
 
                                 else if (e.getSource() == choiceD) {
-                                        if (choiceD.getForeground().equals(orange)) {
+                                        if (choiceD.getForeground().equals(orange)
+                                                        || choiceD.getForeground().equals(Color.YELLOW)
+                                                        || copy == true) {
                                                 if (choiceDText.matches(answer)) {
                                                         choiceD.setForeground(Color.GREEN);
                                                         if (index == 10)
@@ -325,6 +366,25 @@ public class QuizPlay extends JPanel {
                                         choiceC.setEnabled(false);
                                 }
                                 nextButton.setVisible(true);
+                        }
+                });
+
+        }
+
+        private void setCheatActionListeners(JButton button) {
+                button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (e.getSource() == cheats[0] && nextButton.isVisible() == false) {
+                                        cheats[0].setEnabled(false);
+                                        peek = true;
+                                        displayQuestion(index);
+                                }
+
+                                else if (e.getSource() == cheats[1] && nextButton.isVisible() == false) {
+                                        cheats[1].setEnabled(false);
+                                        copy = true;
+                                        displayQuestion(index);
+                                }
                         }
                 });
 
@@ -367,14 +427,19 @@ public class QuizPlay extends JPanel {
                 choiceDText = row.getCell(6).getStringCellValue();
                 answer = row.getCell(7).getStringCellValue();
 
-                questionNo.setText("Question " + Integer.toString(questions.get(item) + 1));
-                questionNo.setFont(font(40));
+                if (index < 10) {
+                        questionNo.setText("Question " + (index + 1));
+                        questionNo.setFont(font(40));
+                } else {
+                        questionNo.setText("MILLION DOLLAR QUESTION!");
+                        questionNo.setFont(font(30));
+                }
                 questionNo.setBounds(250, 100, 500, 50);
                 questionNo.setForeground(orange);
 
                 scoreLabel.setText(Integer.toString(score));
                 scoreLabel.setFont(font(40));
-                scoreLabel.setBounds(900, 100, 100, 100);
+                scoreLabel.setBounds(900, 80, 100, 100);
                 scoreLabel.setForeground(orange);
 
                 questionLabel.setText(
@@ -399,6 +464,81 @@ public class QuizPlay extends JPanel {
                 choiceB.setVisible(true);
                 choiceC.setVisible(true);
                 choiceD.setVisible(true);
+
+                if (index < 9) {
+                        cheats[0].setVisible(true);
+                        cheats[1].setVisible(true);
+                }
+
+                if (peek == true) {
+                        int answer = 0;
+                        Random r = new Random();
+                        int value = r.nextInt(10);
+
+                        // 10% Chance Answer is Wrong
+                        if (value == 1) {
+                                do {
+                                        Random wrong = new Random();
+                                        answer = wrong.nextInt(4) + 3;
+                                } while (answer > 0 && row.getCell(answer).getStringCellValue() == row.getCell(7)
+                                                .getStringCellValue());
+                        }
+                        // 90% Chance Answer is Right
+                        else {
+                                for (int i = 3; i < 7; i++) {
+                                        if (row.getCell(i).getStringCellValue() == row.getCell(7)
+                                                        .getStringCellValue()) {
+                                                answer = i;
+                                                break;
+                                        }
+                                }
+                        }
+
+                        if (answer == 3)
+                                choiceA.setForeground(Color.YELLOW);
+                        else if (answer == 4)
+                                choiceB.setForeground(Color.YELLOW);
+                        else if (answer == 5)
+                                choiceC.setForeground(Color.YELLOW);
+                        else if (answer == 6)
+                                choiceD.setForeground(Color.YELLOW);
+                        peek = false;
+                }
+
+                if (copy == true) {
+                        int answer = 0;
+                        Random r = new Random();
+                        int value = r.nextInt(10);
+
+                        // 10% Chance Answer is Wrong
+                        if (value == 1) {
+                                do {
+                                        Random wrong = new Random();
+                                        answer = wrong.nextInt(4) + 3;
+                                } while (answer > 0 && row.getCell(answer).getStringCellValue() == row.getCell(7)
+                                                .getStringCellValue());
+                        }
+                        // 90% Chance Answer is Right
+                        else {
+                                for (int i = 3; i < 7; i++) {
+                                        if (row.getCell(i).getStringCellValue() == row.getCell(7)
+                                                        .getStringCellValue()) {
+                                                answer = i;
+                                                break;
+                                        }
+                                }
+                        }
+
+                        if (answer == 3)
+                                choiceA.doClick();
+                        else if (answer == 4)
+                                choiceB.doClick();
+                        else if (answer == 5)
+                                choiceC.doClick();
+                        else if (answer == 6)
+                                choiceD.doClick();
+                        copy = false;
+                }
         }
 
         // Choose Wager Points
@@ -412,6 +552,8 @@ public class QuizPlay extends JPanel {
                 choiceB.setVisible(false);
                 choiceC.setVisible(false);
                 choiceD.setVisible(false);
+                cheats[0].setVisible(false);
+                cheats[1].setVisible(false);
 
                 for (int i = 1, j = 1; i <= 10; i++) {
                         wagerButtons[i - 1] = new JButton();
@@ -496,4 +638,14 @@ public class QuizPlay extends JPanel {
                 return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
         }
 
+        private Image resizeImage(File file, int width, int height) {
+                BufferedImage img = null;
+                try {
+                        img = ImageIO.read(file);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
+                return img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        }
 }
