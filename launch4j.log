@@ -1,10 +1,10 @@
 
 
 Version:	3.50
-CmdLine:	C:\Users\Kliezl\OneDrive - University of the Philippines\Desktop\COLLEGE\BSCS 4\2nd Sem\CMSC 125\Assignment 2\CMSC125-System-Challenge\System Challenge.exe --l4j-debug
+CmdLine:	C:\Users\Kliezl\Desktop\System Challenge.exe --l4j-debug
 JNI:		No
 WOW64:		Yes
-Working dir:	C:\Users\Kliezl\OneDrive - University of the Philippines\Desktop\COLLEGE\BSCS 4\2nd Sem\CMSC 125\Assignment 2\CMSC125-System-Challenge\.
+Working dir:	C:\Users\Kliezl\Desktop\.
 Requires JDK:	No
 Requires 64-Bit: No
 Java min ver:	
@@ -15,6 +15,6 @@ JRE paths:	;C:\Program Files\Java\jdk-19\bin;C:\Program Files\Eclipse Adoptium\j
 Check launcher:	C:\Program Files\Java\jdk-19\bin\javaw.exe (OK)
 Version string: 1.019.000_002 / 64-Bit (OK)
 Launcher:	C:\Program Files\Java\jdk-19\bin\javaw.exe
-Launcher args:	-jar "C:\Users\Kliezl\OneDrive - University of the Philippines\Desktop\COLLEGE\BSCS 4\2nd Sem\CMSC 125\Assignment 2\CMSC125-System-Challenge\System Challenge.exe"
-Args length:	162/32768 chars
+Launcher args:	-jar "C:\Users\Kliezl\Desktop\System Challenge.exe"
+Args length:	51/32768 chars
 Exit code:	0

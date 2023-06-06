@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Kliezl\OneDrive - University of the Philippines\Desktop\COLLEGE\BSCS 4\2nd Sem\CMSC 125\Assignment 2\CMSC125-System-Challenge\CMSC125-System-Challenge.jar</jar>
-  <outfile>System Challenge.exe</outfile>
+  <jar>C:\Users\Kliezl\Desktop\CMSC125-System-Challenge.jar</jar>
+  <outfile>C:\Users\Kliezl\Desktop\System Challenge.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>

@@ -41,6 +41,7 @@ public class SokobanPlay extends JPanel {
     private JButton exit;
     private JButton legend;
 
+    private SokobanQuestion sokobanQuestion;
     private int playerRow = -1;
     private int playerColumn = -1;
     private int powerUpTriggerRow = -1;
@@ -340,6 +341,9 @@ public class SokobanPlay extends JPanel {
 
         powerUp.setBounds(80 + (powerUpCol * 45), 30 + (powerUpRow * 45), 40, 40);
         powerUp.setVisible(false);
+
+        sokobanQuestion = new SokobanQuestion(window.getWidth(), window.getHeight(),
+                window);
     }
 
     // Setting solved icons
@@ -474,6 +478,10 @@ public class SokobanPlay extends JPanel {
         // Reset powerUp visibility and new random power
         randomPowerUp();
         powerUpUsed = false;
+
+        // Reset powerup question
+        sokobanQuestion = new SokobanQuestion(window.getWidth(), window.getHeight(),
+                window);
     }
 
     // Resizing Images for JLabels
@@ -678,12 +686,14 @@ public class SokobanPlay extends JPanel {
                         }
 
                         // check if its system call is left of box
-                        if (exampleCallsCol[boxLeftIndex] - 1 == systemCallsCol[boxLeftIndex]
-                                && exampleCallsRow[boxLeftIndex] == systemCallsRow[boxLeftIndex]) {
+                        if ((exampleCallsCol[boxLeftIndex] - 1 == systemCallsCol[boxLeftIndex]
+                                && exampleCallsRow[boxLeftIndex] == systemCallsRow[boxLeftIndex])
+                                || sokobanQuestion.bonusCorrect()) {
                             exampleCallsCol[boxLeftIndex] = systemCallsCol[boxLeftIndex];
                             exampleCallsRow[boxLeftIndex] = systemCallsRow[boxLeftIndex];
                             sokobanSystemCalls[boxLeftIndex].setIcon(solvedIcons[boxLeftIndex]); // change Icon
                             exampleSystemCalls[boxLeftIndex].setVisible(false); // hide example call;
+                            sokobanQuestion.setBonusCorrect(false);
                         }
 
                         if (movable) {
@@ -703,6 +713,12 @@ public class SokobanPlay extends JPanel {
                     else if (map[playerRow][playerColumn - 1] != '.') {
                         movable = false;
                     }
+                } else if (boxLeft && sokobanQuestion.bonusCorrect()) {
+                    exampleCallsCol[boxLeftIndex] = systemCallsCol[boxLeftIndex];
+                    exampleCallsRow[boxLeftIndex] = systemCallsRow[boxLeftIndex];
+                    sokobanSystemCalls[boxLeftIndex].setIcon(solvedIcons[boxLeftIndex]); // change Icon
+                    exampleSystemCalls[boxLeftIndex].setVisible(false); // hide example call;
+                    sokobanQuestion.setBonusCorrect(false);
                 } else
                     movable = false;
 
@@ -716,14 +732,10 @@ public class SokobanPlay extends JPanel {
 
                     // If player is next to power Up
                     if (powerUp.isVisible() && playerColumn - 1 == powerUpCol && playerRow == powerUpRow) {
-                        System.out.println("Show question here");
-                        powerUpUsed = true;
-                        powerUp.setVisible(false);
-
-                        SokobanQuestion sokobanQuestion = new SokobanQuestion(window.getWidth(), window.getHeight(),
-                                window);
                         window.add("sokobanQuestion", sokobanQuestion);
                         window.showCard("sokobanQuestion");
+                        powerUpUsed = true;
+                        powerUp.setVisible(false);
                     }
 
                     playerColumn -= 1;
@@ -749,12 +761,14 @@ public class SokobanPlay extends JPanel {
                         }
 
                         // check if its system call is right of box
-                        if (exampleCallsCol[boxRightIndex] + 1 == systemCallsCol[boxRightIndex]
-                                && exampleCallsRow[boxRightIndex] == systemCallsRow[boxRightIndex]) {
+                        if ((exampleCallsCol[boxRightIndex] + 1 == systemCallsCol[boxRightIndex]
+                                && exampleCallsRow[boxRightIndex] == systemCallsRow[boxRightIndex])
+                                || sokobanQuestion.bonusCorrect()) {
                             exampleCallsCol[boxRightIndex] = systemCallsCol[boxRightIndex];
                             exampleCallsRow[boxRightIndex] = systemCallsRow[boxRightIndex];
                             sokobanSystemCalls[boxRightIndex].setIcon(solvedIcons[boxRightIndex]); // change Icon
                             exampleSystemCalls[boxRightIndex].setVisible(false); // remove example call
+                            sokobanQuestion.setBonusCorrect(false);
                         }
 
                         if (movable) {
@@ -773,6 +787,12 @@ public class SokobanPlay extends JPanel {
                     else if (map[playerRow][playerColumn + 1] != '.') {
                         movable = false;
                     }
+                } else if (boxRight && sokobanQuestion.bonusCorrect()) {
+                    exampleCallsCol[boxRightIndex] = systemCallsCol[boxRightIndex];
+                    exampleCallsRow[boxRightIndex] = systemCallsRow[boxRightIndex];
+                    sokobanSystemCalls[boxRightIndex].setIcon(solvedIcons[boxRightIndex]); // change Icon
+                    exampleSystemCalls[boxRightIndex].setVisible(false); // remove example call
+                    sokobanQuestion.setBonusCorrect(false);
                 } else
                     movable = false;
 
@@ -784,7 +804,8 @@ public class SokobanPlay extends JPanel {
 
                     // If player is next to power Up
                     if (powerUp.isVisible() && playerColumn + 1 == powerUpCol && playerRow == powerUpRow) {
-                        System.out.println("Show question here");
+                        window.add("sokobanQuestion", sokobanQuestion);
+                        window.showCard("sokobanQuestion");
                         powerUpUsed = true;
                         powerUp.setVisible(false);
                     }
@@ -812,12 +833,14 @@ public class SokobanPlay extends JPanel {
                         }
 
                         // check if its system call is right of box
-                        if (exampleCallsCol[boxUpIndex] == systemCallsCol[boxUpIndex]
-                                && exampleCallsRow[boxUpIndex] - 1 == systemCallsRow[boxUpIndex]) {
+                        if ((exampleCallsCol[boxUpIndex] == systemCallsCol[boxUpIndex]
+                                && exampleCallsRow[boxUpIndex] - 1 == systemCallsRow[boxUpIndex])
+                                || sokobanQuestion.bonusCorrect()) {
                             exampleCallsCol[boxUpIndex] = systemCallsCol[boxUpIndex];
                             exampleCallsRow[boxUpIndex] = systemCallsRow[boxUpIndex];
                             sokobanSystemCalls[boxUpIndex].setIcon(solvedIcons[boxUpIndex]); // change Icon
                             exampleSystemCalls[boxUpIndex].setVisible(false); // remove example call
+                            sokobanQuestion.setBonusCorrect(false);
                         }
 
                         if (movable) {
@@ -836,6 +859,12 @@ public class SokobanPlay extends JPanel {
                     else if (map[playerRow - 1][playerColumn] != '.') {
                         movable = false;
                     }
+                } else if (boxUp && sokobanQuestion.bonusCorrect()) {
+                    exampleCallsCol[boxUpIndex] = systemCallsCol[boxUpIndex];
+                    exampleCallsRow[boxUpIndex] = systemCallsRow[boxUpIndex];
+                    sokobanSystemCalls[boxUpIndex].setIcon(solvedIcons[boxUpIndex]); // change Icon
+                    exampleSystemCalls[boxUpIndex].setVisible(false); // remove example call
+                    sokobanQuestion.setBonusCorrect(false);
                 } else
                     movable = false;
 
@@ -848,7 +877,8 @@ public class SokobanPlay extends JPanel {
 
                     // If player is next to power Up
                     if (powerUp.isVisible() && playerColumn == powerUpCol && playerRow - 1 == powerUpRow) {
-                        System.out.println("Show question here");
+                        window.add("sokobanQuestion", sokobanQuestion);
+                        window.showCard("sokobanQuestion");
                         powerUpUsed = true;
                         powerUp.setVisible(false);
                     }
@@ -876,12 +906,14 @@ public class SokobanPlay extends JPanel {
                         }
 
                         // check if its system call is right of box
-                        if (exampleCallsCol[boxDownIndex] == systemCallsCol[boxDownIndex]
-                                && exampleCallsRow[boxDownIndex] + 1 == systemCallsRow[boxDownIndex]) {
+                        if ((exampleCallsCol[boxDownIndex] == systemCallsCol[boxDownIndex]
+                                && exampleCallsRow[boxDownIndex] + 1 == systemCallsRow[boxDownIndex])
+                                || sokobanQuestion.bonusCorrect()) {
                             exampleCallsCol[boxDownIndex] = systemCallsCol[boxDownIndex];
                             exampleCallsRow[boxDownIndex] = systemCallsRow[boxDownIndex];
                             sokobanSystemCalls[boxDownIndex].setIcon(solvedIcons[boxDownIndex]); // change Icon
                             exampleSystemCalls[boxDownIndex].setVisible(false); // remove example call
+                            sokobanQuestion.setBonusCorrect(false);
                         }
 
                         if (movable) {
@@ -900,6 +932,12 @@ public class SokobanPlay extends JPanel {
                     else if (map[playerRow + 1][playerColumn] != '.') {
                         movable = false;
                     }
+                } else if (boxDown && sokobanQuestion.bonusCorrect()) {
+                    exampleCallsCol[boxDownIndex] = systemCallsCol[boxDownIndex];
+                    exampleCallsRow[boxDownIndex] = systemCallsRow[boxDownIndex];
+                    sokobanSystemCalls[boxDownIndex].setIcon(solvedIcons[boxDownIndex]); // change Icon
+                    exampleSystemCalls[boxDownIndex].setVisible(false); // remove example call
+                    sokobanQuestion.setBonusCorrect(false);
                 } else
                     movable = false;
 
@@ -911,7 +949,8 @@ public class SokobanPlay extends JPanel {
 
                     // If player is next to power Up
                     if (powerUp.isVisible() && playerColumn == powerUpCol && playerRow + 1 == powerUpRow) {
-                        System.out.println("Show question here");
+                        window.add("sokobanQuestion", sokobanQuestion);
+                        window.showCard("sokobanQuestion");
                         powerUpUsed = true;
                         powerUp.setVisible(false);
                     }
@@ -920,6 +959,16 @@ public class SokobanPlay extends JPanel {
                             android.getHeight());
                 }
             }
+
+            boolean end = true;
+            // Check if all in
+            for (int i = 0; i < 6; i++) {
+                if (exampleSystemCalls[i].isVisible()) {
+                    end = false;
+                }
+            }
+            if (end)
+                window.showCard("sokobanMain");
         }
     }
 }
