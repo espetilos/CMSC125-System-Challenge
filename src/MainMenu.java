@@ -31,7 +31,7 @@ public class MainMenu extends JPanel {
         setOpaque(true);
 
         window = w;
-        emulogicFont = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 30);
+        emulogicFont = window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), 30);
 
         if (panel == "gameBundleMain") { // If showing the Game Bundle Main Menu Panel
             setBackground(Color.BLACK);
@@ -50,11 +50,12 @@ public class MainMenu extends JPanel {
 
         if (text == "game1" || text == "game2" || text == "game3") {
             if (text == "game1")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game1.png"));
+                theButton
+                        .setIcon(new ImageIcon(getClass().getClassLoader().getResource("bundle/game1.png")));
             else if (text == "game2")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game2.png"));
+                theButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("bundle/game2.png")));
             else if (text == "game3")
-                theButton.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/resources/bundle/game3.png"));
+                theButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("bundle/game3.png")));
         }
 
         else {

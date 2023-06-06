@@ -14,8 +14,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.awt.event.MouseEvent;
 
 public class GameHowToPlay extends JPanel {
@@ -43,16 +43,18 @@ public class GameHowToPlay extends JPanel {
         // Font Object
         private Font setFont(String panel, int size) {
                 if (panel == "quizHowToPlay" || panel == "quizHowToPlay1" || panel == "quizHowToPlay2")
-                        return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
+                        return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"),
+                                        size);
                 if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
                                 || panel == "pvzHowToPlay3"
                                 || panel == "pvzHowToPlay4")
-                        return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
+                        return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
                 if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
                                 || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4"
                                 || panel == "sokobanHowToPlay5"
                                 || panel == "sokobanHowToPlay6")
-                        return window.useFont(System.getProperty("user.dir") + "/src/resources/Garet-Book.ttf", size);
+                        return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"),
+                                        size);
                 return null;
         }
 
@@ -100,11 +102,15 @@ public class GameHowToPlay extends JPanel {
                 // Game 3 How to Play Buttons
                 if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
                                 || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4"
-                                || panel == "sokobanHowToPlay5"
-                                || panel == "sokobanHowToPlay6") {
+                                || panel == "sokobanHowToPlay5") {
                         backButton = button("Main Menu", setFont(panel, 20), Color.WHITE, 50, 600, 120, 100);
                         previousButton = button("Prev", setFont(panel, 20), Color.WHITE, 1000, 600, 60, 100);
                         nextButton = button("Next", setFont(panel, 20), Color.WHITE, 1080, 600, 60, 100);
+                }
+
+                // Legend Buttons
+                if (panel == "sokobanHowToPlay6") {
+                        backButton = button("Back", setFont(panel, 20), Color.WHITE, 50, 600, 120, 100);
                 }
 
                 // Disabled Previous Buttons
@@ -118,8 +124,10 @@ public class GameHowToPlay extends JPanel {
                 }
 
                 add(backButton);
-                add(previousButton);
-                add(nextButton);
+                if (panel != "sokobanHowToPlay6") {
+                        add(previousButton);
+                        add(nextButton);
+                }
         }
 
         // Elements on the screen
@@ -179,11 +187,11 @@ public class GameHowToPlay extends JPanel {
                                                 setFont(panel, 12), Color.WHITE,
                                                 350, 430, 500, 50, null);
                                 JLabel gameLabel8 = label(null, null, null, 320, 290, 50, 50,
-                                                new ImageIcon(System.getProperty("user.dir")
-                                                                + "/src/resources/quiz/Peek.png"));
+                                                new ImageIcon(getClass().getClassLoader()
+                                                                .getResource("quiz/Peek.png")));
                                 JLabel gameLabel9 = label(null, null, null, 320, 370, 50, 50,
-                                                new ImageIcon(System.getProperty("user.dir")
-                                                                + "/src/resources/quiz/Copy.png"));
+                                                new ImageIcon(getClass().getClassLoader()
+                                                                .getResource("quiz/Copy.png")));
 
                                 add(gameLabel2);
                                 add(gameLabel3);
@@ -196,8 +204,8 @@ public class GameHowToPlay extends JPanel {
                         }
 
                         JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                                        new ImageIcon(System.getProperty("user.dir")
-                                                        + "/src/resources/quiz/quizLaptop.png"));
+                                        new ImageIcon(getClass().getClassLoader()
+                                                        .getResource("quiz/quizLaptop.png")));
                         add(mainBG);
                 }
 
@@ -220,8 +228,8 @@ public class GameHowToPlay extends JPanel {
                                         for (int j = 0; j < 8; j++) {
                                                 JLabel pvzTile = label(null,
                                                                 setFont(panel, 15), Color.WHITE, x, y, 70, 70,
-                                                                new ImageIcon(System.getProperty("user.dir")
-                                                                                + "/src/resources/pvz/pvzTile.png"));
+                                                                new ImageIcon(getClass().getClassLoader()
+                                                                                .getResource("pvz/pvzTile.png")));
                                                 add(pvzTile);
                                                 x = x + 80;
                                         }
@@ -251,12 +259,11 @@ public class GameHowToPlay extends JPanel {
                                                 if (i == 0 && j == 0) {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
-                                                                        new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatTrojan.png"),
-                                                                                                        70, 70)));
+                                                                        new ImageIcon(resizeImage(getClass()
+                                                                                        .getClassLoader()
+                                                                                        .getResourceAsStream(
+                                                                                                        "pvz/pvzThreats/pvzThreatTrojan.png"),
+                                                                                        70, 70)));
 
                                                         add(pvzThreat);
 
@@ -271,10 +278,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatTrap.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatTrap.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -289,10 +296,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatLogic.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatLogic.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -307,11 +314,12 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatStack.png"),
-                                                                                                        70, 70)));
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatStack.png"),
+                                                                                                        70,
+                                                                                                        70)));
                                                         add(pvzThreat);
 
                                                         JLabel pvzThreatLabel = label(
@@ -325,10 +333,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatVirus.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatVirus.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -343,10 +351,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatWorm.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatWorm.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -361,10 +369,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatPort.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatPort.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -379,10 +387,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzThreat = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzThreats/pvzThreatDenial.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzThreats/pvzThreatDenial.png"),
                                                                                                         70, 70)));
                                                         add(pvzThreat);
 
@@ -419,10 +427,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderEncryptor.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderEncryptor.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -437,10 +445,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderAuthenticator.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderAuthenticator.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -455,10 +463,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderAssessor.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderAssessor.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -473,10 +481,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderDetector.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderDetector.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -491,10 +499,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderAntivirus.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderAntivirus.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -509,10 +517,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderTripwire.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderTripwire.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -527,10 +535,10 @@ public class GameHowToPlay extends JPanel {
                                                         JLabel pvzDefender = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 70, 70,
                                                                         new ImageIcon(
-                                                                                        resizeImage(
-                                                                                                        new File(System.getProperty(
-                                                                                                                        "user.dir")
-                                                                                                                        + "/src/resources/pvz/pvzDefenders/pvzDefenderFirewall.png"),
+                                                                                        resizeImage(getClass()
+                                                                                                        .getClassLoader()
+                                                                                                        .getResourceAsStream(
+                                                                                                                        "pvz/pvzDefenders/pvzDefenderFirewall.png"),
                                                                                                         70, 70)));
                                                         add(pvzDefender);
 
@@ -560,16 +568,17 @@ public class GameHowToPlay extends JPanel {
 
                                 JLabel pvzBitcoin = label(null,
                                                 setFont(panel, 15), Color.WHITE, 540, 230, 120, 120,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/pvz/pvzBitcoin.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzBitcoin.png"),
                                                                 120, 120)));
 
                                 JLabel pvzPliers = label(null,
                                                 setFont(panel, 15), Color.WHITE, 540, 480, 120, 120,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/pvz/pvzPliers.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream("pvz/pvzPliers.png"),
                                                                 120, 120)));
 
                                 add(pvzBitcoin);
@@ -585,24 +594,24 @@ public class GameHowToPlay extends JPanel {
 
                                 JLabel pvzUpgrade = label(null,
                                                 setFont(panel, 15), Color.WHITE, 525, 330, 150, 150,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/pvz/pvzUpgrade.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream("pvz/pvzUpgrade.png"),
                                                                 150, 150)));
                                 add(pvzUpgrade);
                         }
 
                         JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                                        new ImageIcon(System.getProperty("user.dir")
-                                                        + "/src/resources/pvz/pvzGlobe.png"));
+                                        new ImageIcon(getClass()
+                                                        .getClassLoader()
+                                                        .getResource("pvz/pvzGlobe.png")));
                         add(mainBG);
                 }
 
                 // Game 3 How to Play Elements
                 if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
                                 || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4"
-                                || panel == "sokobanHowToPlay5"
-                                || panel == "sokobanHowToPlay6") {
+                                || panel == "sokobanHowToPlay5" || panel == "sokobanHowToPlay6") {
 
                         JLabel gameLabel = label("HOW TO PLAY", setFont(panel, 45), Color.WHITE,
                                         355, 50, 490, 50, null);
@@ -639,10 +648,10 @@ public class GameHowToPlay extends JPanel {
 
                                                         JLabel sokobanBrick = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 25, 25,
-                                                                        new ImageIcon(resizeImage(
-                                                                                        new File(System.getProperty(
-                                                                                                        "user.dir")
-                                                                                                        + "/src/resources/sokoban/sokobanMap/sokobanBrick.png"),
+                                                                        new ImageIcon(resizeImage(getClass()
+                                                                                        .getClassLoader()
+                                                                                        .getResourceAsStream(
+                                                                                                        "sokoban/sokobanMap/sokobanBrick.png"),
                                                                                         25, 25)));
                                                         add(sokobanBrick);
                                                 }
@@ -653,10 +662,10 @@ public class GameHowToPlay extends JPanel {
                                                                 || (i == 1 && j == 8)) {
                                                         JLabel sokobanBrick = label(null,
                                                                         setFont(panel, 15), Color.WHITE, x, y, 25, 25,
-                                                                        new ImageIcon(resizeImage(
-                                                                                        new File(System.getProperty(
-                                                                                                        "user.dir")
-                                                                                                        + "/src/resources/sokoban/sokobanMap/sokobanGround.png"),
+                                                                        new ImageIcon(resizeImage(getClass()
+                                                                                        .getClassLoader()
+                                                                                        .getResourceAsStream(
+                                                                                                        "sokoban/sokobanMap/sokobanGround.png"),
                                                                                         25, 25)));
                                                         add(sokobanBrick);
                                                 }
@@ -668,49 +677,55 @@ public class GameHowToPlay extends JPanel {
                                 // System Call Icons
                                 JLabel sokobanSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 680, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanProcessControl.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanProcessControl.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall);
 
                                 JLabel sokobanSystemCall1 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 800, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanFileManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanFileManagement.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall1);
 
                                 JLabel sokobanSystemCall2 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 920, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanDeviceManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanDeviceManagement.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall2);
 
                                 JLabel sokobanSystemCall3 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 680, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanInformationMaintenanceManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanInformationMaintenanceManagement.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall3);
 
                                 JLabel sokobanSystemCall4 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 800, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanCommunications.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanCommunications.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall4);
 
                                 JLabel sokobanSystemCall5 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 920, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanProtection.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanProtection.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall5);
                         }
@@ -736,56 +751,63 @@ public class GameHowToPlay extends JPanel {
                                 // Android Character
                                 JLabel sokobanCharacter = label(null,
                                                 setFont(panel, 15), Color.WHITE, 280, 270, 212, 230,
-                                                new ImageIcon(System.getProperty("user.dir")
-                                                                + "/src/resources/sokoban/sokobanIcon.png"));
+                                                new ImageIcon(getClass()
+                                                                .getClassLoader()
+                                                                .getResource("sokoban/sokobanIcon.png")));
                                 add(sokobanCharacter);
 
                                 // Exampl System Call Icons
                                 JLabel sokobanSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 600, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall);
 
                                 JLabel sokobanSystemCall1 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 720, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFile().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateFile().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall1);
 
                                 JLabel sokobanSystemCall2 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 840, 280, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanReadConsole().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanReadConsole().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall2);
 
                                 JLabel sokobanSystemCall3 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 600, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetTimer().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanSetTimer().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall3);
 
                                 JLabel sokobanSystemCall4 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 720, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFileMapping().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateFileMapping().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall4);
 
                                 JLabel sokobanSystemCall5 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 840, 390, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetFileSecurity().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanSetFileSecurity().png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall5);
                         }
@@ -808,45 +830,50 @@ public class GameHowToPlay extends JPanel {
                                 // Example System Call
                                 JLabel sokobanExampleSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 300, 430, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
                                                                 80, 80)));
                                 add(sokobanExampleSystemCall);
 
                                 // Type of System Call
                                 JLabel sokobanSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 550, 430, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanProcessControl.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanProcessControl.png"),
                                                                 80, 80)));
                                 add(sokobanSystemCall);
 
                                 // Solved System Call
                                 JLabel sokobanSolvedSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 820, 430, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSolvedSystemCall/sokobanProcessControlSolved.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSolvedSystemCall/sokobanProcessControlSolved.png"),
                                                                 80, 80)));
                                 add(sokobanSolvedSystemCall);
 
                                 // Arrow
                                 JLabel sokobanArrow = label(null,
                                                 setFont(panel, 15), Color.WHITE, 420, 430, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanHowToPlay/sokobanArrow.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanHowToPlay/sokobanArrow.png"),
                                                                 80, 80)));
                                 add(sokobanArrow);
 
                                 // Equal
                                 JLabel sokobanEqual = label(null,
                                                 setFont(panel, 15), Color.WHITE, 680, 430, 80, 80,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanHowToPlay/sokobanEqual.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanHowToPlay/sokobanEqual.png"),
                                                                 80, 80)));
                                 add(sokobanEqual);
                         }
@@ -872,8 +899,9 @@ public class GameHowToPlay extends JPanel {
                                 // Power Up
                                 JLabel sokobanPowerUp = label(null,
                                                 setFont(panel, 15), Color.WHITE, 525, 270, 150, 150,
-                                                new ImageIcon(System.getProperty("user.dir")
-                                                                + "/src/resources/sokoban/sokobanPowerUp.png"));
+                                                new ImageIcon(getClass()
+                                                                .getClassLoader()
+                                                                .getResource("sokoban/sokobanPowerUp.png")));
                                 add(sokobanPowerUp);
                         }
 
@@ -929,7 +957,7 @@ public class GameHowToPlay extends JPanel {
                         }
 
                         // Page 6/6 of Game 3 How To Play
-                        if (panel == "sokobanHowToPlay5") {
+                        if (panel == "sokobanHowToPlay5" || panel == "sokobanHowToPlay6") {
                                 JLabel gameLabel1 = label(
                                                 "<html><center>LEGEND</center></html>",
                                                 setFont(panel, 30), Color.WHITE, 510, 100, 180, 100, null);
@@ -948,49 +976,56 @@ public class GameHowToPlay extends JPanel {
 
                                 JLabel sokobanSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 250, 50, 50,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanProcessControl.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanProcessControl.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall);
 
                                 JLabel sokobanSystemCall1 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 310, 50, 50,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanFileManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanFileManagement.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall1);
 
                                 JLabel sokobanSystemCall2 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 370, 50, 50,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanDeviceManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanDeviceManagement.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall2);
 
                                 JLabel sokobanSystemCall3 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 430, 50, 50,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanInformationMaintenanceManagement.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanInformationMaintenanceManagement.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall3);
 
                                 JLabel sokobanSystemCall4 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 490, 50, 50,
-                                                new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanCommunications.png"),
+                                                new ImageIcon(resizeImage(getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "sokoban/sokobanSystemCall/sokobanCommunications.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall4);
 
                                 JLabel sokobanSystemCall5 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 220, 550, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanSystemCall/sokobanProtection.png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanSystemCall/sokobanProtection.png"),
                                                                 50, 50)));
                                 add(sokobanSystemCall5);
 
@@ -1027,48 +1062,58 @@ public class GameHowToPlay extends JPanel {
                                 JLabel sokobanExampleSystemCall = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 250, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateProcess().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall);
 
                                 JLabel sokobanExampleSystemCall1 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 310, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFile().png"),
+                                                                getClass().getClassLoader().getResourceAsStream(
+                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateFile().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall1);
 
                                 JLabel sokobanExampleSystemCall2 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 370, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanReadConsole().png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanExampleSystemCall/sokobanReadConsole().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall2);
 
                                 JLabel sokobanExampleSystemCall3 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 430, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetTimer().png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanExampleSystemCall/sokobanSetTimer().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall3);
 
                                 JLabel sokobanExampleSystemCall4 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 490, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanCreateFileMapping().png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanExampleSystemCall/sokobanCreateFileMapping().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall4);
 
                                 JLabel sokobanExampleSystemCall5 = label(null,
                                                 setFont(panel, 15), Color.WHITE, 700, 550, 50, 50,
                                                 new ImageIcon(resizeImage(
-                                                                new File(System.getProperty("user.dir")
-                                                                                + "/src/resources/sokoban/sokobanExampleSystemCall/sokobanSetFileSecurity().png"),
+                                                                getClass()
+                                                                                .getClassLoader()
+                                                                                .getResourceAsStream(
+                                                                                                "sokoban/sokobanExampleSystemCall/sokobanSetFileSecurity().png"),
                                                                 50, 50)));
                                 add(sokobanExampleSystemCall5);
 
@@ -1104,13 +1149,14 @@ public class GameHowToPlay extends JPanel {
                         }
 
                         JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                                        new ImageIcon(System.getProperty("user.dir")
-                                                        + "/src/resources/sokoban/sokobanStars.png"));
+                                        new ImageIcon(getClass()
+                                                        .getClassLoader()
+                                                        .getResource("sokoban/sokobanStars.png")));
                         add(mainBG);
                 }
         }
 
-        private Image resizeImage(File file, int width, int height) {
+        private Image resizeImage(InputStream file, int width, int height) {
                 BufferedImage img = null;
                 try {
                         img = ImageIO.read(file);
@@ -1141,9 +1187,13 @@ public class GameHowToPlay extends JPanel {
                                 if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1"
                                                 || panel == "sokobanHowToPlay2"
                                                 || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4"
-                                                || panel == "sokobanHowToPlay5"
-                                                || panel == "sokobanHowToPlay6") {
+                                                || panel == "sokobanHowToPlay5") {
                                         window.showCard("sokobanMain");
+                                }
+
+                                // Legend
+                                if (panel == "sokobanHowToPlay6") {
+                                        window.showCard("sokobanPlay");
                                 }
                         }
                 });
@@ -1170,174 +1220,166 @@ public class GameHowToPlay extends JPanel {
                         }
                 });
 
-                previousButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                                // Game 1 Previous Button (From Page 2 to Page 1)
-                                if (panel == "quizHowToPlay1") {
-                                        window.showCard("quizHowToPlay");
+                if (panel != "sokobanHowToPlay6") {
+                        previousButton.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                        // Game 1 Previous Button (From Page 2 to Page 1)
+                                        if (panel == "quizHowToPlay1") {
+                                                window.showCard("quizHowToPlay");
+                                        }
+
+                                        // Game 1 Previous Button (From Page 3 to Page 2)
+                                        if (panel == "quizHowToPlay2") {
+                                                window.showCard("quizHowToPlay1");
+                                        }
+
+                                        // Game 2 Previous Button (From Page 2 to Page 1)
+                                        if (panel == "pvzHowToPlay1") {
+                                                window.showCard("pvzHowToPlay");
+                                        }
+
+                                        // Game 2 Previous Button (From Page 3 to Page 2)
+                                        if (panel == "pvzHowToPlay2") {
+                                                window.showCard("pvzHowToPlay1");
+                                        }
+
+                                        // Game 2 Previous Button (From Page 4 to Page 3)
+                                        if (panel == "pvzHowToPlay3") {
+                                                window.showCard("pvzHowToPlay2");
+                                        }
+
+                                        // Game 2 Previous Button (From Page 5 to Page 4)
+                                        if (panel == "pvzHowToPlay4") {
+                                                window.showCard("pvzHowToPlay3");
+                                        }
+
+                                        // Game 3 Previous Button (From Page 6 to Page 5)
+                                        if (panel == "sokobanHowToPlay5") {
+                                                window.showCard("sokobanHowToPlay4");
+                                        }
+
+                                        // Game 3 Previous Button (From Page 5 to Page 4)
+                                        if (panel == "sokobanHowToPlay4") {
+                                                window.showCard("sokobanHowToPlay3");
+                                        }
+
+                                        // Game 3 Previous Button (From Page 4 to Page 3)
+                                        if (panel == "sokobanHowToPlay3") {
+                                                window.showCard("sokobanHowToPlay2");
+                                        }
+
+                                        // Game 3 Previous Button (From Page 3 to Page 2)
+                                        if (panel == "sokobanHowToPlay2") {
+                                                window.showCard("sokobanHowToPlay1");
+                                        }
+
+                                        // Game 3 Previous Button (From Page 2 to Page 1)
+                                        if (panel == "sokobanHowToPlay1") {
+                                                window.showCard("sokobanHowToPlay");
+                                        }
+                                }
+                        });
+
+                        previousButton.addMouseListener(new MouseListener() {
+                                public void mouseEntered(MouseEvent e) {
+                                        previousButton.setForeground(orange);
                                 }
 
-                                // Game 1 Previous Button (From Page 3 to Page 2)
-                                if (panel == "quizHowToPlay2") {
-                                        window.showCard("quizHowToPlay1");
+                                public void mouseExited(MouseEvent e) {
+                                        previousButton.setForeground(Color.WHITE);
                                 }
 
-                                // Game 2 Previous Button (From Page 2 to Page 1)
-                                if (panel == "pvzHowToPlay1") {
-                                        window.showCard("pvzHowToPlay");
+                                public void mouseReleased(MouseEvent e) {
+                                        previousButton.setForeground(Color.WHITE);
                                 }
 
-                                // Game 2 Previous Button (From Page 3 to Page 2)
-                                if (panel == "pvzHowToPlay2") {
-                                        window.showCard("pvzHowToPlay1");
+                                public void mouseClicked(MouseEvent e) {
+                                        previousButton.setForeground(orange);
                                 }
 
-                                // Game 2 Previous Button (From Page 4 to Page 3)
-                                if (panel == "pvzHowToPlay3") {
-                                        window.showCard("pvzHowToPlay2");
+                                public void mousePressed(MouseEvent e) {
+                                }
+                        });
+
+                        nextButton.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                        // Game 1 Next Button (From Page 1 to Page 2)
+                                        if (panel == "quizHowToPlay") {
+                                                window.showCard("quizHowToPlay1");
+                                        }
+
+                                        // Game 1 Next Button (From Page 2 to Page 3)
+                                        if (panel == "quizHowToPlay1") {
+                                                window.showCard("quizHowToPlay2");
+                                        }
+
+                                        // Game 2 Next Button (From Page 1 to Page 2)
+                                        if (panel == "pvzHowToPlay") {
+                                                window.showCard("pvzHowToPlay1");
+                                        }
+
+                                        // Game 2 Next Button (From Page 2 to Page 3)
+                                        if (panel == "pvzHowToPlay1") {
+                                                window.showCard("pvzHowToPlay2");
+                                        }
+
+                                        // Game 2 Next Button (From Page 3 to Page 4)
+                                        if (panel == "pvzHowToPlay2") {
+                                                window.showCard("pvzHowToPlay3");
+                                        }
+
+                                        // Game 2 Next Button (From Page 4 to Page 5)
+                                        if (panel == "pvzHowToPlay3") {
+                                                window.showCard("pvzHowToPlay4");
+                                        }
+
+                                        // Game 3 Next Button (From Page 1 to Page 2)
+                                        if (panel == "sokobanHowToPlay") {
+                                                window.showCard("sokobanHowToPlay1");
+                                        }
+
+                                        // Game 3 Next Button (From Page 2 to Page 3)
+                                        if (panel == "sokobanHowToPlay1") {
+                                                window.showCard("sokobanHowToPlay2");
+                                        }
+
+                                        // Game 3 Next Button (From Page 3 to Page 4)
+                                        if (panel == "sokobanHowToPlay2") {
+                                                window.showCard("sokobanHowToPlay3");
+                                        }
+
+                                        // Game 3 Next Button (From Page 4 to Page 5)
+                                        if (panel == "sokobanHowToPlay3") {
+                                                window.showCard("sokobanHowToPlay4");
+                                        }
+                                        // Game 3 Next Button (From Page 5 to Page 6)
+                                        if (panel == "sokobanHowToPlay4") {
+                                                window.showCard("sokobanHowToPlay5");
+                                        }
+                                }
+                        });
+
+                        nextButton.addMouseListener(new MouseListener() {
+                                public void mouseEntered(MouseEvent e) {
+                                        nextButton.setForeground(orange);
                                 }
 
-                                // Game 2 Previous Button (From Page 5 to Page 4)
-                                if (panel == "pvzHowToPlay4") {
-                                        window.showCard("pvzHowToPlay3");
+                                public void mouseExited(MouseEvent e) {
+                                        nextButton.setForeground(Color.WHITE);
                                 }
 
-                                // Game 3 Previous Button (From Page 7 to Page 6)
-                                if (panel == "sokobanHowToPlay6") {
-                                        window.showCard("sokobanHowToPlay5");
+                                public void mouseReleased(MouseEvent e) {
+                                        nextButton.setForeground(Color.WHITE);
                                 }
 
-                                // Game 3 Previous Button (From Page 6 to Page 5)
-                                if (panel == "sokobanHowToPlay5") {
-                                        window.showCard("sokobanHowToPlay4");
+                                public void mouseClicked(MouseEvent e) {
+                                        nextButton.setForeground(orange);
                                 }
 
-                                // Game 3 Previous Button (From Page 5 to Page 4)
-                                if (panel == "sokobanHowToPlay4") {
-                                        window.showCard("sokobanHowToPlay3");
+                                public void mousePressed(MouseEvent e) {
                                 }
-
-                                // Game 3 Previous Button (From Page 4 to Page 3)
-                                if (panel == "sokobanHowToPlay3") {
-                                        window.showCard("sokobanHowToPlay2");
-                                }
-
-                                // Game 3 Previous Button (From Page 3 to Page 2)
-                                if (panel == "sokobanHowToPlay2") {
-                                        window.showCard("sokobanHowToPlay1");
-                                }
-
-                                // Game 3 Previous Button (From Page 2 to Page 1)
-                                if (panel == "sokobanHowToPlay1") {
-                                        window.showCard("sokobanHowToPlay");
-                                }
-                        }
-                });
-
-                previousButton.addMouseListener(new MouseListener() {
-                        public void mouseEntered(MouseEvent e) {
-                                previousButton.setForeground(orange);
-                        }
-
-                        public void mouseExited(MouseEvent e) {
-                                previousButton.setForeground(Color.WHITE);
-                        }
-
-                        public void mouseReleased(MouseEvent e) {
-                                previousButton.setForeground(Color.WHITE);
-                        }
-
-                        public void mouseClicked(MouseEvent e) {
-                                previousButton.setForeground(orange);
-                        }
-
-                        public void mousePressed(MouseEvent e) {
-                        }
-                });
-
-                nextButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                                // Game 1 Next Button (From Page 1 to Page 2)
-                                if (panel == "quizHowToPlay") {
-                                        window.showCard("quizHowToPlay1");
-                                }
-
-                                // Game 1 Next Button (From Page 2 to Page 3)
-                                if (panel == "quizHowToPlay1") {
-                                        window.showCard("quizHowToPlay2");
-                                }
-
-                                // Game 2 Next Button (From Page 1 to Page 2)
-                                if (panel == "pvzHowToPlay") {
-                                        window.showCard("pvzHowToPlay1");
-                                }
-
-                                // Game 2 Next Button (From Page 2 to Page 3)
-                                if (panel == "pvzHowToPlay1") {
-                                        window.showCard("pvzHowToPlay2");
-                                }
-
-                                // Game 2 Next Button (From Page 3 to Page 4)
-                                if (panel == "pvzHowToPlay2") {
-                                        window.showCard("pvzHowToPlay3");
-                                }
-
-                                // Game 2 Next Button (From Page 4 to Page 5)
-                                if (panel == "pvzHowToPlay3") {
-                                        window.showCard("pvzHowToPlay4");
-                                }
-
-                                // Game 3 Next Button (From Page 1 to Page 2)
-                                if (panel == "sokobanHowToPlay") {
-                                        window.showCard("sokobanHowToPlay1");
-                                }
-
-                                // Game 3 Next Button (From Page 2 to Page 3)
-                                if (panel == "sokobanHowToPlay1") {
-                                        window.showCard("sokobanHowToPlay2");
-                                }
-
-                                // Game 3 Next Button (From Page 3 to Page 4)
-                                if (panel == "sokobanHowToPlay2") {
-                                        window.showCard("sokobanHowToPlay3");
-                                }
-
-                                // Game 3 Next Button (From Page 4 to Page 5)
-                                if (panel == "sokobanHowToPlay3") {
-                                        window.showCard("sokobanHowToPlay4");
-                                }
-                                // Game 3 Next Button (From Page 5 to Page 6)
-                                if (panel == "sokobanHowToPlay4") {
-                                        window.showCard("sokobanHowToPlay5");
-                                }
-
-                                // Game 3 Next Button (From Page 6 to Page 7)
-                                if (panel == "sokobanHowToPlay5") {
-                                        window.showCard("sokobanHowToPlay6");
-                                }
-                        }
-                });
-
-                nextButton.addMouseListener(new MouseListener() {
-                        public void mouseEntered(MouseEvent e) {
-                                nextButton.setForeground(orange);
-                        }
-
-                        public void mouseExited(MouseEvent e) {
-                                nextButton.setForeground(Color.WHITE);
-                        }
-
-                        public void mouseReleased(MouseEvent e) {
-                                nextButton.setForeground(Color.WHITE);
-                        }
-
-                        public void mouseClicked(MouseEvent e) {
-                                nextButton.setForeground(orange);
-                        }
-
-                        public void mousePressed(MouseEvent e) {
-                        }
-                });
+                        });
+                }
 
         }
 }

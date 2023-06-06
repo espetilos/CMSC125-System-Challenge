@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import java.io.File;
 import java.io.FileInputStream;
 // import java.util.Iterator;
 // import org.apache.poi.ss.usermodel.Cell;
@@ -27,6 +26,7 @@ import java.util.Random;
 import java.awt.event.MouseEvent;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class QuizPlay extends JPanel {
 
@@ -92,12 +92,14 @@ public class QuizPlay extends JPanel {
                 cheats[1] = new JButton();
 
                 cheats[0].setIcon(new ImageIcon(resizeImage(
-                                new File(System.getProperty("user.dir")
-                                                + "/src/resources/quiz/Peek.png"),
+                                getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("quiz/Peek.png"),
                                 30, 30)));
                 cheats[1].setIcon(new ImageIcon(resizeImage(
-                                new File(System.getProperty("user.dir")
-                                                + "/src/resources/quiz/Copy.png"),
+                                getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("quiz/Copy.png"),
                                 30, 30)));
                 newButton(cheats[0], null, null, 0, 730, 110, 30, 30);
                 newButton(cheats[1], null, null, 0, 800, 110, 30, 30);
@@ -171,8 +173,9 @@ public class QuizPlay extends JPanel {
                 cheats[1].setVisible(false);
 
                 try {
-                        fis = new FileInputStream(new File(System.getProperty("user.dir")
-                                        + "/src/resources/quiz/quizQuestions.xlsx"));
+                        fis = new FileInputStream(getClass()
+                                        .getClassLoader()
+                                        .getResource("quiz/quizQuestions.xlsx").getPath());
                         wb = new XSSFWorkbook(fis);
                         sheet = wb.getSheetAt(0);
                 } catch (
@@ -206,8 +209,9 @@ public class QuizPlay extends JPanel {
         private void setQuizBackground() {
                 setBackground(Color.BLACK);
                 quizLaptop = new JLabel();
-                quizLaptop.setIcon(new ImageIcon(System.getProperty("user.dir")
-                                + "/src/resources/quiz/quizLaptop.png"));
+                quizLaptop.setIcon(new ImageIcon(getClass()
+                                .getClassLoader()
+                                .getResource("quiz/quizLaptop.png")));
                 quizLaptop.setBounds(0, 0, 1200, 725);
                 quizLaptop.setHorizontalAlignment(SwingConstants.CENTER);
                 add(quizLaptop);
@@ -635,10 +639,10 @@ public class QuizPlay extends JPanel {
         }
 
         private Font font(int size) {
-                return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
+                return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"), size);
         }
 
-        private Image resizeImage(File file, int width, int height) {
+        private Image resizeImage(InputStream file, int width, int height) {
                 BufferedImage img = null;
                 try {
                         img = ImageIO.read(file);

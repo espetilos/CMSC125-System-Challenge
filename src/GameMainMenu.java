@@ -38,11 +38,11 @@ public class GameMainMenu extends JPanel {
 
     private Font setFont(String panel, int size) {
         if (panel == "quizMain")
-            return window.useFont(System.getProperty("user.dir") + "/src/resources/Alyssum-Sans.ttf", size);
+            return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"), size);
         if (panel == "pvzMain")
-            return window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", size);
+            return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
         if (panel == "sokobanMain")
-            return window.useFont(System.getProperty("user.dir") + "/src/resources/Garet-Book.ttf", size);
+            return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"), size);
         return null;
     }
 
@@ -95,7 +95,9 @@ public class GameMainMenu extends JPanel {
     private void setLabels(String panel) {
         if (panel == "quizMain") {
             JLabel quizIcon = label(null, null, null, 260, 130, 150, 130,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quiz/quizMainMenu/quizIcon.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("quiz/quizMainMenu/quizIcon.png")));
             add(quizIcon);
 
             JLabel gameLabel1 = label("Are you Smarter", setFont(panel, 45), orange,
@@ -107,7 +109,9 @@ public class GameMainMenu extends JPanel {
             add(gameLabel2);
 
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/quiz/quizLaptop.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("quiz/quizLaptop.png")));
             add(mainBG);
         }
 
@@ -115,7 +119,9 @@ public class GameMainMenu extends JPanel {
             JLabel gameLabel1 = label("System Defense", setFont(panel, 45), Color.WHITE,
                     285, 50, 630, 50, null);
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/pvz/pvzGlobe.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("pvz/pvzGlobe.png")));
 
             add(gameLabel1);
             add(mainBG);
@@ -128,20 +134,31 @@ public class GameMainMenu extends JPanel {
                     285, 200, 630, 50, null);
             JLabel sokobanBar = label(null, null, null, 270, 50, 672, 288,
                     new ImageIcon(
-                            System.getProperty("user.dir") + "/src/resources/sokoban/sokobanMainMenu/sokobanBar.png"));
+                            getClass()
+                                    .getClassLoader()
+                                    .getResource("sokoban/sokobanMainMenu/sokobanBar.png")));
             RotateLabel sokobanIcon = new RotateLabel(
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokoban/sokobanIcon.png"), 110, -70);
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("sokoban/sokobanIcon.png")),
+                    110,
+                    -70);
             JLabel button1 = label(null, null, null, 475, 343, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir")
-                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("sokoban/sokobanMainMenu/sokobanButton.png")));
             JLabel button2 = label(null, null, null, 475, 443, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir")
-                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("sokoban/sokobanMainMenu/sokobanButton.png")));
             JLabel button3 = label(null, null, null, 475, 543, 250, 100,
-                    new ImageIcon(System.getProperty("user.dir")
-                            + "/src/resources/sokoban/sokobanMainMenu/sokobanButton.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("sokoban/sokobanMainMenu/sokobanButton.png")));
             JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
-                    new ImageIcon(System.getProperty("user.dir") + "/src/resources/sokoban/sokobanStars.png"));
+                    new ImageIcon(getClass()
+                            .getClassLoader()
+                            .getResource("sokoban/sokobanStars.png")));
 
             add(gameLabel1);
             add(gameLabel2);
@@ -161,6 +178,12 @@ public class GameMainMenu extends JPanel {
                     QuizPlay quizPlay = new QuizPlay(window.getWidth(), window.getHeight(), window);
                     window.add("quizPlay", quizPlay);
                     window.showCard("quizPlay");
+                }
+
+                else if (panel == "sokobanMain") {
+                    SokobanPlay sokobanPlay = new SokobanPlay(window.getWidth(), window.getHeight(), window);
+                    window.add("sokobanPlay", sokobanPlay);
+                    window.showCard("sokobanPlay");
                 }
             }
         });

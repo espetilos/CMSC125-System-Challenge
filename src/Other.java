@@ -25,9 +25,9 @@ public class Other extends JPanel {
         setOpaque(true);
 
         window = g;
-        emulogicFont30 = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 30);
-        emulogicFont20 = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 20);
-        emulogicFont10 = window.useFont(System.getProperty("user.dir") + "/src/resources/Emulogic.ttf", 10);
+        emulogicFont30 = window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), 30);
+        emulogicFont20 = window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), 20);
+        emulogicFont10 = window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), 10);
         setButtons();
 
         if (panel == "gameBundleCredits") {

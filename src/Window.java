@@ -1,8 +1,9 @@
 import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.swing.JFrame;
 
 public class Window extends JFrame {
@@ -49,6 +50,7 @@ public class Window extends JFrame {
         GameHowToPlay sokobanHowToPlay3 = new GameHowToPlay(width, height, "sokobanHowToPlay3", this);
         GameHowToPlay sokobanHowToPlay4 = new GameHowToPlay(width, height, "sokobanHowToPlay4", this);
         GameHowToPlay sokobanHowToPlay5 = new GameHowToPlay(width, height, "sokobanHowToPlay5", this);
+        GameHowToPlay sokobanHowToPlay6 = new GameHowToPlay(width, height, "sokobanHowToPlay6", this);
 
         add("gameBundleMain", gameBundleMain);
         add("gameBundleCredits", gameBundleCredits);
@@ -69,15 +71,19 @@ public class Window extends JFrame {
         add("sokobanHowToPlay3", sokobanHowToPlay3);
         add("sokobanHowToPlay4", sokobanHowToPlay4);
         add("sokobanHowToPlay5", sokobanHowToPlay5);
+        add("sokobanHowToPlay6", sokobanHowToPlay6);
     }
 
     public void showCard(String card) { // The Card Layout; Method in switching cards
         layout.show(this.getContentPane(), card);
     }
 
-    public Font useFont(String path, int size) { // Method in using a font provided in resources
+    public Font useFont(InputStream path, int size) { // Method in using a font provided in resources
         try {
-            return Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont(Font.PLAIN, size);
+            return Font.createFont(Font.TRUETYPE_FONT, path).deriveFont(Font.PLAIN, size);
+            // return Font.createFont(size, path);
+            // return Font.createFont(Font.TRUETYPE_FONT, new
+            // File(path)).deriveFont(Font.PLAIN, size);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
