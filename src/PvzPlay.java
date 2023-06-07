@@ -1,5 +1,8 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,18 +13,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
+        private int bitCoinNum = 999;
         private Window window;
+        private JButton[][] panels = new JButton[5][8];
         private JButton[] defenders = new JButton[7];
         private JLabel[] threats = new JLabel[8];
         private JButton upgrade;
         private JLabel bitCoin;
+        private JLabel bitCoinAmount;
         private JButton pliers;
+        private JButton exit;
 
-        // hello
         public PvzPlay(int width, int height, Window w) {
                 setSize(width, height);
                 setLayout(null);
@@ -32,7 +39,27 @@ public class PvzPlay extends JPanel {
                 setThreats();
                 setDefenders();
                 setExtras();
+                setPanels();
                 setPvzBackground(); // Setting Panel Background
+        }
+
+        private void setPanels() {
+                int y = 180;
+                for (int i = 0; i < 5; i++) {
+                        int x = 200;
+                        for (int j = 0; j < 8; j++) {
+                                panels[i][j] = new JButton(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream("pvz/pvzTile.png"),
+                                                90, 90)));
+                                panels[i][j].setBounds(x, y, 90, 90);
+                                panels[i][j].setBorder(BorderFactory.createEmptyBorder());
+                                add(panels[i][j]);
+                                x += 100;
+                        }
+                        y += 100;
+                }
         }
 
         private void setExtras() {
@@ -41,14 +68,46 @@ public class PvzPlay extends JPanel {
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzBitcoin.png"),
                                 length, length)));
+
                 pliers = new JButton(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzPliers.png"),
                                 length, length)));
 
+                bitCoinAmount = new JLabel();
+                // bitCoinAmount.setText("<html> <center>" + Integer.toString(bitCoinNum) +
+                // "</center> </html>");
+                bitCoinAmount.setText(Integer.toString(bitCoinNum));
+                bitCoinAmount.setHorizontalAlignment(SwingConstants.CENTER);
+                bitCoinAmount.setFont(font(40));
+                bitCoinAmount.setBounds(40, 125, length + 50, length);
+                bitCoinAmount.setForeground(Color.WHITE);
+                bitCoinAmount.setBorder(BorderFactory.createEmptyBorder());
+                add(bitCoinAmount);
+
+                bitCoin.setBounds(65, 50, length, length);
+                bitCoin.setBorder(BorderFactory.createEmptyBorder());
                 add(bitCoin);
+
+                pliers.setBounds(915, 50, length, length);
+                pliers.setContentAreaFilled(false);
+                pliers.setFocusPainted(false);
+                pliers.setBorder(BorderFactory.createEmptyBorder());
                 add(pliers);
+
+                exit = new JButton("Exit");
+                exit.setFont(font(20));
+                exit.setBounds(1025, 50, 100, length);
+                exit.setForeground(Color.WHITE);
+                exit.setContentAreaFilled(false);
+                exit.setBorder(BorderFactory.createEmptyBorder());
+                exit.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                window.showCard("pvzMain");
+                        }
+                });
+                add(exit);
         }
 
         // Setting Game 2 Background
@@ -163,5 +222,9 @@ public class PvzPlay extends JPanel {
                 }
 
                 return img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        }
+
+        private Font font(int size) {
+                return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
         }
 }
