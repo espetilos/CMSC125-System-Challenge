@@ -180,6 +180,12 @@ public class GameMainMenu extends JPanel {
                     window.showCard("quizPlay");
                 }
 
+                else if (panel == "pvzMain") {
+                    PvzPlay pvzPlay = new PvzPlay(window.getWidth(), window.getHeight(), window);
+                    window.add("pvzPlay", pvzPlay);
+                    window.showCard("pvzPlay");
+                }
+
                 else if (panel == "sokobanMain") {
                     SokobanPlay sokobanPlay = new SokobanPlay(window.getWidth(), window.getHeight(), window);
                     window.add("sokobanPlay", sokobanPlay);
