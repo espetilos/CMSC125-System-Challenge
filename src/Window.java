@@ -12,7 +12,7 @@ public class Window extends JFrame {
     private SoundClip quizsoundmain = new SoundClip(
             getClass().getClassLoader().getResourceAsStream("quiz/quizAudio/quizMainAudio.wav"), 0);
     private SoundClip pvzsoundmain = new SoundClip(
-            getClass().getClassLoader().getResourceAsStream("pvz/pvzAudio/pvzMainAudio.wav"), 0);
+            getClass().getClassLoader().getResourceAsStream("../resources/pvz/pvzAudio/pvzMainAudio.wav"), 0);
     private SoundClip sokobansoundmain = new SoundClip(
             getClass().getClassLoader().getResourceAsStream("sokoban/sokobanAudio.wav"), 0);
 

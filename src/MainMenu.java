@@ -110,7 +110,7 @@ public class MainMenu extends JPanel {
 
         pvzButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                window.startAudio("pvzMain");
+                // window.startAudio("pvzMain");
                 window.showCard("pvzMain");
             }
         });

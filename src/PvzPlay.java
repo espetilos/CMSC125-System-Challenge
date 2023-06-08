@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 25;
+        private int bitCoinNum = 25, threatInitPeriod = 10000;
         private boolean planting = false, highlighted = false, removing = false;
         /*
          * "planting" is true when an defender is selected
@@ -61,6 +61,10 @@ public class PvzPlay extends JPanel {
                 Timer bitCoinTimer = new Timer();
                 TimerTask bitCoinTask = new BitCoinIterator();
                 bitCoinTimer.schedule(bitCoinTask, 200, 5000); // Iteration of BitCoins over time
+
+                Timer threatTimer = new Timer();
+                TimerTask threatTask = new ThreatIterator();
+                threatTimer.schedule(threatTask, 10000, 2500);
         }
 
         private void setTiles() {
@@ -68,12 +72,14 @@ public class PvzPlay extends JPanel {
                 for (int i = 0; i < 5; i++) {
                         int x = 200;
                         for (int j = 0; j < 8; j++) {
-                                tiles[i][j] = new JButton(new ImageIcon(resizeImage(
-                                                getClass()
-                                                                .getClassLoader()
-                                                                .getResourceAsStream("pvz/pvzTile.png"),
-                                                90, 90)));
+                                tiles[i][j] = new JButton();
+                                // tiles[i][j] = new JButton(new ImageIcon(resizeImage(
+                                // getClass()
+                                // .getClassLoader()
+                                // .getResourceAsStream("pvz/pvzTile.png"),
+                                // 90, 90)));
                                 tiles[i][j].setBounds(x, y, 90, 90);
+                                tiles[i][j].setBackground(Color.GRAY);
                                 tiles[i][j].setBorder(BorderFactory.createEmptyBorder());
                                 setTilesMouseListeners(tiles[i][j]);
                                 setTilesActionListenerExtension(tiles[i][j]);
@@ -114,6 +120,7 @@ public class PvzPlay extends JPanel {
                 pliers.setContentAreaFilled(false);
                 pliers.setFocusPainted(false);
                 pliers.setBorder(BorderFactory.createEmptyBorder());
+                setPliersMouseListeners(pliers);
                 add(pliers);
 
                 exit = new JButton("Exit");
@@ -171,41 +178,62 @@ public class PvzPlay extends JPanel {
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatTrojan.png"),
                                 length, length)));
+                threats[0].setBounds(1100, 0, 80, 80);
+
                 threats[1] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatTrap.png"),
                                 length, length)));
+                threats[1].setBounds(1100, 90, 80, 80);
+
                 threats[2] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatLogic.png"),
                                 length, length)));
+                threats[2].setBounds(1100, 180, 80, 80);
+
                 threats[3] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatStack.png"),
                                 length, length)));
+                threats[3].setBounds(1100, 270, 80, 80);
+
                 threats[4] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatVirus.png"),
                                 length, length)));
+                threats[4].setBounds(1100, 360, 80, 80);
+
                 threats[5] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatWorm.png"),
                                 length, length)));
+                threats[5].setBounds(1100, 450, 80, 80);
+
                 threats[6] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatPort.png"),
                                 length, length)));
+                threats[6].setBounds(1100, 540, 80, 80);
+
                 threats[7] = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatDenial.png"),
                                 length, length)));
+                threats[6].setBounds(1100, 630, 80, 80);
+
+                for (int i = 0; i < 7; i++) {
+                        threats[i].setBorder(BorderFactory.createEmptyBorder());
+                        add(threats[i]);
+                        threats[i].setVisible(false);
+                }
         }
 
         private void setDefenders() {
@@ -369,18 +397,52 @@ public class PvzPlay extends JPanel {
                 button.setBorder(BorderFactory.createLineBorder(Color.GREEN));
         }
 
-        private void setTilesMouseListeners(JButton button) {
-                // Puts a green border on tiles where cursor is hovered when "planting" is true
+        private void setPliersMouseListeners(JButton button) {
                 button.addMouseListener(new MouseListener() {
                         public void mouseEntered(MouseEvent e) {
-                                if (highlighted == false && planting == true) {
+                                if (highlighted == false && removing == false) {
                                         button.setBorder(BorderFactory.createLineBorder(Color.GREEN));
                                         highlighted = true;
                                 }
                         }
 
                         public void mouseExited(MouseEvent e) {
-                                if (highlighted == true && planting == true) {
+                                if (highlighted == true && removing == false) {
+                                        button.setBorder(BorderFactory.createEmptyBorder());
+                                        highlighted = false;
+                                }
+                        }
+
+                        public void mouseClicked(MouseEvent e) {
+                                if (removing == false) {
+                                        button.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                                        removing = true;
+                                } else if (removing == true) {
+                                        button.setBorder(BorderFactory.createEmptyBorder());
+                                        removing = false;
+                                }
+                        }
+
+                        public void mousePressed(MouseEvent e) {
+                        }
+
+                        public void mouseReleased(MouseEvent e) {
+                        }
+                });
+        }
+
+        private void setTilesMouseListeners(JButton button) {
+                // Puts a green border on tiles where cursor is hovered when "planting" is true
+                button.addMouseListener(new MouseListener() {
+                        public void mouseEntered(MouseEvent e) {
+                                if (highlighted == false && (planting == true || removing == true)) {
+                                        button.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                                        highlighted = true;
+                                }
+                        }
+
+                        public void mouseExited(MouseEvent e) {
+                                if (highlighted == true && (planting == true || removing == true)) {
                                         button.setBorder(BorderFactory.createEmptyBorder());
                                         highlighted = false;
                                 }
@@ -390,6 +452,11 @@ public class PvzPlay extends JPanel {
                                 if (highlighted == true) {
                                         button.setBorder(BorderFactory.createEmptyBorder());
                                         highlighted = false;
+                                }
+
+                                if (removing == true) {
+                                        button.setIcon(null);
+                                        button.setBackground(Color.GRAY);
                                 }
                         }
 
@@ -407,6 +474,12 @@ public class PvzPlay extends JPanel {
                 button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                                 String icon = defIcon.getText();
+
+                                if (button.getIcon() != null) {
+                                        return;
+                                }
+
+                                button.setBackground(Color.WHITE);
                                 switch (icon) {
                                         case "1":
                                                 button.setIcon(new ImageIcon(resizeImage(
@@ -529,4 +602,48 @@ public class PvzPlay extends JPanel {
                         availableDef();
                 }
         }
+
+        class ThreatIterator extends TimerTask {
+                // Timer task for automatic iteration of threats over time
+                @Override
+                public void run() {
+                        int x = 1100;
+                        while (true) {
+                                // threats[0].setLocation(x, 380);
+                                // threats[0].setVisible(true);
+                                // setComponentZOrder(threats[0], 0);
+                                threatPositioning(x, 380);
+                                x -= 5;
+                        }
+                }
+        }
+
+        private void threatPositioning(int x, int y) {
+                threats[0].setLocation(x, y);
+                threats[0].setVisible(true);
+                setComponentZOrder(threats[0], 0);
+        }
+        /*
+         * private void runThreat(JLabel threat) {
+         * Timer threatRunTimer = new Timer();
+         * TimerTask threatRunTask = new ThreatRunner();
+         * ThreatRunner.threat = threat;
+         * threatRunTimer.schedule(threatRunTask, 0, 1250);
+         * }
+         * 
+         * class ThreatRunner extends TimerTask {
+         * // Timer task for automatic iteration of threats over time
+         * static JLabel threat = new JLabel();
+         * 
+         * @Override
+         * public void run() {
+         * add(threat);
+         * int x = 1200;
+         * while (true) {
+         * threat.setLocation(x, 380);
+         * x -= 5;
+         * }
+         * }
+         * }
+         */
 }
