@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import java.io.FileInputStream;
 // import java.util.Iterator;
 // import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -71,7 +70,6 @@ public class QuizPlay extends JPanel {
         private boolean peek = false;
         private boolean copy = false;
 
-        private FileInputStream fis;
         private XSSFWorkbook wb;
         private XSSFSheet sheet;
 
@@ -135,8 +133,8 @@ public class QuizPlay extends JPanel {
                                         displayQuestion(index);
                                 } else {
                                         reset();
-                                        soundmain.stop();
-                                        window.resumeAudio("quizMain");
+                                        // soundmain.stop();
+                                        // window.resumeAudio("quizMain");
                                         window.showCard("quizMain");
                                 }
                         }
@@ -178,9 +176,7 @@ public class QuizPlay extends JPanel {
                 cheats[1].setVisible(false);
 
                 try {
-                        fis = new FileInputStream(getClass()
-                                        .getClassLoader()
-                                        .getResource("quiz/quizQuestions.xlsx").getPath());
+                        InputStream fis = getClass().getClassLoader().getResourceAsStream("quiz/quizQuestions.xlsx");
                         wb = new XSSFWorkbook(fis);
                         sheet = wb.getSheetAt(0);
                 } catch (
@@ -220,7 +216,7 @@ public class QuizPlay extends JPanel {
                 quizLaptop.setBounds(0, 0, 1200, 725);
                 quizLaptop.setHorizontalAlignment(SwingConstants.CENTER);
                 add(quizLaptop);
-                soundmain.start();
+                // soundmain.start();
         }
 
         // Choose Category

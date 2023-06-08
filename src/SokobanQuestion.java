@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -36,7 +36,6 @@ public class SokobanQuestion extends JPanel {
     private String choiceCText;
     private String choiceDText;
 
-    private FileInputStream fis;
     private XSSFWorkbook wb;
     private XSSFSheet sheet;
 
@@ -50,9 +49,7 @@ public class SokobanQuestion extends JPanel {
         window = w;
         setButtons();
         try {
-            fis = new FileInputStream(getClass()
-                    .getClassLoader()
-                    .getResource("quiz/quizQuestions.xlsx").getPath());
+            InputStream fis = getClass().getClassLoader().getResourceAsStream("quiz/quizQuestions.xlsx");
             wb = new XSSFWorkbook(fis);
             sheet = wb.getSheetAt(0);
         } catch (
