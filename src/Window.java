@@ -93,17 +93,17 @@ public class Window extends JFrame {
         }
     }
 
-    public void pauseAudio(String card) {
-        if (card == "quizMain") {
-            quizsoundmain.pause();
-        }
-        if (card == "pvzMain") {
-            pvzsoundmain.pause();
-        }
-        if (card == "sokobanMain") {
-            sokobansoundmain.pause();
-        }
-    }
+    // public void pauseAudio(String card) {
+    // if (card == "quizMain") {
+    // quizsoundmain.pause();
+    // }
+    // if (card == "pvzMain") {
+    // pvzsoundmain.pause();
+    // }
+    // if (card == "sokobanMain") {
+    // sokobansoundmain.pause();
+    // }
+    // }
 
     public void stopAudio(String card) {
         if (card == "quizMain") {
@@ -114,18 +114,6 @@ public class Window extends JFrame {
         }
         if (card == "sokobanMain") {
             sokobansoundmain.stop();
-        }
-    }
-
-    public void resumeAudio(String card) {
-        if (card == "quizMain") {
-            quizsoundmain.resume();
-        }
-        if (card == "pvzMain") {
-            pvzsoundmain.resume();
-        }
-        if (card == "sokobanMain") {
-            sokobansoundmain.resume();
         }
     }
 

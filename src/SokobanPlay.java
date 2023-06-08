@@ -525,7 +525,6 @@ public class SokobanPlay extends JPanel {
         // Go back to Game Main Menu
         exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // window.resumeAudio("sokobanMain");
                 window.showCard("sokobanMain");
             }
         });

@@ -113,7 +113,7 @@ public class PvzPlay extends JPanel {
                 exit.setBorder(BorderFactory.createEmptyBorder());
                 exit.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                // window.resumeAudio("pvzMain");
+                                window.startAudio("pvzMain");
                                 window.showCard("pvzMain");
                         }
                 });

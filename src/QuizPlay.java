@@ -72,6 +72,7 @@ public class QuizPlay extends JPanel {
         private XSSFSheet sheet;
 
         private SoundClip soundmain = new SoundClip("quiz/quizAudio/quizPlayAudio.wav");
+        private SoundClip soundmillion = new SoundClip("quiz/quizAudio/quizMillionAudio.wav");
 
         public QuizPlay(int width, int height, Window w) {
                 setSize(width, height);
@@ -116,6 +117,8 @@ public class QuizPlay extends JPanel {
                                         nextButton.setVisible(false);
                                 } else if (index == 10 && newScore == 10) {
                                         score = newScore;
+                                        soundmain.stop();
+                                        soundmillion.start();
                                         pageThree();
                                 } else if (index == 10 && wager > 0) {
                                         score -= wager;
@@ -130,8 +133,11 @@ public class QuizPlay extends JPanel {
                                         displayQuestion(index);
                                 } else {
                                         reset();
-                                        soundmain.stop();
-                                        // window.resumeAudio("quizMain");
+                                        if (index >= 10)
+                                                soundmillion.stop();
+                                        else
+                                                soundmain.stop();
+                                        window.startAudio("quizMain");
                                         window.showCard("quizMain");
                                 }
                         }
