@@ -17,7 +17,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class SokobanQuestion extends JPanel {
+public class Question extends JPanel {
 
     private Window window;
     private JButton choiceA = new JButton();
@@ -35,18 +35,20 @@ public class SokobanQuestion extends JPanel {
     private String choiceBText;
     private String choiceCText;
     private String choiceDText;
+    private String panel;
 
     private XSSFWorkbook wb;
     private XSSFSheet sheet;
 
     private boolean correct = false;
 
-    public SokobanQuestion(int width, int height, Window w) {
+    public Question(int width, int height, Window w, String p) {
         setSize(width, height);
         setLayout(null);
         setOpaque(true);
 
         window = w;
+        panel = p;
         setButtons();
         try {
             InputStream fis = getClass().getClassLoader().getResourceAsStream("quiz/quizQuestions.xlsx");
@@ -70,7 +72,7 @@ public class SokobanQuestion extends JPanel {
         Random r = new Random();
         int index = r.nextInt(100);
         displayQuestion(index);
-        setSokobanBackground();
+        setSokobanBackground(panel);
     }
 
     // Question Panel
@@ -105,14 +107,26 @@ public class SokobanQuestion extends JPanel {
     }
 
     // Setting Game 3 Background
-    private void setSokobanBackground() {
+    private void setSokobanBackground(String panel) {
         setBackground(Color.BLACK);
-        JLabel sokobanStars = new JLabel();
-        sokobanStars.setIcon(new ImageIcon(getClass()
-                .getClassLoader()
-                .getResource("sokoban/sokobanStars.png")));
-        sokobanStars.setBounds(0, 0, 1200, 725);
-        add(sokobanStars);
+
+        if (panel == "sokoban") {
+            JLabel sokobanStars = new JLabel();
+            sokobanStars.setIcon(new ImageIcon(getClass()
+                    .getClassLoader()
+                    .getResource("sokoban/sokobanStars.png")));
+            sokobanStars.setBounds(0, 0, 1200, 725);
+            add(sokobanStars);
+        }
+
+        if (panel == "pvz") {
+            JLabel pvzGlobe = new JLabel();
+            pvzGlobe.setIcon(new ImageIcon(getClass()
+                    .getClassLoader()
+                    .getResource("pvz/pvzGlobe.png")));
+            pvzGlobe.setBounds(0, 0, 1200, 725);
+            add(pvzGlobe);
+        }
     }
 
     private void setButtons() {
@@ -124,7 +138,10 @@ public class SokobanQuestion extends JPanel {
 
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                window.showCard("sokobanPlay");
+                if (panel == "sokoban")
+                    window.showCard("sokobanPlay");
+                if (panel == "pvz")
+                    window.showCard("pvzPlay");
             }
         });
 

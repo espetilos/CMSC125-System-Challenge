@@ -41,7 +41,7 @@ public class SokobanPlay extends JPanel {
     private JButton exit;
     private JButton legend;
 
-    private SokobanQuestion sokobanQuestion;
+    private Question sokobanQuestion;
     private int playerRow = -1;
     private int playerColumn = -1;
     private int powerUpTriggerRow = -1;
@@ -342,8 +342,8 @@ public class SokobanPlay extends JPanel {
         powerUp.setBounds(80 + (powerUpCol * 45), 30 + (powerUpRow * 45), 40, 40);
         powerUp.setVisible(false);
 
-        sokobanQuestion = new SokobanQuestion(window.getWidth(), window.getHeight(),
-                window);
+        sokobanQuestion = new Question(window.getWidth(), window.getHeight(),
+                window, "sokoban");
     }
 
     // Setting solved icons
@@ -480,8 +480,8 @@ public class SokobanPlay extends JPanel {
         powerUpUsed = false;
 
         // Reset powerup question
-        sokobanQuestion = new SokobanQuestion(window.getWidth(), window.getHeight(),
-                window);
+        sokobanQuestion = new Question(window.getWidth(), window.getHeight(),
+                window, "sokoban");
     }
 
     // Resizing Images for JLabels

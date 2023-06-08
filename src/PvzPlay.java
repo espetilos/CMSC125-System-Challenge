@@ -99,6 +99,29 @@ public class PvzPlay extends JPanel {
         }
 
         private void setExtras() {
+                upgrade = new JButton(new ImageIcon(resizeImage(
+                                getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("pvz/pvzUpgrade.png"),
+                                length, length)));
+                upgrade.setBounds(65, 590, length, length);
+                upgrade.setContentAreaFilled(false);
+                upgrade.setFocusPainted(false);
+                upgrade.setBorder(BorderFactory.createEmptyBorder());
+                upgrade.setEnabled(false);
+                upgrade.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                Question pvzQuestion = new Question(window.getWidth(), window.getHeight(), window,
+                                                "pvz");
+                                window.add("pvzQuestion", pvzQuestion);
+                                window.showCard("pvzQuestion");
+                                bitCoinNum -= 300;
+                                upgrade.setEnabled(false);
+                        }
+                });
+
+                add(upgrade);
+
                 bitCoin = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
@@ -894,6 +917,8 @@ public class PvzPlay extends JPanel {
                 public void run() {
                         bitCoinNum += 25;
                         availableDef();
+                        if (bitCoinNum == 300)
+                                upgrade.setEnabled(true);
                 }
         }
 
@@ -997,11 +1022,10 @@ public class PvzPlay extends JPanel {
                 public void run() {
                         threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
                         threats[thisCtr].setVisible(true);
-                        threatXPos -= 3;
+                        threatXPos -= 2;
 
                         if (threats[thisCtr].getX() <= -100) {
                                 lives--;
-                                System.out.println(lives);
                                 if (lives == 0)
                                         exit.doClick();
                                 cancel();
