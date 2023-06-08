@@ -48,6 +48,8 @@ public class PvzPlay extends JPanel {
         private JLabel defIcon;
         // defIcon is the determinant of the icon over which defender is selected
 
+        private SoundClip soundmain = new SoundClip("pvz/pvzAudio/pvzPlayAudio.wav");
+
         public PvzPlay(int width, int height, Window w) {
                 setSize(width, height);
                 setLayout(null);
@@ -133,6 +135,7 @@ public class PvzPlay extends JPanel {
                 exit.setBorder(BorderFactory.createEmptyBorder());
                 exit.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                                soundmain.stop();
                                 window.startAudio("pvzMain");
                                 window.showCard("pvzMain");
                         }

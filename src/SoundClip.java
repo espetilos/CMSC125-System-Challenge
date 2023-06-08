@@ -55,4 +55,8 @@ public class SoundClip {
 			}
 		}
 	}
+
+	public Clip getClip() {
+		return clip;
+	}
 }

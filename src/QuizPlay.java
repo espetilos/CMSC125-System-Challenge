@@ -202,7 +202,7 @@ public class QuizPlay extends JPanel {
                 wager = 0;
 
                 questions.clear();
-                if (index >= 10)
+                if (soundmillion.getClip() != null)
                         soundmillion.stop();
                 else
                         soundmain.stop();
@@ -216,12 +216,12 @@ public class QuizPlay extends JPanel {
                                 .getResource("quiz/quizLaptop.png")));
                 quizLaptop.setBounds(0, 0, 1200, 725);
                 quizLaptop.setHorizontalAlignment(SwingConstants.CENTER);
-                soundmain.start();
                 add(quizLaptop);
         }
 
         // Choose Category
         private void pageOne() {
+                soundmain.start();
                 gameLabel.setFont(font(40));
                 gameLabel.setBounds(355, 100, 500, 50);
                 gameLabel.setForeground(orange);
