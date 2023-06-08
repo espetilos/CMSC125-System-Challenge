@@ -177,14 +177,14 @@ public class GameMainMenu extends JPanel {
                 if (panel == "quizMain") {
                     QuizPlay quizPlay = new QuizPlay(window.getWidth(), window.getHeight(), window);
                     window.add("quizPlay", quizPlay);
-                    window.pauseAudio("quizMain");
+                    // window.pauseAudio("quizMain");
                     window.showCard("quizPlay");
                 }
 
                 else if (panel == "pvzMain") {
                     PvzPlay pvzPlay = new PvzPlay(window.getWidth(), window.getHeight(), window);
                     window.add("pvzPlay", pvzPlay);
-                    window.pauseAudio("pvzMain");
+                    // window.pauseAudio("pvzMain");
                     window.showCard("pvzPlay");
                 }
 
@@ -254,15 +254,15 @@ public class GameMainMenu extends JPanel {
 
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (panel == "quizMain") {
-                    window.stopAudio("quizMain");
-                }
-                if (panel == "pvzMain") {
-                    window.stopAudio("pvzMain");
-                }
-                if (panel == "sokobanMain") {
-                    window.stopAudio("sokobanMain");
-                }
+                // if (panel == "quizMain") {
+                // window.stopAudio("quizMain");
+                // }
+                // if (panel == "pvzMain") {
+                // window.stopAudio("pvzMain");
+                // }
+                // if (panel == "sokobanMain") {
+                // window.stopAudio("sokobanMain");
+                // }
                 window.showCard("gameBundleMain");
             }
         });

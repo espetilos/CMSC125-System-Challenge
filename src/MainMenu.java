@@ -103,7 +103,7 @@ public class MainMenu extends JPanel {
     public void setActionAndMouseListeners() {
         quizButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                window.startAudio("quizMain");
+                // window.startAudio("quizMain");
                 window.showCard("quizMain");
             }
         });
@@ -117,7 +117,7 @@ public class MainMenu extends JPanel {
 
         sokobanButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                window.startAudio("sokobanMain");
+                // window.startAudio("sokobanMain");
                 window.showCard("sokobanMain");
             }
         });
