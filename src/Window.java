@@ -9,12 +9,9 @@ import javax.swing.JFrame;
 public class Window extends JFrame {
 
     private CardLayout layout = new CardLayout();
-    private SoundClip quizsoundmain = new SoundClip(
-            getClass().getClassLoader().getResourceAsStream("quiz/quizAudio/quizMainAudio.wav"), 0);
-    private SoundClip pvzsoundmain = new SoundClip(
-            getClass().getClassLoader().getResourceAsStream("pvz/pvzAudio/pvzMainAudio.wav"), 0);
-    private SoundClip sokobansoundmain = new SoundClip(
-            getClass().getClassLoader().getResourceAsStream("sokoban/sokobanAudio.wav"), 0);
+    private SoundClip quizsoundmain = new SoundClip("quiz/quizAudio/quizMainAudio.wav");
+    private SoundClip pvzsoundmain = new SoundClip("pvz/pvzAudio/pvzMainAudio.wav");
+    private SoundClip sokobansoundmain = new SoundClip("sokoban/sokobanAudio.wav");
 
     public Window() { // Set up the Window of the bundle
         super("System Challenge"); // Set up the title of the bumble

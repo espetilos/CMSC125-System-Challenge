@@ -11,8 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-// import java.util.Iterator;
-// import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -73,8 +71,7 @@ public class QuizPlay extends JPanel {
         private XSSFWorkbook wb;
         private XSSFSheet sheet;
 
-        private SoundClip soundmain = new SoundClip(
-                        getClass().getClassLoader().getResourceAsStream("quiz/quizAudio/quizPlayAudio.wav"), 0);
+        private SoundClip soundmain = new SoundClip("quiz/quizAudio/quizPlayAudio.wav");
 
         public QuizPlay(int width, int height, Window w) {
                 setSize(width, height);
@@ -133,7 +130,7 @@ public class QuizPlay extends JPanel {
                                         displayQuestion(index);
                                 } else {
                                         reset();
-                                        // soundmain.stop();
+                                        soundmain.stop();
                                         // window.resumeAudio("quizMain");
                                         window.showCard("quizMain");
                                 }
@@ -215,8 +212,8 @@ public class QuizPlay extends JPanel {
                                 .getResource("quiz/quizLaptop.png")));
                 quizLaptop.setBounds(0, 0, 1200, 725);
                 quizLaptop.setHorizontalAlignment(SwingConstants.CENTER);
+                soundmain.start();
                 add(quizLaptop);
-                // soundmain.start();
         }
 
         // Choose Category
