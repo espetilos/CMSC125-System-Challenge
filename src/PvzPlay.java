@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0;
+        private int bitCoinNum = 50, ctr = 0, bulletX = -1, bulletY = -1;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -36,6 +36,7 @@ public class PvzPlay extends JPanel {
         private Color orange = new Color(226, 161, 101);
         private Window window;
         private JButton[][] tiles = new JButton[5][8];
+        private JLabel[][] bullet = new JLabel[5][8];
         private JButton[] defenders = new JButton[7];
         private JLabel[] defValue = new JLabel[7];
         private JLabel[] threats = new JLabel[20];
@@ -45,7 +46,6 @@ public class PvzPlay extends JPanel {
         private JButton pliers;
         private JButton exit;
         private JLabel defIcon;
-        private JLabel bullet;
         // defIcon is the determinant of the icon over which defender is selected
 
         public PvzPlay(int width, int height, Window w) {
@@ -55,10 +55,11 @@ public class PvzPlay extends JPanel {
 
                 window = w;
 
+                setBulletPositions();
+                setExtras();
                 setThreats();
                 setDefenders();
                 setDefendersValues();
-                setExtras();
                 setTiles();
                 setPvzBackground(); // Setting Panel Background
 
@@ -71,23 +72,49 @@ public class PvzPlay extends JPanel {
                 waveTimer.schedule(waveTask, 6000, 5000); // Iteration of threats over time
         }
 
-        private void setExtras() {
-                bullet = new JLabel(new ImageIcon(resizeImage(getClass()
-                                .getClassLoader()
-                                .getResourceAsStream("pvz/pvzBullet.png"), 20, 20)));
-                add(bullet);
+        private void setBulletPositions() {
+                // Timer bulletTimer = new Timer();
+                // TimerTask bulletTask = new BulletShooter();
+                // bulletTimer.schedule(bulletTask, 0, 1000);
 
+                int y = 215;
+                for (int i = 0; i < 5; i++) {
+                        int x = 245;
+                        for (int j = 0; j < 8; j++) {
+                                bullet[i][j] = new JLabel(new ImageIcon(resizeImage(getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("pvz/pvzBullet.png"), 20, 20)));
+                                bullet[i][j].setBounds(x, y, 20, 20);
+                                bullet[i][j].setBorder(BorderFactory.createEmptyBorder());
+                                add(bullet[i][j]);
+                                bullet[i][j].setVisible(false);
+                                x += 100;
+                        }
+                        y += 100;
+                }
+        }
+
+        private void setExtras() {
                 bitCoin = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzBitcoin.png"),
                                 length, length)));
+                bitCoin.setBounds(65, 35, length, length);
+                bitCoin.setBorder(BorderFactory.createEmptyBorder());
+                add(bitCoin);
 
                 pliers = new JButton(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzPliers.png"),
                                 length, length)));
+                pliers.setBounds(915, 50, length, length);
+                pliers.setContentAreaFilled(false);
+                pliers.setFocusPainted(false);
+                pliers.setBorder(BorderFactory.createEmptyBorder());
+                setPliersMouseListeners(pliers);
+                add(pliers);
 
                 bitCoinAmount = new JLabel();
                 bitCoinAmount.setText(Integer.toString(bitCoinNum));
@@ -97,17 +124,6 @@ public class PvzPlay extends JPanel {
                 bitCoinAmount.setForeground(Color.WHITE);
                 bitCoinAmount.setBorder(BorderFactory.createEmptyBorder());
                 add(bitCoinAmount);
-
-                bitCoin.setBounds(65, 35, length, length);
-                bitCoin.setBorder(BorderFactory.createEmptyBorder());
-                add(bitCoin);
-
-                pliers.setBounds(915, 50, length, length);
-                pliers.setContentAreaFilled(false);
-                pliers.setFocusPainted(false);
-                pliers.setBorder(BorderFactory.createEmptyBorder());
-                setPliersMouseListeners(pliers);
-                add(pliers);
 
                 exit = new JButton("Exit");
                 exit.setFont(font(20));
@@ -309,21 +325,337 @@ public class PvzPlay extends JPanel {
                         int x = 200;
                         for (int j = 0; j < 8; j++) {
                                 tiles[i][j] = new JButton();
-                                // tiles[i][j] = new JButton(new ImageIcon(resizeImage(
-                                // getClass()
-                                // .getClassLoader()
-                                // .getResourceAsStream("pvz/pvzTile.png"),
-                                // 90, 90)));
                                 tiles[i][j].setBounds(x, y, 90, 90);
                                 tiles[i][j].setBackground(Color.GRAY);
                                 tiles[i][j].setBorder(BorderFactory.createEmptyBorder());
                                 setTilesMouseListeners(tiles[i][j]);
+
                                 setTilesActionListenerExtension(tiles[i][j]);
                                 add(tiles[i][j]);
                                 x += 100;
                         }
                         y += 100;
                 }
+
+                tiles[0][0].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][0].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][0]);
+                        }
+                });
+
+                tiles[0][1].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][1].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][1]);
+                        }
+                });
+
+                tiles[0][2].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][2].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][2]);
+                        }
+                });
+
+                tiles[0][3].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][3].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][3]);
+                        }
+                });
+
+                tiles[0][4].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][4].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][4]);
+                        }
+                });
+
+                tiles[0][5].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][5].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][5]);
+                        }
+                });
+
+                tiles[0][6].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][6].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][6]);
+                        }
+                });
+
+                tiles[0][7].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[0][7].setVisible(true);
+                                setTilesActionListenerExtension(tiles[0][7]);
+                        }
+                });
+
+                tiles[1][0].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][0].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][0]);
+                        }
+                });
+
+                tiles[1][1].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][1].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][1]);
+                        }
+                });
+
+                tiles[1][2].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][2].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][2]);
+                        }
+                });
+
+                tiles[1][3].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][3].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][3]);
+                        }
+                });
+
+                tiles[1][4].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][4].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][4]);
+                        }
+                });
+
+                tiles[1][5].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][5].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][5]);
+                        }
+                });
+
+                tiles[1][6].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][6].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][6]);
+                        }
+                });
+
+                tiles[1][7].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[1][7].setVisible(true);
+                                setTilesActionListenerExtension(tiles[1][7]);
+                        }
+                });
+
+                tiles[2][0].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][0].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][0]);
+                        }
+                });
+
+                tiles[2][1].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][1].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][1]);
+                        }
+                });
+
+                tiles[2][2].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][2].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][2]);
+                        }
+                });
+
+                tiles[2][3].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][3].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][3]);
+                        }
+                });
+
+                tiles[2][4].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][4].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][4]);
+                        }
+                });
+
+                tiles[2][5].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][5].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][5]);
+                        }
+                });
+
+                tiles[2][6].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][6].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][6]);
+                        }
+                });
+
+                tiles[2][7].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[2][7].setVisible(true);
+                                setTilesActionListenerExtension(tiles[2][7]);
+                        }
+                });
+
+                tiles[3][0].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][0].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][0]);
+                        }
+                });
+
+                tiles[3][1].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][1].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][1]);
+                        }
+                });
+
+                tiles[3][2].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][2].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][2]);
+                        }
+                });
+
+                tiles[3][3].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][3].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][3]);
+                        }
+                });
+
+                tiles[3][4].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][4].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][4]);
+                        }
+                });
+
+                tiles[3][5].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][5].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][5]);
+                        }
+                });
+
+                tiles[3][6].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][6].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][6]);
+                        }
+                });
+
+                tiles[3][7].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[3][7].setVisible(true);
+                                setTilesActionListenerExtension(tiles[3][7]);
+                        }
+                });
+
+                tiles[4][0].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][0].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][0]);
+                        }
+                });
+
+                tiles[4][1].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][1].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][1]);
+                        }
+                });
+
+                tiles[4][2].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][2].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][2]);
+                        }
+                });
+
+                tiles[4][3].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][3].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][3]);
+                        }
+                });
+
+                tiles[4][4].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][4].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][4]);
+                        }
+                });
+
+                tiles[4][5].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][5].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][5]);
+                        }
+                });
+
+                tiles[4][6].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][6].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][6]);
+                        }
+                });
+
+                tiles[4][7].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                if (planting == true)
+                                        bullet[4][7].setVisible(true);
+                                setTilesActionListenerExtension(tiles[4][7]);
+                        }
+                });
         }
 
         // Resizing Images for JLabels
@@ -431,96 +763,92 @@ public class PvzPlay extends JPanel {
 
         private void setTilesActionListenerExtension(JButton button) {
                 // Sets the icon of a tile to the icon of the selected defender
-                button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                                String icon = defIcon.getText();
+                String icon = defIcon.getText();
 
-                                if (button.getIcon() != null) {
-                                        return;
-                                }
+                if (button.getIcon() != null) {
+                        return;
+                }
 
-                                switch (icon) {
-                                        case "1":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderEncryptor.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 50;
-                                                availableDef();
-                                                break;
-                                        case "2":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderAuthenticator.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 100;
-                                                availableDef();
-                                                break;
-                                        case "3":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderAssessor.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 100;
-                                                availableDef();
-                                                break;
-                                        case "4":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderDetector.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 100;
-                                                availableDef();
-                                                break;
-                                        case "5":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderAntivirus.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 125;
-                                                availableDef();
-                                                break;
-                                        case "6":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderTripwire.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 125;
-                                                availableDef();
-                                                break;
-                                        case "7":
-                                                button.setIcon(new ImageIcon(resizeImage(
-                                                                getClass()
-                                                                                .getClassLoader()
-                                                                                .getResourceAsStream(
-                                                                                                "pvz/pvzDefenders/pvzDefenderFirewall.png"),
-                                                                length, length)));
-                                                bitCoinNum -= 150;
-                                                availableDef();
-                                                break;
-                                        default:
-                                                return;
-                                }
-                                button.setBackground(Color.GRAY);
-                                defIcon.setText("0");
-                                planting = false;
-                                for (int i = 0; i < 7; i++) {
-                                        defenders[i].setBorder(BorderFactory.createEmptyBorder());
-                                }
-                        }
-                });
+                switch (icon) {
+                        case "1":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderEncryptor.png"),
+                                                length, length)));
+                                bitCoinNum -= 50;
+                                availableDef();
+                                break;
+                        case "2":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderAuthenticator.png"),
+                                                length, length)));
+                                bitCoinNum -= 100;
+                                availableDef();
+                                break;
+                        case "3":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderAssessor.png"),
+                                                length, length)));
+                                bitCoinNum -= 100;
+                                availableDef();
+                                break;
+                        case "4":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderDetector.png"),
+                                                length, length)));
+                                bitCoinNum -= 100;
+                                availableDef();
+                                break;
+                        case "5":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderAntivirus.png"),
+                                                length, length)));
+                                bitCoinNum -= 125;
+                                availableDef();
+                                break;
+                        case "6":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderTripwire.png"),
+                                                length, length)));
+                                bitCoinNum -= 125;
+                                availableDef();
+                                break;
+                        case "7":
+                                button.setIcon(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzDefenders/pvzDefenderFirewall.png"),
+                                                length, length)));
+                                bitCoinNum -= 150;
+                                availableDef();
+                                break;
+                        default:
+                                return;
+                }
+                button.setBackground(Color.GRAY);
+                defIcon.setText("0");
+                planting = false;
+                for (int i = 0; i < 7; i++) {
+                        defenders[i].setBorder(BorderFactory.createEmptyBorder());
+                }
         }
 
         private void availableDef() {
@@ -663,7 +991,6 @@ public class PvzPlay extends JPanel {
                 public void run() {
                         threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
                         threats[thisCtr].setVisible(true);
-                        // setComponentZOrder(threats[thisCtr], 0);
                         threatXPos -= 3;
 
                         if (threatXPos == -100) {
@@ -672,4 +999,23 @@ public class PvzPlay extends JPanel {
                 }
 
         }
+
+        // class BulletShooter extends TimerTask {
+        // Timer task for automatic shooting of bullets over time
+        // int thisIndex = indexYPos[ctr];
+        // int threatXPos = 1210;
+        // int thisCtr = ctr;
+
+        // @Override
+        // public void run() {
+        // threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
+        // threats[thisCtr].setVisible(true);
+        // setComponentZOrder(threats[thisCtr], 0);
+        // threatXPos -= 3;
+
+        // if (threatXPos == -100) {
+        // cancel();
+        // }
+        // }
+        // }
 }
