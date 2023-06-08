@@ -9,6 +9,12 @@ import javax.swing.JFrame;
 public class Window extends JFrame {
 
     private CardLayout layout = new CardLayout();
+    private SoundClip quizsoundmain = new SoundClip(
+            getClass().getClassLoader().getResourceAsStream("quiz/quizAudio/quizMainAudio.wav"), 0);
+    private SoundClip pvzsoundmain = new SoundClip(
+            getClass().getClassLoader().getResourceAsStream("pvz/pvzAudio/pvzMainAudio.wav"), 0);
+    private SoundClip sokobansoundmain = new SoundClip(
+            getClass().getClassLoader().getResourceAsStream("sokoban/sokobanAudio.wav"), 0);
 
     public Window() { // Set up the Window of the bundle
         super("System Challenge"); // Set up the title of the bumble
@@ -76,6 +82,54 @@ public class Window extends JFrame {
 
     public void showCard(String card) { // The Card Layout; Method in switching cards
         layout.show(this.getContentPane(), card);
+    }
+
+    public void startAudio(String card) {
+        if (card == "quizMain") {
+            quizsoundmain.start();
+        }
+        if (card == "pvzMain") {
+            pvzsoundmain.start();
+        }
+        if (card == "sokobanMain") {
+            sokobansoundmain.start();
+        }
+    }
+
+    public void pauseAudio(String card) {
+        if (card == "quizMain") {
+            quizsoundmain.pause();
+        }
+        if (card == "pvzMain") {
+            pvzsoundmain.pause();
+        }
+        if (card == "sokobanMain") {
+            sokobansoundmain.pause();
+        }
+    }
+
+    public void stopAudio(String card) {
+        if (card == "quizMain") {
+            quizsoundmain.stop();
+        }
+        if (card == "pvzMain") {
+            pvzsoundmain.stop();
+        }
+        if (card == "sokobanMain") {
+            sokobansoundmain.stop();
+        }
+    }
+
+    public void resumeAudio(String card) {
+        if (card == "quizMain") {
+            quizsoundmain.resume();
+        }
+        if (card == "pvzMain") {
+            pvzsoundmain.resume();
+        }
+        if (card == "sokobanMain") {
+            sokobansoundmain.resume();
+        }
     }
 
     public Font useFont(InputStream path, int size) { // Method in using a font provided in resources

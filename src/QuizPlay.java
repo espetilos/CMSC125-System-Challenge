@@ -75,6 +75,9 @@ public class QuizPlay extends JPanel {
         private XSSFWorkbook wb;
         private XSSFSheet sheet;
 
+        private SoundClip soundmain = new SoundClip(
+                        getClass().getClassLoader().getResourceAsStream("quiz/quizAudio/quizPlayAudio.wav"), 0);
+
         public QuizPlay(int width, int height, Window w) {
                 setSize(width, height);
                 setLayout(null);
@@ -132,6 +135,8 @@ public class QuizPlay extends JPanel {
                                         displayQuestion(index);
                                 } else {
                                         reset();
+                                        soundmain.stop();
+                                        window.resumeAudio("quizMain");
                                         window.showCard("quizMain");
                                 }
                         }
@@ -215,6 +220,7 @@ public class QuizPlay extends JPanel {
                 quizLaptop.setBounds(0, 0, 1200, 725);
                 quizLaptop.setHorizontalAlignment(SwingConstants.CENTER);
                 add(quizLaptop);
+                soundmain.start();
         }
 
         // Choose Category
