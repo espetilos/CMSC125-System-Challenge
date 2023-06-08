@@ -117,8 +117,6 @@ public class QuizPlay extends JPanel {
                                         nextButton.setVisible(false);
                                 } else if (index == 10 && newScore == 10) {
                                         score = newScore;
-                                        soundmain.stop();
-                                        soundmillion.start();
                                         pageThree();
                                 } else if (index == 10 && wager > 0) {
                                         score -= wager;
@@ -133,10 +131,6 @@ public class QuizPlay extends JPanel {
                                         displayQuestion(index);
                                 } else {
                                         reset();
-                                        if (index >= 10)
-                                                soundmillion.stop();
-                                        else
-                                                soundmain.stop();
                                         window.startAudio("quizMain");
                                         window.showCard("quizMain");
                                 }
@@ -208,6 +202,10 @@ public class QuizPlay extends JPanel {
                 wager = 0;
 
                 questions.clear();
+                if (index >= 10)
+                        soundmillion.stop();
+                else
+                        soundmain.stop();
         }
 
         private void setQuizBackground() {
@@ -552,6 +550,8 @@ public class QuizPlay extends JPanel {
 
         // Choose Wager Points
         private void pageThree() {
+                soundmain.stop();
+                soundmillion.start();
                 questionNo.setText("MILLION DOLLAR QUESTION!");
                 questionNo.setFont(font(30));
                 questionLabel.setText("<html><center>How many points will you wager?</center></html>");

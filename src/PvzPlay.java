@@ -45,6 +45,7 @@ public class PvzPlay extends JPanel {
         private JButton pliers;
         private JButton exit;
         private JLabel defIcon;
+        private JLabel bullet;
         // defIcon is the determinant of the icon over which defender is selected
 
         public PvzPlay(int width, int height, Window w) {
@@ -71,6 +72,11 @@ public class PvzPlay extends JPanel {
         }
 
         private void setExtras() {
+                bullet = new JLabel(new ImageIcon(resizeImage(getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("pvz/pvzBullet.png"), 20, 20)));
+                add(bullet);
+
                 bitCoin = new JLabel(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
