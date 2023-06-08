@@ -23,10 +23,9 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 25, ctr = 0;
+        private int bitCoinNum = 50, ctr = 0;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        private int[] threatNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        private int[] threatInitYPos = { 185, 285, 385, 485, 585 };
+        private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
         /*
          * "planting" is true when an defender is selected
@@ -39,8 +38,7 @@ public class PvzPlay extends JPanel {
         private JButton[][] tiles = new JButton[5][8];
         private JButton[] defenders = new JButton[7];
         private JLabel[] defValue = new JLabel[7];
-        private JLabel[] threats = new JLabel[8];
-        private JLabel[] calledThreats = new JLabel[20];
+        private JLabel[] threats = new JLabel[20];
         private JButton upgrade;
         private JLabel bitCoin;
         private JLabel bitCoinAmount;
@@ -65,11 +63,11 @@ public class PvzPlay extends JPanel {
 
                 Timer bitCoinTimer = new Timer();
                 TimerTask bitCoinTask = new BitCoinIterator();
-                bitCoinTimer.schedule(bitCoinTask, 200, 3000); // Iteration of BitCoins over time
+                bitCoinTimer.schedule(bitCoinTask, 2000, 2000); // Iteration of BitCoins over time
 
                 Timer waveTimer = new Timer();
                 TimerTask waveTask = new WaveGenerator();
-                waveTimer.schedule(waveTask, 6000, 3000);
+                waveTimer.schedule(waveTask, 6000, 5000); // Iteration of threats over time
         }
 
         private void setExtras() {
@@ -89,7 +87,7 @@ public class PvzPlay extends JPanel {
                 bitCoinAmount.setText(Integer.toString(bitCoinNum));
                 bitCoinAmount.setHorizontalAlignment(SwingConstants.CENTER);
                 bitCoinAmount.setFont(font(40));
-                bitCoinAmount.setBounds(40, 110, length + 50, length);
+                bitCoinAmount.setBounds(20, 110, 170, length);
                 bitCoinAmount.setForeground(Color.WHITE);
                 bitCoinAmount.setBorder(BorderFactory.createEmptyBorder());
                 add(bitCoinAmount);
@@ -155,64 +153,12 @@ public class PvzPlay extends JPanel {
         }
 
         private void setThreats() {
-                threats[0] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatTrojan.png"),
-                                length, length)));
-                threats[0].setBounds(1100, 0, 80, 80);
-
-                threats[1] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatTrap.png"),
-                                length, length)));
-                threats[1].setBounds(1100, 90, 80, 80);
-
-                threats[2] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatLogic.png"),
-                                length, length)));
-                threats[2].setBounds(1100, 180, 80, 80);
-
-                threats[3] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatStack.png"),
-                                length, length)));
-                threats[3].setBounds(1100, 270, 80, 80);
-
-                threats[4] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatVirus.png"),
-                                length, length)));
-                threats[4].setBounds(1100, 360, 80, 80);
-
-                threats[5] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatWorm.png"),
-                                length, length)));
-                threats[5].setBounds(1100, 450, 80, 80);
-
-                threats[6] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatPort.png"),
-                                length, length)));
-                threats[6].setBounds(1100, 540, 80, 80);
-
-                threats[7] = new JLabel(new ImageIcon(resizeImage(
-                                getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzThreats/pvzThreatDenial.png"),
-                                length, length)));
-                threats[7].setBounds(1100, 630, 80, 80);
-
-                for (int i = 0; i < 7; i++) {
+                Random randThreatNum = new Random();
+                for (int i = 0; i < 20; i++) {
+                        threats[i] = setThreatIcon(threats[i], randThreatNum.nextInt(8));
                         threats[i].setBorder(BorderFactory.createEmptyBorder());
+                        threats[i].setBounds(1210, 0, 80, 80);
+                        setComponentZOrder(threats[i], 0);
                         add(threats[i]);
                         threats[i].setVisible(false);
                 }
@@ -619,29 +565,104 @@ public class PvzPlay extends JPanel {
                                 ctr = 0;
                         }
 
-                        Random randThreatNum = new Random();
-                        threatNum[ctr] = randThreatNum.nextInt(8);
-
+                        threats[ctr].setVisible(true);
                         Random randIndex = new Random();
                         indexYPos[ctr] = randIndex.nextInt(5);
                         Timer threatTimer = new Timer();
                         TimerTask threatTask = new ThreatIterator();
                         threatTimer.schedule(threatTask, 0, 50);
+                        ctr++;
                 }
+        }
+
+        public JLabel setThreatIcon(JLabel threat, int threatType) {
+                switch (threatType) {
+                        case 0:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatTrojan.png"),
+                                                length, length)));
+                                break;
+                        case 1:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatTrap.png"),
+                                                length, length)));
+                                break;
+                        case 2:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatLogic.png"),
+                                                length, length)));
+                                break;
+                        case 3:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatStack.png"),
+                                                length, length)));
+                                break;
+                        case 4:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatVirus.png"),
+                                                length, length)));
+                                break;
+                        case 5:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatWorm.png"),
+                                                length, length)));
+                                break;
+                        case 6:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatPort.png"),
+                                                length, length)));
+                                break;
+                        case 7:
+                                threat = new JLabel(new ImageIcon(resizeImage(
+                                                getClass()
+                                                                .getClassLoader()
+                                                                .getResourceAsStream(
+                                                                                "pvz/pvzThreats/pvzThreatDenial.png"),
+                                                length, length)));
+                                break;
+                }
+
+                // threat.setVisible(true);
+                return threat;
         }
 
         class ThreatIterator extends TimerTask {
                 // Timer task for automatic iteration of threats over time
                 int thisIndex = indexYPos[ctr];
-                int thisThreatNum = threatNum[ctr];
-                int threatInitXPos = 1100;
+                int threatXPos = 1210;
+                int thisCtr = ctr;
 
                 @Override
                 public void run() {
-                        threats[thisThreatNum].setLocation(threatInitXPos, threatInitYPos[thisIndex]);
-                        threats[thisThreatNum].setVisible(true);
-                        setComponentZOrder(threats[thisThreatNum], 0);
-                        threatInitXPos -= 1;
+                        threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
+                        threats[thisCtr].setVisible(true);
+                        // setComponentZOrder(threats[thisCtr], 0);
+                        threatXPos -= 3;
+
+                        if (threatXPos == -100) {
+                                cancel();
+                        }
                 }
 
         }
