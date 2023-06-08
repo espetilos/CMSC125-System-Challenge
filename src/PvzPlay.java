@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,7 +23,10 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 25, threatInitPeriod = 10000;
+        private int bitCoinNum = 25, ctr = 0;
+        private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private int[] threatNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private int[] threatInitYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
         /*
          * "planting" is true when an defender is selected
@@ -36,6 +40,7 @@ public class PvzPlay extends JPanel {
         private JButton[] defenders = new JButton[7];
         private JLabel[] defValue = new JLabel[7];
         private JLabel[] threats = new JLabel[8];
+        private JLabel[] calledThreats = new JLabel[20];
         private JButton upgrade;
         private JLabel bitCoin;
         private JLabel bitCoinAmount;
@@ -60,34 +65,11 @@ public class PvzPlay extends JPanel {
 
                 Timer bitCoinTimer = new Timer();
                 TimerTask bitCoinTask = new BitCoinIterator();
-                bitCoinTimer.schedule(bitCoinTask, 200, 5000); // Iteration of BitCoins over time
+                bitCoinTimer.schedule(bitCoinTask, 200, 3000); // Iteration of BitCoins over time
 
-                Timer threatTimer = new Timer();
-                TimerTask threatTask = new ThreatIterator();
-                threatTimer.schedule(threatTask, 10000, 2500);
-        }
-
-        private void setTiles() {
-                int y = 180;
-                for (int i = 0; i < 5; i++) {
-                        int x = 200;
-                        for (int j = 0; j < 8; j++) {
-                                tiles[i][j] = new JButton();
-                                // tiles[i][j] = new JButton(new ImageIcon(resizeImage(
-                                // getClass()
-                                // .getClassLoader()
-                                // .getResourceAsStream("pvz/pvzTile.png"),
-                                // 90, 90)));
-                                tiles[i][j].setBounds(x, y, 90, 90);
-                                tiles[i][j].setBackground(Color.GRAY);
-                                tiles[i][j].setBorder(BorderFactory.createEmptyBorder());
-                                setTilesMouseListeners(tiles[i][j]);
-                                setTilesActionListenerExtension(tiles[i][j]);
-                                add(tiles[i][j]);
-                                x += 100;
-                        }
-                        y += 100;
-                }
+                Timer waveTimer = new Timer();
+                TimerTask waveTask = new WaveGenerator();
+                waveTimer.schedule(waveTask, 6000, 3000);
         }
 
         private void setExtras() {
@@ -227,7 +209,7 @@ public class PvzPlay extends JPanel {
                                                 .getClassLoader()
                                                 .getResourceAsStream("pvz/pvzThreats/pvzThreatDenial.png"),
                                 length, length)));
-                threats[6].setBounds(1100, 630, 80, 80);
+                threats[7].setBounds(1100, 630, 80, 80);
 
                 for (int i = 0; i < 7; i++) {
                         threats[i].setBorder(BorderFactory.createEmptyBorder());
@@ -369,6 +351,29 @@ public class PvzPlay extends JPanel {
                 }
         }
 
+        private void setTiles() {
+                int y = 180;
+                for (int i = 0; i < 5; i++) {
+                        int x = 200;
+                        for (int j = 0; j < 8; j++) {
+                                tiles[i][j] = new JButton();
+                                // tiles[i][j] = new JButton(new ImageIcon(resizeImage(
+                                // getClass()
+                                // .getClassLoader()
+                                // .getResourceAsStream("pvz/pvzTile.png"),
+                                // 90, 90)));
+                                tiles[i][j].setBounds(x, y, 90, 90);
+                                tiles[i][j].setBackground(Color.GRAY);
+                                tiles[i][j].setBorder(BorderFactory.createEmptyBorder());
+                                setTilesMouseListeners(tiles[i][j]);
+                                setTilesActionListenerExtension(tiles[i][j]);
+                                add(tiles[i][j]);
+                                x += 100;
+                        }
+                        y += 100;
+                }
+        }
+
         // Resizing Images for JLabels
         private Image resizeImage(InputStream file, int width, int height) {
                 BufferedImage img = null;
@@ -449,6 +454,8 @@ public class PvzPlay extends JPanel {
                         }
 
                         public void mouseClicked(MouseEvent e) {
+                                button.setBackground(Color.GRAY);
+
                                 if (highlighted == true) {
                                         button.setBorder(BorderFactory.createEmptyBorder());
                                         highlighted = false;
@@ -456,7 +463,8 @@ public class PvzPlay extends JPanel {
 
                                 if (removing == true) {
                                         button.setIcon(null);
-                                        button.setBackground(Color.GRAY);
+                                        pliers.setBorder(BorderFactory.createEmptyBorder());
+                                        removing = false;
                                 }
                         }
 
@@ -479,7 +487,6 @@ public class PvzPlay extends JPanel {
                                         return;
                                 }
 
-                                button.setBackground(Color.WHITE);
                                 switch (icon) {
                                         case "1":
                                                 button.setIcon(new ImageIcon(resizeImage(
@@ -554,6 +561,7 @@ public class PvzPlay extends JPanel {
                                         default:
                                                 return;
                                 }
+                                button.setBackground(Color.GRAY);
                                 defIcon.setText("0");
                                 planting = false;
                                 for (int i = 0; i < 7; i++) {
@@ -603,47 +611,38 @@ public class PvzPlay extends JPanel {
                 }
         }
 
-        class ThreatIterator extends TimerTask {
-                // Timer task for automatic iteration of threats over time
+        class WaveGenerator extends TimerTask {
+                // Timer task for automatic iteration of threat waves over time
                 @Override
                 public void run() {
-                        int x = 1100;
-                        while (true) {
-                                // threats[0].setLocation(x, 380);
-                                // threats[0].setVisible(true);
-                                // setComponentZOrder(threats[0], 0);
-                                threatPositioning(x, 380);
-                                x -= 5;
+                        if (ctr >= 20) {
+                                ctr = 0;
                         }
+
+                        Random randThreatNum = new Random();
+                        threatNum[ctr] = randThreatNum.nextInt(8);
+
+                        Random randIndex = new Random();
+                        indexYPos[ctr] = randIndex.nextInt(5);
+                        Timer threatTimer = new Timer();
+                        TimerTask threatTask = new ThreatIterator();
+                        threatTimer.schedule(threatTask, 0, 50);
                 }
         }
 
-        private void threatPositioning(int x, int y) {
-                threats[0].setLocation(x, y);
-                threats[0].setVisible(true);
-                setComponentZOrder(threats[0], 0);
+        class ThreatIterator extends TimerTask {
+                // Timer task for automatic iteration of threats over time
+                int thisIndex = indexYPos[ctr];
+                int thisThreatNum = threatNum[ctr];
+                int threatInitXPos = 1100;
+
+                @Override
+                public void run() {
+                        threats[thisThreatNum].setLocation(threatInitXPos, threatInitYPos[thisIndex]);
+                        threats[thisThreatNum].setVisible(true);
+                        setComponentZOrder(threats[thisThreatNum], 0);
+                        threatInitXPos -= 1;
+                }
+
         }
-        /*
-         * private void runThreat(JLabel threat) {
-         * Timer threatRunTimer = new Timer();
-         * TimerTask threatRunTask = new ThreatRunner();
-         * ThreatRunner.threat = threat;
-         * threatRunTimer.schedule(threatRunTask, 0, 1250);
-         * }
-         * 
-         * class ThreatRunner extends TimerTask {
-         * // Timer task for automatic iteration of threats over time
-         * static JLabel threat = new JLabel();
-         * 
-         * @Override
-         * public void run() {
-         * add(threat);
-         * int x = 1200;
-         * while (true) {
-         * threat.setLocation(x, 380);
-         * x -= 5;
-         * }
-         * }
-         * }
-         */
 }
