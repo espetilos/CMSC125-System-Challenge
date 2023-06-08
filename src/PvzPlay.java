@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0, bulletX = -1, bulletY = -1;
+        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -46,6 +46,7 @@ public class PvzPlay extends JPanel {
         private JButton pliers;
         private JButton exit;
         private JLabel defIcon;
+        private TimerTask waveTask = new WaveGenerator();
         // defIcon is the determinant of the icon over which defender is selected
 
         private SoundClip soundmain = new SoundClip("pvz/pvzAudio/pvzPlayAudio.wav");
@@ -70,7 +71,7 @@ public class PvzPlay extends JPanel {
                 bitCoinTimer.schedule(bitCoinTask, 2000, 2000); // Iteration of BitCoins over time
 
                 Timer waveTimer = new Timer();
-                TimerTask waveTask = new WaveGenerator();
+                waveTask = new WaveGenerator();
                 waveTimer.schedule(waveTask, 6000, 5000); // Iteration of threats over time
         }
 
@@ -78,6 +79,7 @@ public class PvzPlay extends JPanel {
                 // Timer bulletTimer = new Timer();
                 // TimerTask bulletTask = new BulletShooter();
                 // bulletTimer.schedule(bulletTask, 0, 1000);
+                soundmain.start();
 
                 int y = 215;
                 for (int i = 0; i < 5; i++) {
@@ -135,6 +137,7 @@ public class PvzPlay extends JPanel {
                 exit.setBorder(BorderFactory.createEmptyBorder());
                 exit.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                                waveTask.cancel();
                                 soundmain.stop();
                                 window.startAudio("pvzMain");
                                 window.showCard("pvzMain");
@@ -996,7 +999,11 @@ public class PvzPlay extends JPanel {
                         threats[thisCtr].setVisible(true);
                         threatXPos -= 3;
 
-                        if (threatXPos == -100) {
+                        if (threats[thisCtr].getX() <= -100) {
+                                lives--;
+                                System.out.println(lives);
+                                if (lives == 0)
+                                        exit.doClick();
                                 cancel();
                         }
                 }
