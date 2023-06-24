@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +24,7 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1;
+        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1, threatHP = 5;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -36,7 +37,6 @@ public class PvzPlay extends JPanel {
         private Color orange = new Color(226, 161, 101);
         private Window window;
         private JButton[][] tiles = new JButton[5][8];
-        private JLabel[][] bullet = new JLabel[5][8];
         private JButton[] defenders = new JButton[7];
         private JLabel[] defValue = new JLabel[7];
         private JLabel[] threats = new JLabel[20];
@@ -46,6 +46,7 @@ public class PvzPlay extends JPanel {
         private JButton pliers;
         private JButton exit;
         private JLabel defIcon;
+        private LinkedList<JLabel> bulletList = new LinkedList<>();
         private TimerTask waveTask = new WaveGenerator();
         // defIcon is the determinant of the icon over which defender is selected
 
@@ -58,7 +59,6 @@ public class PvzPlay extends JPanel {
 
                 window = w;
 
-                setBulletPositions();
                 setExtras();
                 setThreats();
                 setDefenders();
@@ -75,30 +75,9 @@ public class PvzPlay extends JPanel {
                 waveTimer.schedule(waveTask, 6000, 5000); // Iteration of threats over time
         }
 
-        private void setBulletPositions() {
-                // Timer bulletTimer = new Timer();
-                // TimerTask bulletTask = new BulletShooter();
-                // bulletTimer.schedule(bulletTask, 0, 1000);
+        private void setExtras() {
                 soundmain.start();
 
-                int y = 215;
-                for (int i = 0; i < 5; i++) {
-                        int x = 245;
-                        for (int j = 0; j < 8; j++) {
-                                bullet[i][j] = new JLabel(new ImageIcon(resizeImage(getClass()
-                                                .getClassLoader()
-                                                .getResourceAsStream("pvz/pvzBullet.png"), 20, 20)));
-                                bullet[i][j].setBounds(x, y, 20, 20);
-                                bullet[i][j].setBorder(BorderFactory.createEmptyBorder());
-                                add(bullet[i][j]);
-                                bullet[i][j].setVisible(false);
-                                x += 100;
-                        }
-                        y += 100;
-                }
-        }
-
-        private void setExtras() {
                 upgrade = new JButton(new ImageIcon(resizeImage(
                                 getClass()
                                                 .getClassLoader()
@@ -342,7 +321,10 @@ public class PvzPlay extends JPanel {
                         defValue[i].setBounds(x + (100 * (i + 1)), y, length, 30);
                         defValue[i].setFont(font(20));
                         defValue[i].setHorizontalAlignment(SwingConstants.CENTER);
-                        defValue[i].setForeground(Color.GRAY);
+                        if (i == 0)
+                                defValue[i].setForeground(Color.WHITE);
+                        else
+                                defValue[i].setForeground(Color.GRAY);
                         defValue[i].setBorder(BorderFactory.createEmptyBorder());
                         add(defValue[i]);
                 }
@@ -368,339 +350,403 @@ public class PvzPlay extends JPanel {
 
                 tiles[0][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][0].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][0].getX(), tiles[0][0].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][0]);
                         }
                 });
 
                 tiles[0][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][1].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][1].getX(), tiles[0][1].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][1]);
                         }
                 });
 
                 tiles[0][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][2].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][2].getX(), tiles[0][2].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][2]);
                         }
                 });
 
                 tiles[0][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][3].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][3].getX(), tiles[0][3].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][3]);
                         }
                 });
 
                 tiles[0][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][4].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][4].getX(), tiles[0][4].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][4]);
                         }
                 });
 
                 tiles[0][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][5].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][5].getX(), tiles[0][5].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][5]);
                         }
                 });
 
                 tiles[0][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][6].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][6].getX(), tiles[0][6].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][6]);
                         }
                 });
 
                 tiles[0][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[0][7].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[0][7].getX(), tiles[0][7].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[0][7]);
                         }
                 });
 
                 tiles[1][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][0].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][0].getX(), tiles[1][0].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][0]);
                         }
                 });
 
                 tiles[1][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][1].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][1].getX(), tiles[1][1].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][1]);
                         }
                 });
 
                 tiles[1][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][2].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][2].getX(), tiles[1][2].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][2]);
                         }
                 });
 
                 tiles[1][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][3].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][3].getX(), tiles[1][3].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][3]);
                         }
                 });
 
                 tiles[1][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][4].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][4].getX(), tiles[1][4].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][4]);
                         }
                 });
 
                 tiles[1][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][5].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][5].getX(), tiles[1][5].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][5]);
                         }
                 });
 
                 tiles[1][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][6].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][6].getX(), tiles[1][6].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][6]);
                         }
                 });
 
                 tiles[1][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[1][7].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[1][7].getX(), tiles[1][7].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[1][7]);
                         }
                 });
 
                 tiles[2][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][0].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][0].getX(), tiles[2][0].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][0]);
                         }
                 });
 
                 tiles[2][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][1].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][1].getX(), tiles[2][1].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][1]);
                         }
                 });
 
                 tiles[2][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][2].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][2].getX(), tiles[2][2].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][2]);
                         }
                 });
 
                 tiles[2][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][3].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][3].getX(), tiles[2][3].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][3]);
                         }
                 });
 
                 tiles[2][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][4].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][4].getX(), tiles[2][4].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][4]);
                         }
                 });
 
                 tiles[2][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][5].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][5].getX(), tiles[2][5].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][5]);
                         }
                 });
 
                 tiles[2][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][6].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][6].getX(), tiles[2][6].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][6]);
                         }
                 });
 
                 tiles[2][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[2][7].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[2][7].getX(), tiles[2][7].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[2][7]);
                         }
                 });
 
                 tiles[3][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][0].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][0].getX(), tiles[3][0].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][0]);
                         }
                 });
 
                 tiles[3][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][1].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][1].getX(), tiles[3][1].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][1]);
                         }
                 });
 
                 tiles[3][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][2].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][2].getX(), tiles[3][2].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][2]);
                         }
                 });
 
                 tiles[3][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][3].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][3].getX(), tiles[3][3].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][3]);
                         }
                 });
 
                 tiles[3][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][4].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][4].getX(), tiles[3][4].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][4]);
                         }
                 });
 
                 tiles[3][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][5].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][5].getX(), tiles[3][5].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][5]);
                         }
                 });
 
                 tiles[3][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][6].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][6].getX(), tiles[3][6].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][6]);
                         }
                 });
 
                 tiles[3][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[3][7].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[3][7].getX(), tiles[3][7].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[3][7]);
                         }
                 });
 
                 tiles[4][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][0].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][0].getX(), tiles[4][0].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][0]);
                         }
                 });
 
                 tiles[4][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][1].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][1].getX(), tiles[4][1].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][1]);
                         }
                 });
 
                 tiles[4][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][2].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][2].getX(), tiles[4][2].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][2]);
                         }
                 });
 
                 tiles[4][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][3].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][3].getX(), tiles[4][3].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][3]);
                         }
                 });
 
                 tiles[4][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][4].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][4].getX(), tiles[4][4].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][4]);
                         }
                 });
 
                 tiles[4][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][5].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][5].getX(), tiles[4][5].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][5]);
                         }
                 });
 
                 tiles[4][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][6].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][6].getX(), tiles[4][6].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][6]);
                         }
                 });
 
                 tiles[4][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true)
-                                        bullet[4][7].setVisible(true);
+                                if (planting == true) {
+                                        fireBullet(tiles[4][7].getX(), tiles[4][7].getY());
+                                        // bullet[0][0].setVisible(true);
+                                }
                                 setTilesActionListenerExtension(tiles[4][7]);
                         }
                 });
-        }
-
-        // Resizing Images for JLabels
-        private Image resizeImage(InputStream file, int width, int height) {
-                BufferedImage img = null;
-                try {
-                        img = ImageIO.read(file);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-
-                return img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        }
-
-        private Font font(int size) {
-                return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
         }
 
         private void setDefendersActionListenerExtension(JButton button) {
@@ -911,35 +957,6 @@ public class PvzPlay extends JPanel {
                 }
         }
 
-        class BitCoinIterator extends TimerTask {
-                // Timer task for automatic iteration of bitcoins over time
-                @Override
-                public void run() {
-                        bitCoinNum += 25;
-                        availableDef();
-                        if (bitCoinNum == 300)
-                                upgrade.setEnabled(true);
-                }
-        }
-
-        class WaveGenerator extends TimerTask {
-                // Timer task for automatic iteration of threat waves over time
-                @Override
-                public void run() {
-                        if (ctr >= 20) {
-                                ctr = 0;
-                        }
-
-                        threats[ctr].setVisible(true);
-                        Random randIndex = new Random();
-                        indexYPos[ctr] = randIndex.nextInt(5);
-                        Timer threatTimer = new Timer();
-                        TimerTask threatTask = new ThreatIterator();
-                        threatTimer.schedule(threatTask, 0, 50);
-                        ctr++;
-                }
-        }
-
         public JLabel setThreatIcon(JLabel threat, int threatType) {
                 switch (threatType) {
                         case 0:
@@ -1007,9 +1024,61 @@ public class PvzPlay extends JPanel {
                                                 length, length)));
                                 break;
                 }
-
-                // threat.setVisible(true);
                 return threat;
+        }
+
+        private void fireBullet(int x, int y) {
+                bulletX = x + 45;
+                bulletY = y + 35;
+
+                Timer bulletWaveTimer = new Timer();
+                BulletGenerator bulletWaveTask = new BulletGenerator();
+                bulletWaveTimer.schedule(bulletWaveTask, 500, 1250); // Iteration of threats over time
+        }
+
+        // Resizing Images for JLabels
+        private Image resizeImage(InputStream file, int width, int height) {
+                BufferedImage img = null;
+                try {
+                        img = ImageIO.read(file);
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+
+                return img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        }
+
+        private Font font(int size) {
+                return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
+        }
+
+        class BitCoinIterator extends TimerTask {
+                // Timer task for automatic iteration of bitcoins over time
+                @Override
+                public void run() {
+                        bitCoinNum += 25;
+                        availableDef();
+                        if (bitCoinNum == 300)
+                                upgrade.setEnabled(true);
+                }
+        }
+
+        class WaveGenerator extends TimerTask {
+                // Timer task for automatic iteration of threat waves over time
+                @Override
+                public void run() {
+                        if (ctr >= 20) {
+                                ctr = 0;
+                        }
+
+                        threats[ctr].setVisible(true);
+                        Random randIndex = new Random();
+                        indexYPos[ctr] = randIndex.nextInt(5);
+                        Timer threatTimer = new Timer();
+                        TimerTask threatTask = new ThreatIterator();
+                        threatTimer.schedule(threatTask, 0, 50);
+                        ctr++;
+                }
         }
 
         class ThreatIterator extends TimerTask {
@@ -1017,6 +1086,7 @@ public class PvzPlay extends JPanel {
                 int thisIndex = indexYPos[ctr];
                 int threatXPos = 1210;
                 int thisCtr = ctr;
+                int HP = threatHP;
 
                 @Override
                 public void run() {
@@ -1024,32 +1094,48 @@ public class PvzPlay extends JPanel {
                         threats[thisCtr].setVisible(true);
                         threatXPos -= 2;
 
+                        for (JLabel element : bulletList) {
+                                if (threats[thisCtr].getBounds().intersects(element.getBounds())) {
+                                        remove(element);
+                                        int index = bulletList.indexOf(element);
+                                        bulletList.remove(index);
+                                        HP--;
+                                        break;
+                                }
+                        }
+
+                        if (HP <= 0) {
+                                cancel();
+                                remove(threats[thisCtr]);
+                        }
+
                         if (threats[thisCtr].getX() <= -100) {
                                 lives--;
                                 if (lives == 0)
                                         exit.doClick();
                                 cancel();
                         }
-                }
 
+                        revalidate();
+                        repaint();
+                }
         }
 
-        // class BulletShooter extends TimerTask {
-        // Timer task for automatic shooting of bullets over time
-        // int thisIndex = indexYPos[ctr];
-        // int threatXPos = 1210;
-        // int thisCtr = ctr;
+        class BulletGenerator extends TimerTask {
+                // Timer task for automatic iteration of bullets over time
+                int bX = bulletX;
+                int bY = bulletY;
 
-        // @Override
-        // public void run() {
-        // threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
-        // threats[thisCtr].setVisible(true);
-        // setComponentZOrder(threats[thisCtr], 0);
-        // threatXPos -= 3;
-
-        // if (threatXPos == -100) {
-        // cancel();
-        // }
-        // }
-        // }
+                @Override
+                public void run() {
+                        Bullet obj = new Bullet();
+                        bulletList.add(obj.bullet);
+                        obj.setXandY(bX, bY);
+                        obj.bullet.setBounds(bX, bY, 20, 20);
+                        obj.bullet.setBorder(BorderFactory.createEmptyBorder());
+                        add(obj.bullet);
+                        setComponentZOrder(obj.bullet, 0);
+                        obj.bullet.setVisible(true);
+                }
+        }
 }
