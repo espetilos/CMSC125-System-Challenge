@@ -14,7 +14,7 @@ public class SoundClip {
 		filename = getClass().getClassLoader().getResourceAsStream(sound);
 	}
 
-	private int lastFrame;
+	// private int lastFrame;
 
 	public void stop() {
 		clip.stop();

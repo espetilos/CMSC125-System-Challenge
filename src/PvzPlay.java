@@ -36,6 +36,7 @@ public class PvzPlay extends JPanel {
          * "highlighed" is true when the cursor is hovered on a tile while "planting" or
          * "removing" is true
          */
+        private boolean powerUpUsed = false;
         private Color orange = new Color(226, 161, 101);
         private Window window;
         private JButton[][] tiles = new JButton[5][8];
@@ -55,6 +56,7 @@ public class PvzPlay extends JPanel {
         // defIcon is the determinant of the icon over which defender is selected
 
         private SoundClip soundmain = new SoundClip("pvz/pvzAudio/pvzPlayAudio.wav");
+        private Question pvzQuestion;
 
         public PvzPlay(int width, int height, Window w) {
                 setSize(width, height);
@@ -94,7 +96,8 @@ public class PvzPlay extends JPanel {
                 upgrade.setEnabled(false);
                 upgrade.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                Question pvzQuestion = new Question(window.getWidth(), window.getHeight(), window,
+                                powerUpUsed = true;
+                                pvzQuestion = new Question(window.getWidth(), window.getHeight(), window,
                                                 "pvz");
                                 window.add("pvzQuestion", pvzQuestion);
                                 window.showCard("pvzQuestion");
@@ -1115,6 +1118,10 @@ public class PvzPlay extends JPanel {
                                         remove(element);
                                         int index = bulletList.indexOf(element);
                                         bulletList.remove(index);
+                                        if (powerUpUsed && pvzQuestion.bonusCorrect()) {
+                                                threatHP--;
+                                                powerUpUsed = false;
+                                        }
                                         HP--;
                                         break;
                                 }
