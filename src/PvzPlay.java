@@ -352,361 +352,362 @@ public class PvzPlay extends JPanel {
 
                 tiles[0][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][0].getX(), tiles[0][0].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][0]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][0].getX(), tiles[0][0].getY());
+                                planting = false;
+
                         }
                 });
 
                 tiles[0][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][1].getX(), tiles[0][1].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][1]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][1].getX(), tiles[0][1].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][2].getX(), tiles[0][2].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][2]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][2].getX(), tiles[0][2].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][3].getX(), tiles[0][3].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][3]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][3].getX(), tiles[0][3].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][4].getX(), tiles[0][4].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][4]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][4].getX(), tiles[0][4].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][5].getX(), tiles[0][5].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][5]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][5].getX(), tiles[0][5].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][6].getX(), tiles[0][6].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][6]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][6].getX(), tiles[0][6].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[0][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[0][7].getX(), tiles[0][7].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[0][7]);
+                                if (planting == true)
+                                        fireBullet(tiles[0][7].getX(), tiles[0][7].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][0].getX(), tiles[1][0].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][0]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][0].getX(), tiles[1][0].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][1].getX(), tiles[1][1].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][1]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][1].getX(), tiles[1][1].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][2].getX(), tiles[1][2].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][2]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][2].getX(), tiles[1][2].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][3].getX(), tiles[1][3].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][3]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][3].getX(), tiles[1][3].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][4].getX(), tiles[1][4].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][4]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][4].getX(), tiles[1][4].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][5].getX(), tiles[1][5].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][5]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][5].getX(), tiles[1][5].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][6].getX(), tiles[1][6].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][6]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][6].getX(), tiles[1][6].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[1][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[1][7].getX(), tiles[1][7].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[1][7]);
+                                if (planting == true)
+                                        fireBullet(tiles[1][7].getX(), tiles[1][7].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][0].getX(), tiles[2][0].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][0]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][0].getX(), tiles[2][0].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][1].getX(), tiles[2][1].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][1]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][1].getX(), tiles[2][1].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][2].getX(), tiles[2][2].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][2]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][2].getX(), tiles[2][2].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][3].getX(), tiles[2][3].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][3]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][3].getX(), tiles[2][3].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][4].getX(), tiles[2][4].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][4]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][4].getX(), tiles[2][4].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][5].getX(), tiles[2][5].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][5]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][5].getX(), tiles[2][5].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][6].getX(), tiles[2][6].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][6]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][6].getX(), tiles[2][6].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[2][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[2][7].getX(), tiles[2][7].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[2][7]);
+                                if (planting == true)
+                                        fireBullet(tiles[2][7].getX(), tiles[2][7].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][0].getX(), tiles[3][0].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][0]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][0].getX(), tiles[3][0].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][1].getX(), tiles[3][1].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][1]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][1].getX(), tiles[3][1].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][2].getX(), tiles[3][2].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][2]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][2].getX(), tiles[3][2].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][3].getX(), tiles[3][3].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][3]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][3].getX(), tiles[3][3].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][4].getX(), tiles[3][4].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][4]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][4].getX(), tiles[3][4].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][5].getX(), tiles[3][5].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][5]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][5].getX(), tiles[3][5].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][6].getX(), tiles[3][6].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][6]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][6].getX(), tiles[3][6].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[3][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[3][7].getX(), tiles[3][7].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[3][7]);
+                                if (planting == true)
+                                        fireBullet(tiles[3][7].getX(), tiles[3][7].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][0].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][0].getX(), tiles[4][0].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][0]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][0].getX(), tiles[4][0].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][1].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][1].getX(), tiles[4][1].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][1]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][1].getX(), tiles[4][1].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][2].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][2].getX(), tiles[4][2].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][2]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][2].getX(), tiles[4][2].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][3].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][3].getX(), tiles[4][3].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][3]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][3].getX(), tiles[4][3].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][4].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][4].getX(), tiles[4][4].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][4]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][4].getX(), tiles[4][4].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][5].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][5].getX(), tiles[4][5].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][5]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][5].getX(), tiles[4][5].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][6].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][6].getX(), tiles[4][6].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][6]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][6].getX(), tiles[4][6].getY());
+                                planting = false;
                         }
                 });
 
                 tiles[4][7].addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                if (planting == true) {
-                                        fireBullet(tiles[4][7].getX(), tiles[4][7].getY());
-                                }
                                 setTilesActionListenerExtension(tiles[4][7]);
+                                if (planting == true)
+                                        fireBullet(tiles[4][7].getX(), tiles[4][7].getY());
+                                planting = false;
                         }
                 });
         }
@@ -890,7 +891,6 @@ public class PvzPlay extends JPanel {
                 }
                 button.setBackground(Color.GRAY);
                 defIcon.setText("0");
-                planting = false;
                 for (int i = 0; i < 7; i++) {
                         defenders[i].setBorder(BorderFactory.createEmptyBorder());
                 }
@@ -1163,7 +1163,7 @@ public class PvzPlay extends JPanel {
                                 if (threats[i].getBounds().intersects(fwb)) {
                                         x = threats[i].getX();
                                         y = threats[i].getY();
-                                        threats[i].setLocation(x, y - 20);
+                                        threats[i].setLocation(x + 20, y);
                                 }
                         }
                 }
