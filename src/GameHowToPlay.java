@@ -414,7 +414,7 @@ public class GameHowToPlay extends JPanel {
                                 add(gameLabel2);
 
                                 JLabel gameLabel3 = label(
-                                                "<html><center>If you manage to secure your system after two (2) waves of threats, you win.</center></html>",
+                                                "<html><center>If you manage to secure your system after killing all threats, you win.</center></html>",
                                                 setFont(panel, 15), Color.WHITE, 200, 500, 800, 120, null);
                                 add(gameLabel3);
 
@@ -588,17 +588,22 @@ public class GameHowToPlay extends JPanel {
                         // Page 5/n of Game 2 How To Play
                         if (panel == "pvzHowToPlay4") {
                                 JLabel gameLabel2 = label(
-                                                "<html><center>Upgrade your Defenders with Security Policy Upgrade to enhance their Attack DMG.</html>",
-                                                setFont(panel, 15), Color.WHITE, 300, 150, 600, 120, null);
+                                                "<html><center>Upgrade your Defenders with an OS-related question to enhance their Attack DMG.</html>",
+                                                setFont(panel, 15), Color.WHITE, 200, 150, 800, 120, null);
                                 add(gameLabel2);
 
                                 JLabel pvzUpgrade = label(null,
-                                                setFont(panel, 15), Color.WHITE, 525, 330, 150, 150,
+                                                setFont(panel, 15), Color.WHITE, 525, 300, 150, 150,
                                                 new ImageIcon(resizeImage(getClass()
                                                                 .getClassLoader()
                                                                 .getResourceAsStream("pvz/pvzUpgrade.png"),
                                                                 150, 150)));
                                 add(pvzUpgrade);
+
+                                JLabel gameLabel3 = label(
+                                                "<html><center>Warning: You can only upgrade <font color = 'rgb(226, 161, 101)'>once</font> and upgrading won't stop threats from attacking, so play at your own risk.</html>",
+                                                setFont(panel, 15), Color.WHITE, 200, 470, 800, 120, null);
+                                add(gameLabel3);
                         }
 
                         JLabel mainBG = label(null, null, null, 0, 0, 1200, 725,
