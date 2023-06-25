@@ -25,7 +25,8 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1, threatHP = 5, defType = -1;
+        private int bitCoinNum = 50, ctr = 0, lives = 3, threatHP = 5, defType = -1;
+        private int bulletX = -1, bulletY = -1, removedCtr = 2;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -49,6 +50,7 @@ public class PvzPlay extends JPanel {
         private JLabel defIcon;
         private LinkedList<JLabel> bulletList = new LinkedList<>();
         private Rectangle fwBounds = null;
+        private Rectangle removed = new Rectangle(0, 0, 1, 1);
         private TimerTask waveTask = new WaveGenerator();
         // defIcon is the determinant of the icon over which defender is selected
 
@@ -784,6 +786,7 @@ public class PvzPlay extends JPanel {
                                 }
 
                                 if (removing == true) {
+                                        removed = button.getBounds();
                                         button.setIcon(null);
                                         pliers.setBorder(BorderFactory.createEmptyBorder());
                                         removing = false;
@@ -1138,17 +1141,28 @@ public class PvzPlay extends JPanel {
                 // Timer task for automatic iteration of bullets over time
                 int bX = bulletX;
                 int bY = bulletY;
+                Rectangle bulletBounds = new Rectangle(bX, bY, 20, 20);
 
                 @Override
                 public void run() {
                         Bullet obj = new Bullet();
                         bulletList.add(obj.bullet);
                         obj.setXandY(bX, bY);
-                        obj.bullet.setBounds(bX, bY, 20, 20);
+                        obj.bullet.setBounds(bulletBounds);
                         obj.bullet.setBorder(BorderFactory.createEmptyBorder());
                         add(obj.bullet);
                         setComponentZOrder(obj.bullet, 0);
                         obj.bullet.setVisible(true);
+
+                        if (bulletBounds.intersects(removed)) {
+                                cancel();
+                                if (removedCtr == 0) {
+                                        removed = new Rectangle(0, 0, 1, 1);
+                                        removedCtr = 2;
+                                } else
+                                        removedCtr--;
+                        }
+
                 }
         }
 
