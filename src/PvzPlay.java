@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,7 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1, threatHP = 5;
+        private int bitCoinNum = 50, ctr = 0, lives = 3, bulletX = -1, bulletY = -1, threatHP = 5, defType = -1;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -47,6 +48,7 @@ public class PvzPlay extends JPanel {
         private JButton exit;
         private JLabel defIcon;
         private LinkedList<JLabel> bulletList = new LinkedList<>();
+        private Rectangle fwBounds = null;
         private TimerTask waveTask = new WaveGenerator();
         // defIcon is the determinant of the icon over which defender is selected
 
@@ -352,7 +354,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][0].getX(), tiles[0][0].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][0]);
                         }
@@ -362,7 +363,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][1].getX(), tiles[0][1].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][1]);
                         }
@@ -372,7 +372,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][2].getX(), tiles[0][2].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][2]);
                         }
@@ -382,7 +381,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][3].getX(), tiles[0][3].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][3]);
                         }
@@ -392,7 +390,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][4].getX(), tiles[0][4].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][4]);
                         }
@@ -402,7 +399,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][5].getX(), tiles[0][5].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][5]);
                         }
@@ -412,7 +408,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][6].getX(), tiles[0][6].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][6]);
                         }
@@ -422,7 +417,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[0][7].getX(), tiles[0][7].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[0][7]);
                         }
@@ -432,7 +426,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][0].getX(), tiles[1][0].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][0]);
                         }
@@ -442,7 +435,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][1].getX(), tiles[1][1].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][1]);
                         }
@@ -452,7 +444,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][2].getX(), tiles[1][2].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][2]);
                         }
@@ -462,7 +453,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][3].getX(), tiles[1][3].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][3]);
                         }
@@ -472,7 +462,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][4].getX(), tiles[1][4].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][4]);
                         }
@@ -482,7 +471,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][5].getX(), tiles[1][5].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][5]);
                         }
@@ -492,7 +480,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][6].getX(), tiles[1][6].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][6]);
                         }
@@ -502,7 +489,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[1][7].getX(), tiles[1][7].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[1][7]);
                         }
@@ -512,7 +498,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][0].getX(), tiles[2][0].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][0]);
                         }
@@ -522,7 +507,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][1].getX(), tiles[2][1].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][1]);
                         }
@@ -532,7 +516,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][2].getX(), tiles[2][2].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][2]);
                         }
@@ -542,7 +525,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][3].getX(), tiles[2][3].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][3]);
                         }
@@ -552,7 +534,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][4].getX(), tiles[2][4].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][4]);
                         }
@@ -562,7 +543,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][5].getX(), tiles[2][5].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][5]);
                         }
@@ -572,7 +552,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][6].getX(), tiles[2][6].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][6]);
                         }
@@ -582,7 +561,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[2][7].getX(), tiles[2][7].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[2][7]);
                         }
@@ -592,7 +570,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][0].getX(), tiles[3][0].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][0]);
                         }
@@ -602,7 +579,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][1].getX(), tiles[3][1].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][1]);
                         }
@@ -612,7 +588,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][2].getX(), tiles[3][2].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][2]);
                         }
@@ -622,7 +597,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][3].getX(), tiles[3][3].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][3]);
                         }
@@ -632,7 +606,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][4].getX(), tiles[3][4].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][4]);
                         }
@@ -642,7 +615,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][5].getX(), tiles[3][5].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][5]);
                         }
@@ -652,7 +624,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][6].getX(), tiles[3][6].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][6]);
                         }
@@ -662,7 +633,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[3][7].getX(), tiles[3][7].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[3][7]);
                         }
@@ -672,7 +642,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][0].getX(), tiles[4][0].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][0]);
                         }
@@ -682,7 +651,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][1].getX(), tiles[4][1].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][1]);
                         }
@@ -692,7 +660,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][2].getX(), tiles[4][2].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][2]);
                         }
@@ -702,7 +669,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][3].getX(), tiles[4][3].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][3]);
                         }
@@ -712,7 +678,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][4].getX(), tiles[4][4].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][4]);
                         }
@@ -722,7 +687,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][5].getX(), tiles[4][5].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][5]);
                         }
@@ -732,7 +696,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][6].getX(), tiles[4][6].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][6]);
                         }
@@ -742,7 +705,6 @@ public class PvzPlay extends JPanel {
                         public void actionPerformed(ActionEvent e) {
                                 if (planting == true) {
                                         fireBullet(tiles[4][7].getX(), tiles[4][7].getY());
-                                        // bullet[0][0].setVisible(true);
                                 }
                                 setTilesActionListenerExtension(tiles[4][7]);
                         }
@@ -846,6 +808,7 @@ public class PvzPlay extends JPanel {
 
                 switch (icon) {
                         case "1":
+                                defType = 1;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -856,6 +819,7 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "2":
+                                defType = 2;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -866,6 +830,7 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "3":
+                                defType = 3;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -876,6 +841,7 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "4":
+                                defType = 4;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -886,6 +852,7 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "5":
+                                defType = 5;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -896,6 +863,7 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "6":
+                                defType = 6;
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -906,6 +874,8 @@ public class PvzPlay extends JPanel {
                                 availableDef();
                                 break;
                         case "7":
+                                defType = 7;
+                                fwBounds = button.getBounds();
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -1031,9 +1001,52 @@ public class PvzPlay extends JPanel {
                 bulletX = x + 45;
                 bulletY = y + 35;
 
-                Timer bulletWaveTimer = new Timer();
-                BulletGenerator bulletWaveTask = new BulletGenerator();
-                bulletWaveTimer.schedule(bulletWaveTask, 500, 1250); // Iteration of threats over time
+                // Iteration of threats over time
+                switch (defType) {
+                        case 1:
+                                Timer bulletWaveTimer1 = new Timer();
+                                BulletGenerator bulletWaveTask1 = new BulletGenerator();
+                                bulletWaveTimer1.schedule(bulletWaveTask1, 500, 1500);
+                                break;
+                        case 2:
+                                Timer bulletWaveTimer2 = new Timer();
+                                BulletGenerator bulletWaveTask2 = new BulletGenerator();
+                                bulletWaveTimer2.schedule(bulletWaveTask2, 500, 1375);
+                                break;
+                        case 3:
+                                Timer bulletWaveTimer3 = new Timer();
+                                BulletGenerator bulletWaveTask3 = new BulletGenerator();
+                                bulletWaveTimer3.schedule(bulletWaveTask3, 500, 1250);
+                                break;
+                        case 4:
+                                Timer bulletWaveTimer4 = new Timer();
+                                BulletGenerator bulletWaveTask4 = new BulletGenerator();
+                                bulletWaveTimer4.schedule(bulletWaveTask4, 500, 1500);
+                                Timer bulletWaveTimer5 = new Timer();
+                                BulletGenerator bulletWaveTask5 = new BulletGenerator();
+                                bulletWaveTimer5.schedule(bulletWaveTask5, 600, 1500);
+                                break;
+                        case 5:
+                                Timer bulletWaveTimer6 = new Timer();
+                                BulletGenerator bulletWaveTask6 = new BulletGenerator();
+                                bulletWaveTimer6.schedule(bulletWaveTask6, 500, 1000);
+                                break;
+                        case 6:
+                                Timer bulletWaveTimer7 = new Timer();
+                                BulletGenerator bulletWaveTask7 = new BulletGenerator();
+                                bulletWaveTimer7.schedule(bulletWaveTask7, 500, 1250);
+                                Timer bulletWaveTimer8 = new Timer();
+                                BulletGenerator bulletWaveTask8 = new BulletGenerator();
+                                bulletWaveTimer8.schedule(bulletWaveTask8, 600, 1250);
+                                break;
+                        case 7:
+                                Timer firewallTimer = new Timer();
+                                FirewallPower firewallTask = new FirewallPower();
+                                firewallTimer.schedule(firewallTask, 0, 50);
+                                break;
+                        default:
+                                return;
+                }
         }
 
         // Resizing Images for JLabels
@@ -1136,6 +1149,23 @@ public class PvzPlay extends JPanel {
                         add(obj.bullet);
                         setComponentZOrder(obj.bullet, 0);
                         obj.bullet.setVisible(true);
+                }
+        }
+
+        class FirewallPower extends TimerTask {
+                Rectangle fwb = fwBounds;
+                int x = -1;
+                int y = -1;
+
+                @Override
+                public void run() {
+                        for (int i = 0; i < 20; i++) {
+                                if (threats[i].getBounds().intersects(fwb)) {
+                                        x = threats[i].getX();
+                                        y = threats[i].getY();
+                                        threats[i].setLocation(x, y - 20);
+                                }
+                        }
                 }
         }
 }
