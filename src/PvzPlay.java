@@ -25,8 +25,8 @@ import javax.swing.SwingConstants;
 public class PvzPlay extends JPanel {
 
         private static int length = 80;
-        private int bitCoinNum = 50, ctr = 0, lives = 3, threatHP = 5, defType = -1;
-        private int bulletX = -1, bulletY = -1, removedCtr = 2;
+        private int bitCoinNum = 50, ctr = 0, lives = 3, threatHP = 8, defType = -1;
+        private int bulletX = -1, bulletY = -1, removedCtr = 2, deadThreat = 0;
         private int[] indexYPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int[] threatYPos = { 185, 285, 385, 485, 585 };
         private boolean planting = false, highlighted = false, removing = false;
@@ -50,6 +50,7 @@ public class PvzPlay extends JPanel {
         private JButton exit;
         private JLabel defIcon;
         private LinkedList<JLabel> bulletList = new LinkedList<>();
+        private LinkedList<Rectangle> firewalls = new LinkedList<>();
         private Rectangle fwBounds = null;
         private Rectangle removed = new Rectangle(0, 0, 1, 1);
         private TimerTask waveTask = new WaveGenerator();
@@ -882,7 +883,7 @@ public class PvzPlay extends JPanel {
                                 break;
                         case "7":
                                 defType = 7;
-                                fwBounds = button.getBounds();
+                                firewalls.add(button.getBounds());
                                 button.setIcon(new ImageIcon(resizeImage(
                                                 getClass()
                                                                 .getClassLoader()
@@ -907,6 +908,15 @@ public class PvzPlay extends JPanel {
                 // Refreshes the indicators if certain defenders are already available for
                 // planting
                 bitCoinAmount.setText(Integer.toString(bitCoinNum));
+
+                if (bitCoinNum >= 300 && !powerUpUsed)
+                        upgrade.setEnabled(true);
+                else if (powerUpUsed) {
+                        if (pvzQuestion.bonusCorrect())
+                                threatHP = 4;
+                        upgrade.setEnabled(false);
+                } else
+                        upgrade.setEnabled(false);
 
                 for (int i = 0; i < 7; i++) {
                         defValue[i].setForeground(Color.GRAY);
@@ -1045,11 +1055,6 @@ public class PvzPlay extends JPanel {
                                 BulletGenerator bulletWaveTask8 = new BulletGenerator();
                                 bulletWaveTimer8.schedule(bulletWaveTask8, 600, 1250);
                                 break;
-                        case 7:
-                                Timer firewallTimer = new Timer();
-                                FirewallPower firewallTask = new FirewallPower();
-                                firewallTimer.schedule(firewallTask, 0, 50);
-                                break;
                         default:
                                 return;
                 }
@@ -1077,8 +1082,10 @@ public class PvzPlay extends JPanel {
                 public void run() {
                         bitCoinNum += 25;
                         availableDef();
-                        if (bitCoinNum == 300)
+                        if (bitCoinNum >= 300 && !powerUpUsed)
                                 upgrade.setEnabled(true);
+                        else
+                                upgrade.setEnabled(false);
                 }
         }
 
@@ -1106,30 +1113,49 @@ public class PvzPlay extends JPanel {
                 int threatXPos = 1210;
                 int thisCtr = ctr;
                 int HP = threatHP;
+                boolean go = true;
 
                 @Override
                 public void run() {
                         threats[thisCtr].setLocation(threatXPos, threatYPos[thisIndex]);
                         threats[thisCtr].setVisible(true);
-                        threatXPos -= 2;
+                        if (go)
+                                threatXPos -= 2;
 
-                        for (JLabel element : bulletList) {
-                                if (threats[thisCtr].getBounds().intersects(element.getBounds())) {
-                                        remove(element);
-                                        int index = bulletList.indexOf(element);
-                                        bulletList.remove(index);
-                                        if (powerUpUsed && pvzQuestion.bonusCorrect()) {
-                                                threatHP--;
-                                                powerUpUsed = false;
+                        for (Rectangle element : firewalls) {
+                                if (threats[thisCtr].getBounds().intersects(element))
+                                        go = false;
+                                else
+                                        go = true;
+                        }
+
+                        try {
+
+                                for (JLabel element : bulletList) {
+                                        if (threats[thisCtr].getBounds().intersects(element.getBounds())) {
+                                                remove(element);
+                                                int index = bulletList.indexOf(element);
+                                                bulletList.remove(index);
+                                                HP--;
+                                                break;
                                         }
-                                        HP--;
-                                        break;
                                 }
+
+                        } catch (Exception e) {
+                                deadThreat++;
+                                threats[thisCtr].setVisible(false);
+                                remove(threats[thisCtr]);
+                                cancel();
                         }
 
                         if (HP <= 0) {
-                                cancel();
+                                deadThreat++;
+                                threats[thisCtr].setVisible(false);
                                 remove(threats[thisCtr]);
+                                cancel();
+                                if (deadThreat == 20) {
+                                        exit.doClick();
+                                }
                         }
 
                         if (threats[thisCtr].getX() <= -100) {
