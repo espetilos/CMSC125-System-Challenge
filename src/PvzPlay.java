@@ -911,11 +911,7 @@ public class PvzPlay extends JPanel {
 
                 if (bitCoinNum >= 300 && !powerUpUsed)
                         upgrade.setEnabled(true);
-                else if (powerUpUsed) {
-                        if (pvzQuestion.bonusCorrect())
-                                threatHP = 4;
-                        upgrade.setEnabled(false);
-                } else
+                else
                         upgrade.setEnabled(false);
 
                 for (int i = 0; i < 7; i++) {
@@ -1102,6 +1098,9 @@ public class PvzPlay extends JPanel {
                         indexYPos[ctr] = randIndex.nextInt(5);
                         Timer threatTimer = new Timer();
                         TimerTask threatTask = new ThreatIterator();
+                        if (powerUpUsed && pvzQuestion.bonusCorrect()) {
+                                threatHP = 4;
+                        }
                         threatTimer.schedule(threatTask, 0, 50);
                         ctr++;
                 }
@@ -1112,8 +1111,8 @@ public class PvzPlay extends JPanel {
                 int thisIndex = indexYPos[ctr];
                 int threatXPos = 1210;
                 int thisCtr = ctr;
-                int HP = threatHP;
                 boolean go = true;
+                int HP = threatHP;
 
                 @Override
                 public void run() {
