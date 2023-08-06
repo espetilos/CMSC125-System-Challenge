@@ -53,6 +53,7 @@ public class QuizPlay extends JPanel {
         private JButton choiceD = new JButton();
         private JButton[] wagerButtons = new JButton[10];
         private JButton[] cheats = new JButton[2];
+        private JButton exit = new JButton();
 
         private String choiceAText;
         private String choiceBText;
@@ -86,6 +87,7 @@ public class QuizPlay extends JPanel {
                 newButton(choiceB, null, Color.WHITE, 15, 650, 330, 300, 100);
                 newButton(choiceC, null, Color.WHITE, 15, 250, 430, 300, 100);
                 newButton(choiceD, null, Color.WHITE, 15, 650, 430, 300, 100);
+                newButton(exit, "Exit", Color.WHITE, 15, 190, 500, 60, 50);
 
                 cheats[0] = new JButton();
                 cheats[1] = new JButton();
@@ -104,6 +106,7 @@ public class QuizPlay extends JPanel {
                 newButton(cheats[1], null, null, 0, 800, 110, 30, 30);
 
                 add(nextButton);
+                add(exit);
 
                 nextButton.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -136,7 +139,14 @@ public class QuizPlay extends JPanel {
                                 }
                         }
                 });
-
+                // Go back to Game Main Menu
+                exit.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                reset();
+                                window.startAudio("quizMain");
+                                window.showCard("quizMain");
+                        }
+                });
                 setCheatActionListeners(cheats[0]);
                 setCheatActionListeners(cheats[1]);
 
@@ -146,6 +156,7 @@ public class QuizPlay extends JPanel {
                 setChoiceActionListeners(choiceD);
 
                 setMouseListener(nextButton);
+                setMouseListener(exit);
                 setMouseListener(choiceA);
                 setMouseListener(choiceB);
                 setMouseListener(choiceD);
