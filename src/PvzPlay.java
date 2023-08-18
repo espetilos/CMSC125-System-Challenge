@@ -1069,7 +1069,7 @@ public class PvzPlay extends JPanel {
         }
 
         private Font font(int size) {
-                return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
+                return window.useFont("emulogic.ttf", size);
         }
 
         class BitCoinIterator extends TimerTask {

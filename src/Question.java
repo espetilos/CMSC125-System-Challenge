@@ -169,7 +169,7 @@ public class Question extends JPanel {
     }
 
     private Font font(int size) {
-        return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"), size);
+        return window.useFont("Garet-Book.ttf", size);
     }
 
     private void setChoiceActionListeners(JButton button) {

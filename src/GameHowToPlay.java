@@ -43,17 +43,17 @@ public class GameHowToPlay extends JPanel {
         // Font Object
         private Font setFont(String panel, int size) {
                 if (panel == "quizHowToPlay" || panel == "quizHowToPlay1" || panel == "quizHowToPlay2")
-                        return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"),
+                        return window.useFont("Alyssum-Sans.ttf",
                                         size);
                 if (panel == "pvzHowToPlay" || panel == "pvzHowToPlay1" || panel == "pvzHowToPlay2"
                                 || panel == "pvzHowToPlay3"
                                 || panel == "pvzHowToPlay4")
-                        return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
+                        return window.useFont("emulogic.ttf", size);
                 if (panel == "sokobanHowToPlay" || panel == "sokobanHowToPlay1" || panel == "sokobanHowToPlay2"
                                 || panel == "sokobanHowToPlay3" || panel == "sokobanHowToPlay4"
                                 || panel == "sokobanHowToPlay5"
                                 || panel == "sokobanHowToPlay6")
-                        return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"),
+                        return window.useFont("Garet-Book.ttf",
                                         size);
                 return null;
         }

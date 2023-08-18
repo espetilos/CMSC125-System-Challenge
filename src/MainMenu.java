@@ -31,7 +31,7 @@ public class MainMenu extends JPanel {
         setOpaque(true);
 
         window = w;
-        emulogicFont = window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), 30);
+        emulogicFont = window.useFont("emulogic.ttf", 30);
 
         if (panel == "gameBundleMain") { // If showing the Game Bundle Main Menu Panel
             setBackground(Color.BLACK);
