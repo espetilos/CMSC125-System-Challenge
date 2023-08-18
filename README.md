@@ -7,7 +7,7 @@ The game bundle has three game options:
     b. System Defense (A "Plants Vs. Zombies" game variant)
     c. System Calls Center (A "Sokoban" game variant)
 
-How to run the game bundle: Open the System Challenge.exe file.
+How to run the game bundle: Open the System Challenge.jar file.
 Alternatively, compile and run the game bundle in the command prompt by doing the following steps:
 
     1. Go to the directory of CMSC125-System-Challenge folder:
