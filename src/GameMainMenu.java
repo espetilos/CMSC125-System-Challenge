@@ -38,11 +38,11 @@ public class GameMainMenu extends JPanel {
 
     private Font setFont(String panel, int size) {
         if (panel == "quizMain")
-            return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"), size);
+            return window.useFont("Alyssum-Sans.ttf", size);
         if (panel == "pvzMain")
-            return window.useFont(getClass().getClassLoader().getResourceAsStream("emulogic.ttf"), size);
+            return window.useFont("emulogic.ttf", size);
         if (panel == "sokobanMain")
-            return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"), size);
+            return window.useFont("Garet-Book.ttf", size);
         return null;
     }
 

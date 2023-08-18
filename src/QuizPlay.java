@@ -655,7 +655,7 @@ public class QuizPlay extends JPanel {
         }
 
         private Font font(int size) {
-                return window.useFont(getClass().getClassLoader().getResourceAsStream("Alyssum-Sans.ttf"), size);
+                return window.useFont("Alyssum-Sans.ttf", size);
         }
 
         private Image resizeImage(InputStream file, int width, int height) {

@@ -510,7 +510,7 @@ public class SokobanPlay extends JPanel {
 
     // Game 3 Buttons
     private Font font(int size) {
-        return window.useFont(getClass().getClassLoader().getResourceAsStream("Garet-Book.ttf"), size);
+        return window.useFont("Garet-Book.ttf", size);
     }
 
     // Action and Mouse Listeners for All Buttons

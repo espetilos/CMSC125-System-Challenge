@@ -2,7 +2,6 @@ import java.awt.CardLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.swing.JFrame;
 
@@ -117,9 +116,11 @@ public class Window extends JFrame {
         }
     }
 
-    public Font useFont(InputStream path, int size) { // Method in using a font provided in resources
+    public Font useFont(String path, int size) { // Method in using a font provided in resources
         try {
-            return Font.createFont(Font.TRUETYPE_FONT, path).deriveFont(Font.PLAIN, size);
+            return Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream(path))
+                    .deriveFont(Font.PLAIN,
+                            size);
             // return Font.createFont(size, path);
             // return Font.createFont(Font.TRUETYPE_FONT, new
             // File(path)).deriveFont(Font.PLAIN, size);
